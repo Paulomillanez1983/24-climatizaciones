@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>24 Climatizaciones | Servicio de climatización por WhatsApp</title>
+  <meta name="description" content="24 Climatizaciones. Pedí instalación, reparación o mantenimiento de climatización por WhatsApp con diagnóstico guiado, domicilio en mapa y datos listos para cotizar." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#071226" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="24 Climatizaciones | Presupuesto rápido por WhatsApp" />
+  <meta property="og:description" content="Contá qué necesitás, marcá tu domicilio y enviá una solicitud clara para cotizar climatización." />
+  <meta property="og:locale" content="es_AR" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HVACBusiness",
+    "name":"24 Climatizaciones",
+    "telephone":"+5493513266650",
+    "areaServed":"Córdoba y alrededores",
+    "priceRange":"$$",
+    "sameAs":["https://wa.me/5493513266650"]
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#f5f8fe;
+      --bg-soft:#eef5ff;
+      --paper:#ffffff;
+      --ink:#071226;
+      --ink-2:#15213a;
+      --muted:#657287;
+      --soft:#94a1b6;
+      --line:#dfe8f4;
+      --navy:#071226;
+      --navy-2:#0c1933;
+      --navy-3:#13264b;
+      --cold:#1677ff;
+      --cold-2:#1cc8ff;
+      --warm:#ff7a1a;
+      --warm-2:#ffbd59;
+      --ok:#25d66f;
+      --ok-2:#17b85a;
+      --risk:#ff445a;
+      --warn:#ffae34;
+      --shadow:0 28px 80px -42px rgba(7,18,38,.48);
+      --shadow-soft:0 16px 40px -30px rgba(7,18,38,.35);
+      --radius:28px;
+      --radius-sm:18px;
+      --font:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --display:'Sora',var(--font);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{
+      min-height:100vh;
+      font-family:var(--font);
+      color:var(--ink);
+      background:
+        radial-gradient(850px 500px at 12% -18%,rgba(22,119,255,.18),transparent 66%),
+        radial-gradient(760px 440px at 96% 3%,rgba(255,122,26,.14),transparent 60%),
+        linear-gradient(180deg,#f9fbff 0%,#edf5ff 48%,#f7faff 100%);
+      line-height:1.55;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .wrap{width:min(1120px,calc(100% - 28px));margin-inline:auto}
+    .display{font-family:var(--display);letter-spacing:-.055em;line-height:1}
+    .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+
+    /* Header */
+    .topbar{
+      position:sticky;top:0;z-index:70;
+      background:rgba(248,251,255,.90);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(223,232,244,.92);
+      box-shadow:0 10px 30px -26px rgba(7,18,38,.38);
+    }
+    .topbar .wrap{height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:11px;min-width:0}
+    .logo{
+      --logo-size:52px;--orbit:24px;
+      width:var(--logo-size);height:var(--logo-size);border-radius:18px;display:grid;place-items:center;color:#fff;position:relative;isolation:isolate;overflow:hidden;flex:none;
+      background:
+        radial-gradient(circle at 50% 51%,rgba(255,255,255,.20),transparent 43%),
+        radial-gradient(circle at 20% 18%,rgba(210,248,255,.42),transparent 34%),
+        radial-gradient(circle at 82% 86%,rgba(255,189,89,.40),transparent 36%),
+        linear-gradient(135deg,#128cff 0%,#0a4ac3 34%,#071226 56%,#ff7a1a 100%);
+      box-shadow:0 20px 44px -24px rgba(7,18,38,.66), inset 0 1px 0 rgba(255,255,255,.24);
+    }
+    .logo::before{
+      content:"";position:absolute;inset:8px 7px 7px;z-index:1;
+      background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(219,242,255,.86));
+      clip-path:polygon(50% 4%,91% 38%,80% 38%,80% 87%,20% 87%,20% 38%,9% 38%);
+      filter:drop-shadow(0 10px 13px rgba(7,18,38,.25));
+    }
+    .logo::after{content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.26);border-radius:15px;z-index:0}
+    .logo b{font-family:var(--display);font-size:calc(var(--logo-size) * .34);letter-spacing:-.075em;position:relative;z-index:2;color:#071226;text-shadow:0 1px 0 rgba(255,255,255,.5);line-height:1}
+    .logo b em{font-style:normal;font-size:.46em;letter-spacing:0;margin-left:1px;vertical-align:.48em}
+    .logo-snow,.logo-flame{
+      position:absolute;left:50%;top:50%;z-index:3;display:grid;place-items:center;width:calc(var(--logo-size) * .30);height:calc(var(--logo-size) * .30);
+      margin:calc(var(--logo-size) * -.15) 0 0 calc(var(--logo-size) * -.15);border-radius:50%;opacity:.96;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.23);backdrop-filter:blur(7px);
+      filter:drop-shadow(0 6px 10px rgba(7,18,38,.28));will-change:transform;
+    }
+    .logo-snow{color:#e8fbff;animation:orbitCold 6.4s linear infinite}
+    .logo-flame{color:#ffd08c;animation:orbitWarm 6.4s linear infinite}
+    .logo-snow svg,.logo-flame svg{width:72%;height:72%;fill:none;stroke:currentColor;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+    @keyframes orbitCold{from{transform:rotate(0deg) translateX(calc(var(--orbit) * -1)) rotate(0deg)}to{transform:rotate(360deg) translateX(calc(var(--orbit) * -1)) rotate(-360deg)}}
+    @keyframes orbitWarm{from{transform:rotate(180deg) translateX(calc(var(--orbit) * -1)) rotate(-180deg)}to{transform:rotate(540deg) translateX(calc(var(--orbit) * -1)) rotate(-540deg)}}
+
+    .brand-rail{padding:9px 0 0;position:relative;z-index:30}
+    .brand-rail-shell{
+      border:1px solid rgba(214,226,242,.92);background:rgba(255,255,255,.92);backdrop-filter:blur(20px);
+      border-radius:22px;box-shadow:0 18px 42px -32px rgba(7,18,38,.34);padding:9px 0 8px;overflow:hidden;position:relative;
+    }
+    .brand-rail-shell::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,119,255,.055),transparent 44%,rgba(255,122,26,.055));pointer-events:none}
+    .brand-rail-line{display:flex;align-items:center;gap:10px;min-height:42px;position:relative;z-index:1}
+    .achievement-pill{margin-left:12px;display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;padding:6px 11px 6px 8px;border-radius:17px;color:#071b3a;font-weight:950;background:linear-gradient(180deg,#fff,#f6fbff);border:1px solid #dce8f6;box-shadow:0 12px 24px -22px rgba(7,18,38,.55)}
+    .achievement-pill svg{width:25px;height:25px;color:#0e3267;flex:none;stroke-width:2.1;fill:none;stroke:currentColor}
+    .achievement-pill strong{display:block;font-size:.78rem;line-height:1.02;letter-spacing:-.025em}
+    .achievement-pill small{display:block;color:#50627e;font-size:.63rem;font-weight:850;line-height:1.05;margin-top:2px}
+    .brand-window{flex:1;min-width:0;overflow:hidden;mask-image:linear-gradient(90deg,black 0%,black 88%,transparent 100%)}
+    .brand-track{display:flex;align-items:center;gap:9px;width:max-content;animation:brandSlide 38s linear infinite;will-change:transform}
+    .logo-pill{height:34px;min-width:86px;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;border-radius:16px;border:1px solid #dce6f2;background:#fbfdff;color:#142342;font-weight:950;font-size:.82rem;letter-spacing:-.025em;white-space:nowrap;box-shadow:0 12px 24px -22px rgba(7,18,38,.45);position:relative;overflow:hidden;isolation:isolate}
+    .logo-pill::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.8),transparent 46%);opacity:.76;pointer-events:none;z-index:-1}
+    .logo-pill span{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px}
+    .logo-pill.midea{color:#159dd9;font-weight:1000}.logo-pill.midea span::before{content:"";width:15px;height:15px;border:2px solid currentColor;border-left-color:transparent;border-radius:50%;transform:rotate(-22deg)}
+    .logo-pill.carrier{min-width:90px;background:#123d87;color:#fff;border-color:#214f9b;border-radius:999px;font-family:Georgia,serif;font-style:italic;font-size:.79rem;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2),0 12px 24px -22px rgba(7,18,38,.5)}
+    .logo-pill.surrey{color:#003d8f;font-weight:1000;font-style:italic;letter-spacing:.02em}.logo-pill.surrey span{transform:skewX(-7deg)}
+    .logo-pill.bgh{min-width:66px;color:#003577;font-size:1rem;letter-spacing:.02em}.logo-pill.bgh span{letter-spacing:.035em}
+    .logo-pill.electrolux{min-width:112px;color:#1c315d;font-size:.76rem}.logo-pill.electrolux span::before{content:"";width:14px;height:14px;border-radius:3px;border:3px solid currentColor;transform:rotate(45deg)}
+    .logo-pill.philco{min-width:78px;color:#ed1b24;font-weight:1000;letter-spacing:.02em}.logo-pill.samsung{min-width:92px;color:#0b3b8f;font-weight:1000;letter-spacing:.06em}.logo-pill.samsung span{transform:skewX(-8deg)}
+    .logo-pill.lg{min-width:58px;color:#a50034;font-weight:1000}.logo-pill.lg span::before{content:"";width:15px;height:15px;border-radius:50%;border:2px solid currentColor;box-shadow:inset 0 0 0 4px rgba(165,0,52,.05)}
+    .logo-pill.peisa{color:#193a7a;font-weight:1000}.logo-pill.peisa span::before{content:"";width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 60% 42%,#ff7a1a 0 4px,transparent 5px),linear-gradient(135deg,#1e7cff,#e9f3ff)}
+    .logo-pill.baxi{color:#163c8c;font-weight:1000}.logo-pill.baxi span::before{content:"B";width:16px;height:16px;border-radius:50%;background:#163c8c;color:#fff;font-size:.62rem;display:grid;place-items:center;font-weight:1000}
+    .logo-pill.ariston{color:#0f3a7f;font-weight:1000}.logo-pill.ariston span::before{content:"";width:16px;height:8px;border-radius:999px;background:linear-gradient(90deg,#0f3a7f,#ff7a1a)}
+    .logo-pill.orbis{color:#0a6b57;font-weight:1000}.logo-pill.orbis span::before{content:"";width:15px;height:15px;border-radius:50%;border:2px solid currentColor;border-top-color:transparent}
+    .logo-pill.rheem{color:#d8161f;font-weight:1000}.logo-pill.eskabe{color:#0d4f9a;font-weight:1000}.logo-pill.daikin{color:#00a7df;font-weight:1000}.logo-pill.york{color:#0050a8;font-weight:1000}.logo-pill.hitachi{color:#cf142b;font-weight:1000}
+    .brand-dots{display:flex;justify-content:center;gap:7px;padding-top:7px;position:relative;z-index:1}
+    .brand-dots i{width:7px;height:7px;border-radius:50%;background:#d2d8e2;display:block}.brand-dots i.active{background:var(--cold);box-shadow:0 0 0 4px rgba(22,119,255,.09)}
+    @keyframes brandSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .brand-track,.logo-snow,.logo-flame{animation:none}
+      .logo-snow{left:8px;top:8px;margin:0;transform:none}
+      .logo-flame{left:auto;right:8px;top:auto;bottom:8px;margin:0;transform:none}
+      .btn-shine::before,.btn-shine::after{animation:none}
+    }
+    .brand strong{display:block;font-family:var(--display);letter-spacing:-.045em;font-size:1.03rem;white-space:nowrap;color:var(--ink)}
+    .brand small{display:block;color:var(--muted);font-size:.77rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:270px}
+    .top-actions{display:flex;align-items:center;gap:8px}
+    .status-pill{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid var(--line);background:#fff;border-radius:999px;font-weight:850;font-size:.78rem;color:#16325f;box-shadow:var(--shadow-soft)}
+    .status-pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 5px rgba(37,214,111,.12)}
+    .wa-mini{height:42px;padding:0 14px;border-radius:15px;border:0;background:var(--ok);color:#052711;display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:.88rem;box-shadow:0 18px 36px -28px rgba(37,214,111,.9)}
+    .wa-mini svg{width:18px;height:18px}
+
+    /* Buttons */
+    .btn{
+      min-height:44px;border:0;border-radius:15px;padding:11px 16px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .22s ease, box-shadow .22s ease, background .22s ease;white-space:nowrap;line-height:1;
+    }
+    .btn svg{width:18px;height:18px;flex:none}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--ok);color:#052711;box-shadow:0 18px 36px -27px rgba(37,214,111,.92)}
+    .btn-dark{background:var(--ink);color:#fff;box-shadow:var(--shadow-soft)}
+    .btn-soft{background:#fff;color:#17325e;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
+    .btn-ghost{background:rgba(255,255,255,.06);color:#dbe8ff;border:1px solid rgba(255,255,255,.13)}
+    .btn-block{width:100%}
+    .btn-shine{position:relative;overflow:hidden;isolation:isolate}
+    .btn-shine::before{
+      content:"";position:absolute;inset:-40% auto -40% -38%;width:32%;transform:rotate(18deg);
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);
+      animation:shine 2.7s ease-in-out infinite;z-index:-1;
+    }
+    .btn-shine::after{
+      content:"";position:absolute;inset:-3px;border-radius:18px;border:1px solid rgba(37,214,111,.45);animation:softRing 2.1s ease-out infinite;pointer-events:none;
+    }
+    .start-cta,.mobile-sticky{transition:opacity .24s ease,transform .24s ease,visibility .24s ease}
+    body.flow-started .start-cta,body.flow-started .mobile-sticky{opacity:0;transform:translateY(18px);pointer-events:none;visibility:hidden}
+    body.flow-started .mobile-sticky{display:none!important}
+    @keyframes shine{0%,42%{left:-42%}70%,100%{left:126%}}
+    @keyframes softRing{0%{opacity:.85;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
+
+    /* Hero layout */
+    .hero{padding:26px 0 48px}
+    .grid{display:grid;grid-template-columns:.87fr 1.13fr;gap:24px;align-items:start}
+    .intro{position:sticky;top:90px;display:grid;gap:14px}
+    .hero-card{
+      border:1px solid rgba(223,232,244,.96);background:rgba(255,255,255,.82);backdrop-filter:blur(22px);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;position:relative;overflow:hidden;
+    }
+    .hero-card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--cold),var(--cold-2),var(--warm-2),var(--warm))}
+    .brand-signal{display:flex;align-items:center;gap:16px;margin-bottom:20px;position:relative;z-index:1}
+    .brand-signal .logo{--logo-size:88px;--orbit:42px;border-radius:26px;box-shadow:0 26px 58px -28px rgba(7,18,38,.72), inset 0 1px 0 rgba(255,255,255,.26)}
+    .brand-signal small{display:block;color:#0b5bd7;font-weight:950;text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;margin-bottom:3px}
+    .brand-signal strong{display:block;font-family:var(--display);font-size:clamp(1.35rem,2.4vw,2.05rem);letter-spacing:-.055em;line-height:1;color:#071226}
+    .brand-signal span:last-child{min-width:0}
+    .badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:17px}
+    .badge{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;font-size:.76rem;font-weight:900;color:#18325d}
+    .badge i{width:7px;height:7px;border-radius:50%;background:var(--cold)}
+    .hero h1{font-size:clamp(2.14rem,4.9vw,4.45rem);margin-bottom:15px}
+    .hero h1 span{background:linear-gradient(100deg,var(--cold),var(--warm));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:clamp(.98rem,1.25vw,1.13rem);color:var(--muted);max-width:620px;margin-bottom:18px}
+    .hero-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .trust-line{display:flex;align-items:center;gap:8px;margin-top:14px;color:#50627e;font-size:.84rem;font-weight:800}
+    .trust-line i{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 5px rgba(37,214,111,.11)}
+    .micro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .micro{background:linear-gradient(180deg,#fff,#f8fbff);border:1px solid var(--line);border-radius:18px;padding:13px;box-shadow:var(--shadow-soft);display:grid;gap:8px;position:relative;overflow:hidden}
+    .micro::after{content:"";position:absolute;right:-20px;top:-28px;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle,rgba(22,119,255,.10),transparent 70%)}
+    .micro-icon{width:36px;height:36px;border-radius:14px;background:linear-gradient(135deg,#eaf5ff,#fff1e6);display:grid;place-items:center;color:#0b62de;box-shadow:inset 0 1px 0 rgba(255,255,255,.85);position:relative;z-index:1}
+    .micro-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .micro b{display:block;font-family:var(--display);font-size:1rem;letter-spacing:-.04em;color:#0f2040;position:relative;z-index:1}
+    .micro small{display:block;color:var(--muted);font-weight:800;font-size:.73rem;margin-top:2px;position:relative;z-index:1}
+    .live-summary{background:var(--navy);color:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .live-summary::before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(22,119,255,.3),transparent 70%);right:-90px;top:-92px}
+    .live-title{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;z-index:1;margin-bottom:12px}
+    .live-title b{font-family:var(--display);font-size:1.02rem;letter-spacing:-.04em}
+    .live-title small{display:block;color:#8fa3ca;font-weight:800;font-size:.78rem;margin-top:1px}
+    .score-ring{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--ok) var(--score,12%),rgba(255,255,255,.12) 0)}
+    .score-ring::after{content:"";position:absolute;inset:6px;border-radius:50%;background:#0a1833}
+    .score-ring span{position:relative;z-index:1;font-weight:950;font-size:.79rem}
+    .known-list{display:grid;gap:8px;position:relative;z-index:1}
+    .known{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:10px;color:#c7d5f5;font-size:.83rem}
+    .known i{width:22px;height:22px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,.08);color:#fff;font-style:normal;font-size:.76rem;font-weight:900;flex:none}
+    .known.done{color:#fff}.known.done i{background:rgba(37,214,111,.15);color:#71ffaa}
+    .call-note{position:relative;z-index:1;margin-top:13px;padding:11px 12px;border-radius:16px;background:rgba(255,189,89,.12);border:1px solid rgba(255,189,89,.24);color:#ffe2bb;font-size:.79rem;font-weight:820}
+
+    /* App shell */
+    .app{border-radius:34px;background:#061126;color:#eaf2ff;padding:10px;box-shadow:0 34px 96px -42px rgba(6,17,38,.82);border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden}
+    .app::before{content:"";position:absolute;inset:-1px;background:radial-gradient(520px 220px at 50% -86px,rgba(22,119,255,.58),transparent 70%);pointer-events:none}
+    .app-shell{background:linear-gradient(180deg,#0b1730,#071226 56%,#08142b);border-radius:26px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);min-height:690px}
+    .app-head{padding:17px 18px 11px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:2}
+    .app-brand{display:flex;align-items:center;gap:10px;min-width:0}.app-brand .logo{--logo-size:40px;--orbit:18px;border-radius:14px}
+    .app-brand strong{display:block;font-family:var(--display);letter-spacing:-.04em;font-size:1rem;color:white}.app-brand small{display:block;color:#8ea6d6;font-size:.75rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+    .step-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);padding:8px 10px;border-radius:999px;color:#dbe8ff;font-weight:900;font-size:.74rem;white-space:nowrap}.step-chip i{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+    .progress-track{height:7px;margin:0 18px 15px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;position:relative;z-index:2}.progress-bar{height:100%;width:20%;background:linear-gradient(90deg,var(--cold-2),var(--cold),var(--warm));border-radius:999px;transition:width .36s ease}
+    .screen{padding:0 18px 20px;position:relative;z-index:2}
+    .step{display:none;animation:rise .26s ease both}.step.active{display:block}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .step h2{font-family:var(--display);font-size:clamp(1.45rem,3.6vw,2.08rem);letter-spacing:-.052em;line-height:1.04;color:white;margin-bottom:8px}.hint{color:#a8b9df;font-size:.92rem;margin-bottom:14px}
+    .panel{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:15px;box-shadow:0 22px 50px -42px black}
+    .smart-text{position:relative}.smart-text textarea{width:100%;min-height:120px;resize:vertical;background:#e9f7ff;color:#0b1730;border:0;border-radius:20px;padding:17px;font-weight:800;outline:none}.smart-text textarea::placeholder{color:#54729f;font-weight:800}
+    .clear-btn{position:absolute;right:11px;bottom:11px;background:#0b1730;color:white;border:0;border-radius:13px;padding:8px 11px;font-weight:900;font-size:.78rem}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#eaf2ff;border-radius:999px;padding:8px 10px;font-size:.8rem;font-weight:900;transition:.18s ease;display:inline-flex;align-items:center;gap:6px}.chip:hover,.chip.active{background:#e9f7ff;color:#071226;border-color:#e9f7ff}.chip-icon{width:22px;height:22px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.08);color:#8ed8ff}.chip:hover .chip-icon,.chip.active .chip-icon{background:#fff;color:#0c59d6}.chip-icon svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .prediction{margin-top:13px}.predict-card{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:10px}.predict-card .ico{width:42px;height:42px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cold),var(--warm));color:white}.predict-card .ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round}.predict-card b{display:block;color:white;font-size:.9rem}.predict-card small{display:block;color:#95a9d3;font-size:.75rem;font-weight:800}.confidence{font-size:.72rem;font-weight:950;color:#8affb6;background:rgba(37,214,111,.12);border:1px solid rgba(37,214,111,.22);border-radius:999px;padding:6px 8px}
+    .safety{display:none;margin-top:12px;background:rgba(255,68,90,.14);border:1px solid rgba(255,68,90,.26);color:#ffdbe1;border-radius:17px;padding:12px;font-weight:840;font-size:.81rem}.safety.show{display:block}
+    .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini-title{color:#b3c4ea;font-weight:950;font-size:.78rem;margin:14px 0 8px}.mini-title:first-child{margin-top:0}
+    .choice{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.045));border:1px solid rgba(255,255,255,.115);border-radius:18px;color:#eaf2ff;padding:13px;text-align:left;transition:.18s ease;min-height:82px;display:grid;gap:8px;position:relative;overflow:hidden}.choice::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.08),transparent 45%);opacity:.45;pointer-events:none}.choice:hover,.choice.active{background:#eef8ff;color:#071226;border-color:#eef8ff;transform:translateY(-1px);box-shadow:0 20px 42px -32px rgba(6,17,38,.8)}.choice b{font-family:var(--display);letter-spacing:-.035em;font-size:.92rem;position:relative;z-index:1}.choice small{display:block;color:inherit;opacity:.72;font-weight:800;font-size:.77rem;line-height:1.22;position:relative;z-index:1}
+    .choice-icon{width:34px;height:34px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(22,119,255,.22),rgba(255,122,26,.20));color:#bce8ff;position:relative;z-index:1;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}.choice.active .choice-icon,.choice:hover .choice-icon{color:#0b48b3;background:linear-gradient(135deg,#e4f4ff,#fff1e6)}.choice-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round}
+    .inline-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:.76rem;color:#b3c4ea;font-weight:950}.field input,.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:white;border-radius:14px;padding:11px 12px;outline:none;font-weight:800}.field textarea{min-height:78px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#65c6ff;background:rgba(255,255,255,.1)}.field select option{color:#071226;background:white}.field input::placeholder,.field textarea::placeholder{color:#8193be}
+
+    /* Map */
+    .map-card{background:#e8f8ff;border-radius:22px;overflow:hidden;color:#071226;box-shadow:0 22px 60px -42px rgba(0,0,0,.8)}
+    .map-tools{padding:10px;background:white;border-bottom:1px solid #d8e7f7;display:grid;gap:8px}.address-row{display:grid;grid-template-columns:1fr auto;gap:8px}.address-row input{border:1px solid #dbe6f4;background:#f7fbff;border-radius:13px;padding:11px 12px;color:#071226;font-weight:900;min-width:0}.address-row button,.geo-btn{border:0;background:#071226;color:#fff;border-radius:13px;padding:10px 12px;font-weight:950}.geo-btn{background:var(--ok);color:#052711;width:100%}
+    .suggestions{display:none;gap:7px;max-height:150px;overflow:auto}.suggestions.show{display:grid}.sugg{border:1px solid #e0e9f5;background:#f8fbff;border-radius:12px;padding:10px;text-align:left;color:#182d53;font-size:.8rem;font-weight:850;line-height:1.35}.selected-address{display:none;align-items:flex-start;gap:8px;background:#eef7ff;border:1px solid #d8e7f7;border-radius:13px;padding:10px;color:#18315e;font-weight:850;font-size:.82rem}.selected-address.show{display:flex}.selected-address svg{width:17px;height:17px;color:var(--cold);flex:none;margin-top:2px}
+    .map-wrap{position:relative}#map{height:264px;width:100%;background:#caecff}.map-lock{position:absolute;left:10px;top:10px;z-index:2;background:rgba(255,255,255,.94);border:1px solid #dce8f6;border-radius:999px;padding:7px 10px;color:#18315e;font-weight:900;font-size:.73rem;box-shadow:0 10px 24px -18px rgba(7,18,38,.45)}.map-hint{padding:10px 12px;background:white;border-top:1px solid #d8e7f7;color:#53647e;font-weight:850;font-size:.78rem}.map-hint strong{color:#0a48b7}.pin{width:34px;height:34px;border-radius:50% 50% 50% 6px;background:linear-gradient(135deg,var(--cold),var(--warm));transform:rotate(-45deg);box-shadow:0 14px 26px -12px rgba(7,18,38,.75);border:3px solid #fff}.pin::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#fff}
+    .dynamic-box{display:grid;gap:10px}.question-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:13px;display:grid;gap:9px}.question-card h3{font-size:.92rem;font-family:var(--display);letter-spacing:-.035em;color:white}.option-row{display:flex;flex-wrap:wrap;gap:7px}.pill-option{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:#eaf2ff;border-radius:999px;padding:8px 10px;font-weight:900;font-size:.77rem}.pill-option.active{background:#dff6ff;color:#071226;border-color:#dff6ff}
+    .photo-list{display:grid;gap:8px;margin-top:10px}.photo-title{color:#b3c4ea;font-weight:950;font-size:.76rem}.photo-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:10px;color:#dce9ff;font-size:.82rem;font-weight:850}.photo-item button{border:0;border-radius:12px;background:rgba(255,255,255,.09);color:#fff;padding:7px 9px;font-weight:950;font-size:.74rem}.photo-item.done{background:rgba(37,214,111,.12);border-color:rgba(37,214,111,.2);color:#dfffe9}.photo-item.done button{background:rgba(37,214,111,.18);color:#7bffa9}
+    .final-preview{display:grid;gap:12px}.ticket{background:#e9f7ff;color:#071226;border-radius:24px;padding:16px;display:grid;gap:12px}.ticket-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.ticket-head b{font-family:var(--display);letter-spacing:-.04em;font-size:1.02rem}.priority{border-radius:999px;padding:7px 10px;font-size:.74rem;font-weight:950;background:#e6f4ec;color:#067b35;white-space:nowrap}.priority.warn{background:#fff0da;color:#a64e00}.priority.danger{background:#ffe6e9;color:#b40019}.ticket-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ticket-mini{background:white;border:1px solid #d8e7f7;border-radius:15px;padding:10px;min-height:65px}.ticket-mini small{display:block;color:#71819d;font-weight:950;font-size:.68rem;text-transform:uppercase;letter-spacing:.045em}.ticket-mini b{display:block;color:#061126;font-size:.87rem;margin-top:2px;word-break:break-word}.message-details{border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.06);border-radius:18px;overflow:hidden}.message-details summary{padding:12px 13px;font-weight:900;color:#dce9ff;cursor:pointer;list-style:none}.message-details summary::-webkit-details-marker{display:none}.message-preview{border-top:1px solid rgba(255,255,255,.1);padding:13px;color:#c9d8f8;font-size:.82rem;max-height:210px;overflow:auto;white-space:pre-wrap}.final-actions{display:grid;gap:9px}.secondary-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.btn-danger-soft{background:rgba(255,255,255,.04);color:#b8c7e8;border:1px solid rgba(255,255,255,.1);font-size:.84rem;min-height:42px}
+    .nav-row{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:15px;align-items:center}.back{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#cde0ff;border-radius:15px;padding:12px 14px;font-weight:950;min-height:46px}.next{border:0;background:linear-gradient(135deg,var(--ok),#28e878);color:#052711;border-radius:15px;padding:12px 14px;font-weight:950;min-height:46px;box-shadow:0 16px 34px -24px rgba(37,214,111,.9)}.next:disabled{opacity:.45;filter:grayscale(1);cursor:not-allowed}
+
+    /* Below fold */
+    .section{padding:48px 0}.section-head{text-align:center;max-width:690px;margin:0 auto 24px}.section-head .tag{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:#0a48b7;font-weight:950;font-size:.77rem;box-shadow:var(--shadow-soft);margin-bottom:12px}.section-head h2{font-family:var(--display);font-size:clamp(1.7rem,3.2vw,3rem);letter-spacing:-.055em;line-height:1;margin-bottom:10px}.section-head p{color:var(--muted);font-size:1rem}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.info-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:17px;box-shadow:var(--shadow-soft)}.info-card .ico{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#e8f4ff,#fff2e4);display:grid;place-items:center;color:#0b62de;margin-bottom:12px}.info-card .ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.info-card h3{font-family:var(--display);letter-spacing:-.04em;font-size:1.02rem;margin-bottom:6px}.info-card p{color:var(--muted);font-size:.87rem}.quick-band{background:var(--navy);color:white;border-radius:30px;padding:26px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.quick-band::before{content:"";position:absolute;width:450px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(22,119,255,.35),transparent 70%);right:-130px;top:-80px}.quick-band>*{position:relative;z-index:1}.quick-band h2{font-family:var(--display);font-size:clamp(1.65rem,3.2vw,3rem);letter-spacing:-.055em;line-height:1;margin-bottom:8px}.quick-band p{color:#adbee3}.faq{display:grid;gap:10px;max-width:820px;margin:auto}.faq-item{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-soft)}.faq-q{width:100%;display:flex;justify-content:space-between;gap:12px;align-items:center;background:transparent;border:0;padding:17px;text-align:left;font-weight:950;color:#071226}.faq-q span:last-child{width:28px;height:28px;border-radius:10px;background:#eef6ff;display:grid;place-items:center;color:#0a48b7;flex:none}.faq-a{max-height:0;overflow:hidden;transition:max-height .26s ease}.faq-a p{padding:0 17px 17px;color:var(--muted);font-size:.91rem}.faq-item.open .faq-q span:last-child{background:#071226;color:white}
+    footer{padding:42px 0 88px;background:#061126;color:#9fb0d3;margin-top:34px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-start}.foot .brand strong{color:#fff}.foot p{max-width:470px;font-size:.88rem;margin-top:12px;color:#8fa3ca}.foot-links{display:grid;gap:8px;text-align:right;font-weight:850;font-size:.88rem}.foot-links a{color:#eaf2ff}.mobile-sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:9px 14px calc(9px + env(safe-area-inset-bottom));z-index:85;display:none;gap:10px}.mobile-sticky .btn{min-height:44px}
+    .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(16px);background:#061126;color:white;border:1px solid rgba(255,255,255,.14);padding:11px 14px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.24s ease;z-index:100;font-weight:900;font-size:.84rem;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.foot-links{text-align:left}}
+    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:22px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:1fr 1fr}.micro-grid .micro:last-child{grid-column:1/-1}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:40px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.brand-rail{padding-top:7px}.brand-rail-shell{padding:8px 0 6px;border-radius:18px}.brand-rail-line{gap:8px;min-height:36px}.achievement-pill{margin-left:9px;padding:5px 8px 5px 7px;border-radius:15px}.achievement-pill svg{width:22px;height:22px}.achievement-pill strong{font-size:.68rem}.achievement-pill small{font-size:.58rem}.logo-pill{height:32px;min-width:76px;padding:0 11px;font-size:.76rem}.logo-pill.bgh{min-width:58px}.logo-pill.electrolux{min-width:102px}.brand-dots{padding-top:6px}}
+    @media(max-width:650px){.brand-signal{gap:13px;margin-bottom:18px}.brand-signal .logo{--logo-size:72px;--orbit:34px;border-radius:22px}.brand-signal small{font-size:.66rem}.brand-signal strong{font-size:1.32rem}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a href="#inicio" class="brand" aria-label="24 Climatizaciones">
+        <span class="logo"><span class="logo-snow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>24<em>°</em></b><span class="logo-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span></span>
+        <span>
+          <strong>24 Climatizaciones</strong>
+          <small>Climatización por WhatsApp · Córdoba</small>
+        </span>
+      </a>
+      <div class="top-actions">
+        <span class="status-pill"><i></i> Respuesta rápida</span>
+        <a class="wa-mini" data-wa-generic href="#" aria-label="Abrir WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163A11.87 11.87 0 0 1 .16 11.891C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.54-3.87a9.86 9.86 0 0 0 5.392 1.592c5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-.607z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="brand-rail" aria-label="Experiencia y marcas frecuentes">
+    <div class="wrap">
+      <div class="brand-rail-shell">
+        <div class="brand-rail-line">
+          <div class="achievement-pill" aria-label="Más de 18 años de experiencia">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+            <span><strong>Más de 18 años</strong><small>de experiencia</small></span>
+          </div>
+          <div class="brand-window">
+            <div class="brand-track" aria-hidden="true">
+              <span class="logo-pill midea"><span>Midea</span></span>
+              <span class="logo-pill carrier"><span>Carrier</span></span>
+              <span class="logo-pill surrey"><span>SURREY</span></span>
+              <span class="logo-pill bgh"><span>BGH</span></span>
+              <span class="logo-pill electrolux"><span>Electrolux</span></span>
+              <span class="logo-pill philco"><span>PHILCO</span></span>
+              <span class="logo-pill peisa"><span>Peisa</span></span>
+              <span class="logo-pill baxi"><span>Baxi</span></span>
+              <span class="logo-pill ariston"><span>Ariston</span></span>
+              <span class="logo-pill samsung"><span>Samsung</span></span>
+              <span class="logo-pill lg"><span>LG</span></span>
+              <span class="logo-pill orbis"><span>Orbis</span></span>
+              <span class="logo-pill rheem"><span>Rheem</span></span>
+              <span class="logo-pill eskabe"><span>Eskabe</span></span>
+              <span class="logo-pill daikin"><span>Daikin</span></span>
+              <span class="logo-pill york"><span>York</span></span>
+              <span class="logo-pill hitachi"><span>Hitachi</span></span>
+              <span class="logo-pill midea"><span>Midea</span></span>
+              <span class="logo-pill carrier"><span>Carrier</span></span>
+              <span class="logo-pill surrey"><span>SURREY</span></span>
+              <span class="logo-pill bgh"><span>BGH</span></span>
+              <span class="logo-pill electrolux"><span>Electrolux</span></span>
+              <span class="logo-pill philco"><span>PHILCO</span></span>
+              <span class="logo-pill peisa"><span>Peisa</span></span>
+              <span class="logo-pill baxi"><span>Baxi</span></span>
+              <span class="logo-pill ariston"><span>Ariston</span></span>
+              <span class="logo-pill samsung"><span>Samsung</span></span>
+              <span class="logo-pill lg"><span>LG</span></span>
+              <span class="logo-pill orbis"><span>Orbis</span></span>
+              <span class="logo-pill rheem"><span>Rheem</span></span>
+              <span class="logo-pill eskabe"><span>Eskabe</span></span>
+              <span class="logo-pill daikin"><span>Daikin</span></span>
+              <span class="logo-pill york"><span>York</span></span>
+              <span class="logo-pill hitachi"><span>Hitachi</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="brand-dots" aria-hidden="true"><i class="active"></i><i></i><i></i></div>
+      </div>
+    </div>
+  </section>
+
+  <main id="inicio" class="hero">
+    <div class="wrap grid">
+      <aside class="intro">
+        <section class="hero-card">
+          <div class="brand-signal" aria-label="24 Climatizaciones">
+            <span class="logo"><span class="logo-snow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>24<em>°</em></b><span class="logo-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span></span>
+            <span><small>Casa templada todo el año</small><strong>24 Climatizaciones</strong></span>
+          </div>
+          <div class="badge-row">
+            <span class="badge"><i></i> Flujo rápido</span>
+            <span class="badge"><i style="background:var(--warm)"></i> Sin formularios largos</span>
+          </div>
+          <h1 class="display">Tu casa en <span>24°</span>, sin vueltas.</h1>
+          <p class="lead">Pedí instalación, reparación o mantenimiento de climatización con un flujo inteligente: diagnóstico, domicilio preciso y mensaje listo para cotizar por WhatsApp.</p>
+          <div class="hero-actions start-cta" id="heroStartCta">
+            <a href="#smartflow" class="btn btn-primary btn-shine" data-start-flow>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              Empezar solicitud
+            </a>
+          </div>
+          <div class="trust-line"><i></i> Solo WhatsApp para presupuestos. Llamadas únicamente para clientes con turno.</div>
+        </section>
+
+        <div class="micro-grid" aria-label="Beneficios principales">
+          <div class="micro"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span><b>Rápido</b><small>paso a paso</small></div>
+          <div class="micro"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><b>Mapa</b><small>pin preciso</small></div>
+          <div class="micro"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.7 7.4L4 20.3l1.2-3.7a8.5 8.5 0 1 1 15.3-4.8z"/><path d="M9 8.8c.3-.6.6-.7 1-.5l.8 1.5c.2.4.1.7-.2 1l-.4.4c.7 1.2 1.7 2.2 3.1 2.9l.5-.5c.3-.3.6-.4 1-.2l1.5.7c.4.2.5.5.3.9-.3.9-1.1 1.4-2 1.3-2.9-.3-6.2-3.3-6.7-6.1-.1-.6.2-1.1.7-1.4z"/></svg></span><b>Listo</b><small>para cotizar</small></div>
+        </div>
+
+        <section class="live-summary" aria-live="polite">
+          <div class="live-title">
+            <div>
+              <b>Resumen de solicitud</b>
+              <small>Lo necesario para presupuestar</small>
+            </div>
+            <div class="score-ring" id="scoreRing" style="--score:12%"><span id="scoreText">12%</span></div>
+          </div>
+          <div class="known-list">
+            <div class="known" id="kIntent"><i>1</i><span>Motivo: falta contar qué pasa</span></div>
+            <div class="known" id="kService"><i>2</i><span>Servicio: se detecta automáticamente</span></div>
+            <div class="known" id="kLocation"><i>3</i><span>Domicilio: pendiente</span></div>
+            <div class="known" id="kDetails"><i>4</i><span>Datos clave: pendientes</span></div>
+          </div>
+          <div class="call-note">Para ordenar el trabajo, la primera consulta y el presupuesto se gestionan por WhatsApp.</div>
+        </section>
+      </aside>
+
+      <section class="app" id="smartflow" aria-label="Solicitud guiada 24 Climatizaciones">
+        <div class="app-shell">
+          <div class="app-head">
+            <div class="app-brand">
+              <span class="logo"><span class="logo-snow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>24<em>°</em></b><span class="logo-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span></span>
+              <div><strong>Solicitud 24</strong><small id="appSubtitle">Contanos qué necesitás</small></div>
+            </div>
+            <span class="step-chip"><i></i><span id="stepLabel">Paso 1/5</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+
+          <div class="screen">
+            <section class="step active" data-step="1" aria-labelledby="s1-title">
+              <h2 id="s1-title">Contanos qué pasa con tu equipo.</h2>
+              <p class="hint">Escribí una frase simple o tocá un síntoma. Detectamos equipo, servicio, urgencia y fotos útiles.</p>
+              <div class="panel smart-text">
+                <textarea id="problemText" placeholder="Escribí el síntoma o el servicio que necesitás"></textarea>
+                <button class="clear-btn" id="clearText" type="button">Limpiar</button>
+                <div class="chips" id="symptomChips">
+                  <button class="chip" data-text="aire split no enfría"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span>No enfría</button>
+                  <button class="chip" data-text="aire pierde agua"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>Pierde agua</button>
+                  <button class="chip" data-text="instalar aire nuevo"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/><path d="M4 19h16"/></svg></span>Instalar aire</button>
+                  <button class="chip" data-text="limpieza mantenimiento aire"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M6 12h12M8 17h8"/><circle cx="8" cy="7" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="10" cy="17" r="1.6"/></svg></span>Limpieza</button>
+                  <button class="chip" data-text="caldera no enciende"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span>Caldera no enciende</button>
+                  <button class="chip" data-text="caldera pierde presión"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.8 6.2a4.4 4.4 0 0 0-5.9 5.9l-5.3 5.3a2.1 2.1 0 0 0 3 3l5.3-5.3a4.4 4.4 0 0 0 5.9-5.9l-2.6 2.6-3-3 2.6-2.6z"/></svg></span>Pierde presión</button>
+                  <button class="chip" data-text="radiadores no calientan"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V21h14V10.5"/><path d="M9 21v-6h6v6"/></svg></span>Radiadores</button>
+                  <button class="chip" data-text="es urgente"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>Urgente</button>
+                </div>
+              </div>
+              <div class="safety" id="safetyBox">Atención: puede haber riesgo. Si hay olor a gas, humo o chispas, priorizá seguridad y no manipules el equipo. Enviaremos el caso como urgente.</div>
+              <div class="prediction" id="predictionBox">
+                <div class="predict-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4"/><path d="M8.5 13h.01M15.5 13h.01"/><path d="M9 17h6"/></svg></div><div><b>Esperando descripción</b><small>Con una frase ya podemos avanzar.</small></div><span class="confidence">0%</span></div>
+              </div>
+              <div class="nav-row">
+                <button class="back" type="button" disabled>Volver</button>
+                <button class="next" id="next1" type="button" disabled>Continuar</button>
+              </div>
+            </section>
+
+            <section class="step" data-step="2" aria-labelledby="s2-title">
+              <h2 id="s2-title">Confirmá la necesidad.</h2>
+              <p class="hint">Si algo no coincide, tocá la opción correcta. Así evitamos preguntas innecesarias.</p>
+              <div class="panel">
+                <p class="mini-title">Equipo</p>
+                <div class="seg-grid" id="equipmentChoices">
+                  <button class="choice" data-equipment="Aire acondicionado"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>Aire acondicionado</b><small>Split, multisplit, unidad interior o exterior.</small></button>
+                  <button class="choice" data-equipment="Caldera / calefacción"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span><b>Caldera / calefacción</b><small>Caldera, radiadores o termostato.</small></button>
+                </div>
+                <p class="mini-title">Servicio</p>
+                <div class="seg-grid" id="serviceChoices">
+                  <button class="choice" data-service="Instalación"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/><path d="M4 19h16"/></svg></span><b>Instalación</b><small>Equipo nuevo, traslado o reemplazo.</small></button>
+                  <button class="choice" data-service="Reparación"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.8 6.2a4.4 4.4 0 0 0-5.9 5.9l-5.3 5.3a2.1 2.1 0 0 0 3 3l5.3-5.3a4.4 4.4 0 0 0 5.9-5.9l-2.6 2.6-3-3 2.6-2.6z"/></svg></span><b>Reparación</b><small>Falla, pérdida, ruido o error.</small></button>
+                  <button class="choice" data-service="Mantenimiento"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M6 12h12M8 17h8"/><circle cx="8" cy="7" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="10" cy="17" r="1.6"/></svg></span><b>Mantenimiento</b><small>Limpieza y revisión preventiva.</small></button>
+                  <button class="choice" data-service="Diagnóstico"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><b>No estoy seguro</b><small>Que lo revise un técnico.</small></button>
+                </div>
+                <p class="mini-title">Lugar</p>
+                <div class="seg-grid" id="propertyChoices">
+                  <button class="choice" data-property="Casa"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V21h14V10.5"/><path d="M9 21v-6h6v6"/></svg></span><b>Casa</b><small>Vivienda o planta baja.</small></button>
+                  <button class="choice" data-property="Departamento"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h.01M15 7h.01M9 11h.01M15 11h.01M9 15h.01M15 15h.01"/></svg></span><b>Departamento</b><small>Piso, balcón, patio o terraza.</small></button>
+                  <button class="choice" data-property="Local / oficina"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16l-1-5H5l-1 5z"/><path d="M5 10v10h14V10"/><path d="M9 20v-5h6v5"/></svg></span><b>Local / oficina</b><small>Comercio, oficina o depósito.</small></button>
+                  <button class="choice" data-property="Consorcio / edificio"><span class="choice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16"/><path d="M6 21V4h8v17"/><path d="M14 21V8h4v13"/><path d="M9 7h2M9 11h2M9 15h2"/></svg></span><b>Consorcio</b><small>Edificio o espacios comunes.</small></button>
+                </div>
+              </div>
+              <div class="nav-row">
+                <button class="back" type="button" data-back>Volver</button>
+                <button class="next" id="next2" type="button" disabled>Confirmar</button>
+              </div>
+            </section>
+
+            <section class="step" data-step="3" aria-labelledby="s3-title">
+              <h2 id="s3-title">Indicá el domicilio.</h2>
+              <p class="hint">Buscá tu dirección o usá tu ubicación actual. El mapa queda fijo para no moverse sin querer; solo ajustás el pin sobre la entrada exacta.</p>
+              <div class="map-card">
+                <div class="map-tools">
+                  <div class="address-row">
+                    <input id="addressInput" type="text" placeholder="Calle, número, barrio o referencia" autocomplete="street-address" />
+                    <button id="searchAddress" type="button">Buscar</button>
+                  </div>
+                  <button class="geo-btn" id="useLocation" type="button">Usar mi ubicación actual</button>
+                  <div class="suggestions" id="suggestions"></div>
+                  <div class="selected-address" id="selectedAddress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span id="selectedAddressText">Dirección pendiente</span></div>
+                </div>
+                <div class="map-wrap">
+                  <span class="map-lock">Mapa fijo · mové solo el pin</span>
+                  <div id="map" role="application" aria-label="Mapa fijo para ajustar domicilio con pin"></div>
+                </div>
+                <div class="map-hint" id="mapStatus">Buscá una dirección para ubicar la zona. Después arrastrá el pin si hace falta.</div>
+              </div>
+              <div class="nav-row">
+                <button class="back" type="button" data-back>Volver</button>
+                <button class="next" id="next3" type="button" disabled>Usar este domicilio</button>
+              </div>
+            </section>
+
+            <section class="step" data-step="4" aria-labelledby="s4-title">
+              <h2 id="s4-title">Completá lo mínimo para cotizar.</h2>
+              <p class="hint">Solo mostramos preguntas útiles para tu caso. Si no sabés algo, elegí “No sé”.</p>
+              <div class="dynamic-box" id="dynamicQuestions"></div>
+              <div class="panel" style="margin-top:12px">
+                <div class="inline-fields">
+                  <div class="field"><label>Nombre</label><input id="nameInput" type="text" placeholder="Tu nombre" autocomplete="name" /></div>
+                  <div class="field"><label>Horario ideal</label><select id="timeInput"><option value="">Elegí…</option><option>Mañana</option><option>Mediodía</option><option>Tarde</option><option>Lo antes posible</option><option>A coordinar</option></select></div>
+                  <div class="field full"><label>Detalle extra opcional</label><textarea id="extraInput" placeholder="Piso, balcón, acceso, marca, error del equipo u otra aclaración"></textarea></div>
+                </div>
+                <div class="photo-list" id="photoList"></div>
+              </div>
+              <div class="nav-row">
+                <button class="back" type="button" data-back>Volver</button>
+                <button class="next" id="next4" type="button">Revisar solicitud</button>
+              </div>
+            </section>
+
+            <section class="step" data-step="5" aria-labelledby="s5-title">
+              <h2 id="s5-title">Solicitud lista para enviar.</h2>
+              <p class="hint">Revisá el resumen. El mensaje incluye domicilio preciso y datos ordenados para presupuestar rápido.</p>
+              <div class="final-preview">
+                <div class="ticket">
+                  <div class="ticket-head"><b>Resumen 24</b><span class="priority" id="priorityBadge">Programado</span></div>
+                  <div class="ticket-grid">
+                    <div class="ticket-mini"><small>Equipo</small><b id="tEquipment">-</b></div>
+                    <div class="ticket-mini"><small>Servicio</small><b id="tService">-</b></div>
+                    <div class="ticket-mini"><small>Domicilio</small><b id="tLocation">-</b></div>
+                    <div class="ticket-mini"><small>Datos</small><b id="tCompletion">-</b></div>
+                  </div>
+                </div>
+                <details class="message-details">
+                  <summary>Ver mensaje que se enviará</summary>
+                  <div class="message-preview" id="messagePreview"></div>
+                </details>
+                <div class="final-actions">
+                  <a class="btn btn-primary btn-block" id="sendWhatsApp" href="#" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163A11.87 11.87 0 0 1 .16 11.891C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg>
+                    Enviar por WhatsApp
+                  </a>
+                  <div class="secondary-actions">
+                    <button class="btn btn-soft" id="copyMessage" type="button">Copiar mensaje</button>
+                    <button class="btn btn-ghost" id="editRequest" type="button">Corregir datos</button>
+                  </div>
+                  <button class="btn btn-danger-soft" id="restart" type="button">Borrar y cargar otra solicitud</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Solicitud simple</span>
+        <h2>Menos preguntas, mejor presupuesto.</h2>
+        <p>La web se adapta a lo que escribís y completa la información paso a paso: necesidad, domicilio, fotos sugeridas y datos técnicos.</p>
+      </div>
+      <div class="cards">
+        <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4"/><path d="M8.5 13h.01M15.5 13h.01"/><path d="M9 17h6"/></svg></div><h3>Detección inmediata</h3><p>Identifica equipo, servicio y urgencia desde una frase simple.</p></article>
+        <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></div><h3>Domicilio claro</h3><p>Buscá la dirección, usá ubicación actual y ajustá solo el pin.</p></article>
+        <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h4l1.5-2h5L16 8h4v12H4z"/><circle cx="12" cy="14" r="3.5"/></svg></div><h3>Fotos útiles</h3><p>Indica qué imágenes conviene mandar para cotizar más rápido.</p></article>
+        <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.7 7.4L4 20.3l1.2-3.7a8.5 8.5 0 1 1 15.3-4.8z"/><path d="M9 8.8c.3-.6.6-.7 1-.5l.8 1.5c.2.4.1.7-.2 1l-.4.4c.7 1.2 1.7 2.2 3.1 2.9l.5-.5c.3-.3.6-.4 1-.2l1.5.7c.4.2.5.5.3.9-.3.9-1.1 1.4-2 1.3-2.9-.3-6.2-3.3-6.7-6.1-.1-.6.2-1.1.7-1.4z"/></svg></div><h3>WhatsApp ordenado</h3><p>24 Climatizaciones recibe el pedido completo, sin mensajes sueltos ni datos mezclados.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap quick-band">
+      <div>
+        <h2>Presupuesto por WhatsApp, claro desde el primer mensaje.</h2>
+        <p>Las llamadas quedan reservadas para clientes con turno confirmado, seguimiento o coordinación técnica.</p>
+      </div>
+      <a class="btn btn-primary btn-shine" data-wa-generic href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163A11.87 11.87 0 0 1 .16 11.891C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg>
+        Abrir WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Preguntas rápidas</span>
+        <h2>Todo claro antes de enviar.</h2>
+      </div>
+      <div class="faq">
+        <div class="faq-item open"><button class="faq-q" type="button"><span>¿Por qué no hay botón de llamada?</span><span>+</span></button><div class="faq-a" style="max-height:120px"><p>Porque 24 Climatizaciones centraliza presupuestos por WhatsApp para recibir fotos, ubicación y detalles. Las llamadas quedan para clientes con turno o seguimiento.</p></div></div>
+        <div class="faq-item"><button class="faq-q" type="button"><span>¿El mapa manda la ubicación exacta?</span><span>+</span></button><div class="faq-a"><p>Sí. El mensaje incluye la dirección, un enlace de mapa y coordenadas técnicas para ubicar el domicilio con precisión.</p></div></div>
+        <div class="faq-item"><button class="faq-q" type="button"><span>¿Puedo pedir servicio si no sé qué tiene el equipo?</span><span>+</span></button><div class="faq-a"><p>Sí. Elegí “No estoy seguro” o describí el síntoma. Se enviará como diagnóstico para revisar.</p></div></div>
+        <div class="faq-item"><button class="faq-q" type="button"><span>¿Tengo que subir fotos en la web?</span><span>+</span></button><div class="faq-a"><p>No. La web prepara el pedido y te indica qué fotos conviene enviar después por WhatsApp.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <a href="#inicio" class="brand"><span class="logo"><span class="logo-snow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>24<em>°</em></b><span class="logo-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span></span><span><strong>24 Climatizaciones</strong><small>24 grados de confort, todo el año.</small></span></a>
+        <p>Instalación, reparación y mantenimiento de aires acondicionados, calderas y calefacción. Presupuestos y coordinación inicial solo por WhatsApp.</p>
+      </div>
+      <div class="foot-links">
+        <a data-wa-generic href="#">WhatsApp: +54 9 351 326 6650</a>
+        <span>Llamadas: solo clientes con turno</span>
+        <span id="year"></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-sticky" id="mobileStartBar">
+    <a class="btn btn-primary btn-shine btn-block" href="#smartflow" data-start-flow>Empezar solicitud</a>
+  </div>
+  <div class="toast" id="toast">Copiado</div>
+
+  <script>
+    const CONFIG = {
+      company: '24 Climatizaciones',
+      whatsapp: '5493513266650',
+      city: 'Córdoba',
+      defaultCenter: [-64.1888, -31.4201]
+    };
+
+    const state = {
+      step: 1,
+      problem: '',
+      equipment: '',
+      service: '',
+      property: '',
+      urgency: 'Programado',
+      risk: false,
+      confidence: 0,
+      address: '',
+      displayAddress: '',
+      coords: null,
+      answers: {},
+      photos: {},
+      name: '',
+      time: '',
+      extra: '',
+      flowStarted: false,
+      manual: { equipment:false, service:false, property:false }
+    };
+
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const waLink = (msg) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg || 'Hola 24 Climatizaciones, quiero pedir un presupuesto de climatización.')}`;
+
+
+    function startFlow(){
+      if(state.flowStarted) return;
+      state.flowStarted = true;
+      document.body.classList.add('flow-started');
+      const sticky = $('#mobileStartBar');
+      if(sticky) sticky.setAttribute('aria-hidden','true');
+    }
+
+    $$('[data-start-flow]').forEach(btn => btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      startFlow();
+      document.querySelector('#smartflow').scrollIntoView({behavior:'smooth', block:'start'});
+    }));
+
+    const smartflowNode = document.querySelector('#smartflow');
+    if(smartflowNode){
+      smartflowNode.addEventListener('focusin', startFlow, {once:true});
+      smartflowNode.addEventListener('input', startFlow, {once:true});
+      smartflowNode.addEventListener('click', (e) => {
+        if(e.target.closest('button,input,textarea,select,a')) startFlow();
+      }, {capture:true});
+    }
+
+    $$('[data-wa-generic]').forEach(a => a.href = waLink('Hola 24 Climatizaciones, quiero pedir un presupuesto de climatización.'));
+    $('#year').textContent = `© ${new Date().getFullYear()} 24 Climatizaciones`;
+
+    const steps = $$('.step');
+    const stepLabel = $('#stepLabel');
+    const progressBar = $('#progressBar');
+    const appSubtitle = $('#appSubtitle');
+    const scoreRing = $('#scoreRing');
+    const scoreText = $('#scoreText');
+    const problemText = $('#problemText');
+    const predictionBox = $('#predictionBox');
+    const safetyBox = $('#safetyBox');
+
+    function normalize(txt){
+      return (txt || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    }
+
+    function analyzeIntent(){
+      const t = normalize(state.problem);
+      const hit = (words) => words.some(w => t.includes(normalize(w)));
+      const add = (bucket, key, points, words) => { if(hit(words)) bucket[key] += points; };
+      const pickTop = (bucket, min=1) => {
+        const entries = Object.entries(bucket).sort((a,b) => b[1] - a[1]);
+        return entries[0] && entries[0][1] >= min ? entries[0][0] : '';
+      };
+
+      const eqScore = { 'Aire acondicionado':0, 'Caldera / calefacción':0 };
+      const serviceScore = { 'Instalación':0, 'Reparación':0, 'Mantenimiento':0, 'Diagnóstico':0 };
+      const propertyScore = { 'Casa':0, 'Departamento':0, 'Local / oficina':0, 'Consorcio / edificio':0 };
+
+      add(eqScore, 'Aire acondicionado', 24, ['aire','split','acondicionado','frio','enfria','unidad exterior','unidad interior','btu','evaporadora','condensadora','control remoto','carga de gas']);
+      add(eqScore, 'Caldera / calefacción', 24, ['caldera','calefaccion','radiador','radiadores','termostato','presion','agua caliente','loza radiante','calefactores','calefactor']);
+
+      add(serviceScore, 'Instalación', 23, ['instalar','instalacion','nuevo','colocar','poner','compre','compré','trasladar','reinstalar','reemplazo','recambio','montar']);
+      add(serviceScore, 'Reparación', 23, ['no enfria','no calienta','pierde','perdida','pérdida','ruido','no enciende','error','falla','gotea','presion','reparar','rompio','rompió','arreglar','no prende','se apaga','titila','hace hielo','congela']);
+      add(serviceScore, 'Mantenimiento', 22, ['limpieza','mantenimiento','mantener','service','servicio anual','filtros','preventivo','lavado','higienizar']);
+      if(t.length > 0) serviceScore['Diagnóstico'] += 8;
+
+      add(propertyScore, 'Casa', 9, ['casa','vivienda','planta baja','patio']);
+      add(propertyScore, 'Departamento', 9, ['departamento','depto','piso','balcon','balcón','edificio']);
+      add(propertyScore, 'Local / oficina', 9, ['local','oficina','comercio','negocio','deposito','depósito']);
+      add(propertyScore, 'Consorcio / edificio', 9, ['consorcio','administracion','administración','espacio comun','espacio común','edificio completo']);
+
+      if(!state.manual.equipment) state.equipment = pickTop(eqScore, 1);
+      if(!state.manual.service) state.service = pickTop(serviceScore, 1) || (t ? 'Diagnóstico' : '');
+      if(!state.manual.property) state.property = pickTop(propertyScore, 1);
+
+      const urgent = hit(['urgente','hoy','ahora','lo antes','sin calefaccion','sin calefacción','no tengo calefaccion','no tengo calefacción','mucho calor','mucho frio','mucho frío','bebe','bebé','adulto mayor']);
+      const gasRisk = (t.includes('gas') && (t.includes('olor') || t.includes('fuga') || t.includes('perdida') || t.includes('pérdida')));
+      const risk = gasRisk || hit(['olor a gas','humo','chispa','chispas','quemado','monoxido','monóxido','explosion','explosión','llama amarilla']);
+      state.risk = risk;
+      state.urgency = risk ? 'Riesgo / urgente' : urgent ? 'Urgente' : 'Programado';
+
+      const rawScore = Math.max(...Object.values(eqScore)) + Math.max(...Object.values(serviceScore)) + Math.max(...Object.values(propertyScore)) + (urgent ? 10 : 0) + (risk ? 16 : 0) + (t.length > 16 ? 12 : 0) + (t.length > 70 ? 8 : 0);
+      state.confidence = t ? Math.max(18, Math.min(96, rawScore)) : 0;
+      updatePrediction();
+      updateChoices();
+      updateSummary();
+      $('#next1').disabled = state.problem.trim().length < 3;
+      safetyBox.classList.toggle('show', !!state.risk);
+    }
+
+    function uiIcon(type){
+      const icons = {
+        air: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg>`,
+        flame: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg>`,
+        search: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>`,
+        robot: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4"/><path d="M8.5 13h.01M15.5 13h.01"/><path d="M9 17h6"/></svg>`,
+        warn: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3z"/><path d="M12 9v5M12 17h.01"/></svg>`,
+      };
+      return icons[type] || icons.robot;
+    }
+
+    function updatePrediction(){
+      const eq = state.equipment || 'A detectar';
+      const svc = state.service || 'A detectar';
+      const urg = state.urgency || 'Programado';
+      const iconType = state.risk ? 'warn' : state.equipment.includes('Caldera') ? 'flame' : state.equipment.includes('Aire') ? 'air' : state.problem.trim() ? 'search' : 'robot';
+      const title = state.problem.trim() ? `${svc} · ${eq}` : 'Esperando descripción';
+      const small = state.problem.trim() ? `Prioridad: ${urg}. Podés corregirlo en el próximo paso.` : 'Con una frase ya podemos avanzar.';
+      predictionBox.innerHTML = `<div class="predict-card"><div class="ico">${uiIcon(iconType)}</div><div><b>${title}</b><small>${small}</small></div><span class="confidence">${state.confidence}%</span></div>`;
+    }
+
+    function setStep(n){
+      if(n > 1) startFlow();
+      state.step = n;
+      steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
+      stepLabel.textContent = `Paso ${n}/5`;
+      progressBar.style.width = `${n * 20}%`;
+      const labels = ['Contanos qué necesitás','Confirmá necesidad','Domicilio preciso','Datos para cotizar','Solicitud lista'];
+      appSubtitle.textContent = labels[n-1] || 'Solicitud guiada';
+      if(n === 3) setTimeout(initMap, 120);
+      if(n === 4) renderDynamicQuestions();
+      if(n === 5) renderFinal();
+      updateSummary();
+      document.querySelector('#smartflow').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function updateSummary(){
+      let done = 0;
+      const intentDone = state.problem.trim().length > 2;
+      const serviceDone = !!state.equipment && !!state.service && !!state.property;
+      const locationDone = !!state.displayAddress || !!state.address;
+      const detailsDone = Object.values(state.answers).filter(Boolean).length >= 2 || !!state.name || !!state.time;
+      if(intentDone) done += 25;
+      if(serviceDone) done += 25;
+      if(locationDone) done += 25;
+      if(detailsDone) done += 25;
+      done = Math.max(12, done);
+      scoreRing.style.setProperty('--score', `${done}%`);
+      scoreText.textContent = `${done}%`;
+      setKnown('#kIntent', intentDone, intentDone ? `Motivo: ${truncate(state.problem, 42)}` : 'Motivo: falta contar qué pasa');
+      setKnown('#kService', serviceDone, serviceDone ? `${state.service} · ${state.equipment}` : 'Servicio: se detecta automáticamente');
+      setKnown('#kLocation', locationDone, locationDone ? `Domicilio: ${truncate(shortAddress(), 42)}` : 'Domicilio: pendiente');
+      setKnown('#kDetails', detailsDone, detailsDone ? 'Datos clave: avanzados' : 'Datos clave: pendientes');
+      $('#next2').disabled = !serviceDone;
+      $('#next3').disabled = !locationDone;
+    }
+
+    function setKnown(sel, done, text){
+      const el = $(sel);
+      el.classList.toggle('done', done);
+      $('span', el).textContent = text;
+    }
+    function truncate(str, n){ return (str || '').length > n ? (str || '').slice(0,n-1) + '…' : (str || ''); }
+    function shortAddress(){
+      const a = state.displayAddress || state.address || $('#addressInput').value.trim();
+      return cleanAddress(a) || 'A confirmar';
+    }
+    function cleanAddress(a){
+      return (a || '').replace(/,\s*Argentina\s*$/i,'').replace(/,\s*Córdoba Province/ig,'').replace(/,\s*Córdoba,?\s*Argentina/ig,', Córdoba').trim();
+    }
+
+    function updateChoices(){
+      $$('#equipmentChoices .choice').forEach(b => b.classList.toggle('active', b.dataset.equipment === state.equipment));
+      $$('#serviceChoices .choice').forEach(b => b.classList.toggle('active', b.dataset.service === state.service));
+      $$('#propertyChoices .choice').forEach(b => b.classList.toggle('active', b.dataset.property === state.property));
+    }
+
+    problemText.addEventListener('input', () => { state.problem = problemText.value.trim(); analyzeIntent(); });
+    $('#clearText').addEventListener('click', () => {
+      state.problem = ''; problemText.value = ''; state.equipment = ''; state.service = ''; state.property = ''; state.urgency = 'Programado'; state.risk = false; state.manual = { equipment:false, service:false, property:false }; $$('#symptomChips .chip').forEach(c => c.classList.remove('active')); analyzeIntent();
+    });
+    $$('#symptomChips .chip').forEach(chip => chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      const text = chip.dataset.text;
+      const current = problemText.value.trim();
+      problemText.value = current ? `${current}. ${text}` : text;
+      state.problem = problemText.value.trim();
+      analyzeIntent();
+    }));
+
+    $('#next1').addEventListener('click', () => setStep(2));
+    $('#next2').addEventListener('click', () => setStep(3));
+    $('#next3').addEventListener('click', () => setStep(4));
+    $('#next4').addEventListener('click', () => setStep(5));
+    $$('[data-back]').forEach(b => b.addEventListener('click', () => setStep(Math.max(1, state.step - 1))));
+    $('#editRequest').addEventListener('click', () => setStep(4));
+    $('#restart').addEventListener('click', () => {
+      if(confirm('¿Borrar esta solicitud y cargar otra desde cero?')) location.reload();
+    });
+
+    $$('#equipmentChoices .choice').forEach(b => b.addEventListener('click', () => { state.equipment = b.dataset.equipment; state.manual.equipment = true; updateChoices(); updateSummary(); }));
+    $$('#serviceChoices .choice').forEach(b => b.addEventListener('click', () => { state.service = b.dataset.service; state.manual.service = true; updateChoices(); updateSummary(); }));
+    $$('#propertyChoices .choice').forEach(b => b.addEventListener('click', () => { state.property = b.dataset.property; state.manual.property = true; updateChoices(); updateSummary(); }));
+
+    let map, marker, mapReady = false;
+    function initMap(){
+      if(mapReady) return;
+      if(!window.maplibregl){
+        $('#mapStatus').textContent = 'El mapa no cargó todavía. Podés buscar la dirección o usar tu ubicación.';
+        return;
+      }
+      mapReady = true;
+      map = new maplibregl.Map({
+        container:'map',
+        center: CONFIG.defaultCenter,
+        zoom: 12,
+        interactive: false,
+        attributionControl: false,
+        style: {
+          version: 8,
+          sources: { osm: { type: 'raster', tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize: 256, attribution: '© OpenStreetMap' } },
+          layers: [{ id: 'osm', type: 'raster', source: 'osm' }]
+        }
+      });
+      map.addControl(new maplibregl.AttributionControl({compact:true}), 'bottom-right');
+      map.on('load', () => {
+        if(state.coords){
+          setMarker(state.coords.lng, state.coords.lat, state.displayAddress || 'Ubicación marcada');
+        }else{
+          $('#mapStatus').innerHTML = 'Buscá una dirección o usá tu ubicación. Después ajustá solo el pin.';
+        }
+      });
+    }
+
+    function setMarker(lng, lat, label){
+      state.coords = {lng:Number(lng), lat:Number(lat)};
+      if(map){ map.easeTo({center:[state.coords.lng,state.coords.lat], zoom: 16, duration: 600}); }
+      if(!marker && window.maplibregl && map){
+        const el = document.createElement('div'); el.className = 'pin';
+        marker = new maplibregl.Marker({element:el, draggable:true, anchor:'bottom'}).setLngLat([state.coords.lng,state.coords.lat]).addTo(map);
+        marker.on('dragstart', () => { $('#mapStatus').innerHTML = 'Soltá el pin sobre la entrada o el punto más cercano.'; });
+        marker.on('dragend', () => {
+          const p = marker.getLngLat();
+          state.coords = {lng:p.lng, lat:p.lat};
+          $('#mapStatus').innerHTML = 'Pin ajustado. Estamos buscando la dirección más cercana…';
+          reverseGeocode(p.lat, p.lng);
+        });
+      }else if(marker){
+        marker.setLngLat([state.coords.lng,state.coords.lat]);
+      }
+      if(label) $('#mapStatus').innerHTML = `${label}. <strong>Arrastrá el pin</strong> si querés más precisión.`;
+      updateSelectedAddress();
+      updateSummary();
+    }
+
+    async function geocodeAddress(q){
+      const query = (q || '').trim();
+      if(!query){ showToast('Escribí una dirección'); return; }
+      $('#searchAddress').textContent = 'Buscando…';
+      try{
+        const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&countrycodes=ar&addressdetails=1&q=${encodeURIComponent(query + ' ' + CONFIG.city + ' Argentina')}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        renderSuggestions(data);
+        if(data[0]) chooseAddress(data[0]);
+        else { state.address = query; state.displayAddress = query; updateSelectedAddress(); updateSummary(); showToast('No encontramos el punto exacto'); }
+      }catch(e){
+        state.address = query; state.displayAddress = query; updateSelectedAddress(); updateSummary(); showToast('No se pudo buscar ahora');
+      }finally{
+        $('#searchAddress').textContent = 'Buscar';
+      }
+    }
+
+    function renderSuggestions(items){
+      const box = $('#suggestions'); box.innerHTML = '';
+      if(!items || !items.length){ box.classList.remove('show'); return; }
+      items.slice(0,5).forEach(item => {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'sugg'; b.textContent = cleanAddress(item.display_name);
+        b.addEventListener('click', () => chooseAddress(item));
+        box.appendChild(b);
+      });
+      box.classList.add('show');
+    }
+
+    function chooseAddress(item){
+      state.address = item.display_name;
+      state.displayAddress = cleanAddress(item.display_name);
+      $('#addressInput').value = state.displayAddress;
+      $('#suggestions').classList.remove('show');
+      setMarker(Number(item.lon), Number(item.lat), 'Dirección encontrada');
+      updateSelectedAddress();
+    }
+
+    async function reverseGeocode(lat, lng){
+      try{
+        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}&zoom=18&addressdetails=1`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if(data && data.display_name){
+          state.address = data.display_name;
+          state.displayAddress = cleanAddress(data.display_name);
+          $('#addressInput').value = state.displayAddress;
+          updateSelectedAddress();
+          $('#mapStatus').innerHTML = 'Pin ajustado. Dirección actualizada.';
+        }else{
+          updateSelectedAddress();
+          $('#mapStatus').innerHTML = 'Pin ajustado. Usaremos la ubicación marcada.';
+        }
+      }catch(e){
+        updateSelectedAddress();
+        $('#mapStatus').innerHTML = 'Pin ajustado. Usaremos la ubicación marcada.';
+      }
+      updateSummary();
+    }
+
+    function updateSelectedAddress(){
+      const box = $('#selectedAddress');
+      const txt = shortAddress();
+      if(txt && txt !== 'A confirmar'){
+        $('#selectedAddressText').textContent = truncate(txt, 110);
+        box.classList.add('show');
+      }else{
+        box.classList.remove('show');
+      }
+    }
+
+    $('#searchAddress').addEventListener('click', () => geocodeAddress($('#addressInput').value));
+    $('#addressInput').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); geocodeAddress($('#addressInput').value); } });
+    $('#addressInput').addEventListener('input', () => { state.address = $('#addressInput').value.trim(); state.displayAddress = state.address; updateSelectedAddress(); updateSummary(); });
+    $('#useLocation').addEventListener('click', () => {
+      if(!navigator.geolocation){ showToast('Tu navegador no permite ubicación'); return; }
+      $('#useLocation').textContent = 'Obteniendo ubicación…';
+      navigator.geolocation.getCurrentPosition(pos => {
+        const {latitude, longitude} = pos.coords;
+        setMarker(longitude, latitude, 'Ubicación actual detectada');
+        reverseGeocode(latitude, longitude);
+        $('#useLocation').textContent = 'Usar mi ubicación actual';
+      }, () => {
+        showToast('No pudimos acceder a tu ubicación');
+        $('#useLocation').textContent = 'Usar mi ubicación actual';
+      }, {enableHighAccuracy:true, timeout:10000, maximumAge:60000});
+    });
+
+    const questionBank = {
+      airInstall: [
+        {key:'air_power', title:'Potencia o tamaño del equipo', options:['No sé','Hasta 3000 frigorías','3000 a 4500 frigorías','Más de 4500 frigorías']},
+        {key:'air_pre', title:'Preinstalación', options:['No sé','Sí, ya está preparada','No, instalación desde cero','Hay que revisar']},
+        {key:'air_access', title:'Ubicación de la unidad exterior', options:['Balcón','Patio / terraza','Pared exterior','Difícil acceso','No sé']}
+      ],
+      airRepair: [
+        {key:'air_symptom', title:'Síntoma principal', options:['No enfría','Pierde agua','Hace ruido','No enciende','Muestra error','Otro']},
+        {key:'air_age', title:'Último mantenimiento', options:['No sé','Menos de 6 meses','Más de 1 año','Nunca']},
+        {key:'air_brand', title:'Marca o modelo', input:'Marca, modelo o “no sé”'}
+      ],
+      boilerInstall: [
+        {key:'boiler_type', title:'Tipo de trabajo', options:['Caldera nueva','Reemplazo de caldera','Radiadores','Termostato','No sé']},
+        {key:'boiler_gas', title:'Instalación de gas', options:['No sé','Sí','Hay que revisar','Obra nueva']},
+        {key:'boiler_area', title:'Lugar de instalación', options:['Cocina','Lavadero','Sala técnica','Exterior','No sé']}
+      ],
+      boilerRepair: [
+        {key:'boiler_symptom', title:'Síntoma principal', options:['No enciende','No calienta','Pierde presión','Marca error','Pierde agua','Radiadores fríos']},
+        {key:'boiler_pressure', title:'Presión aproximada', options:['No sé','Menos de 1 bar','Entre 1 y 2 bar','Más de 2 bar']},
+        {key:'boiler_brand', title:'Marca o error', input:'Marca, modelo, código de error o “no sé”'}
+      ],
+      maintenance: [
+        {key:'main_when', title:'Momento ideal', options:['Esta semana','Antes de la temporada','Cuando haya turno','Lo antes posible']},
+        {key:'main_qty', title:'Cantidad de equipos', options:['1 equipo','2 equipos','3 o más','Consorcio / empresa']},
+        {key:'main_last', title:'Último mantenimiento', options:['No sé','Menos de 1 año','Más de 1 año','Nunca']}
+      ],
+      generic: [
+        {key:'gen_help', title:'Qué necesitás revisar', options:['Instalación','Reparación','Mantenimiento','Diagnóstico']},
+        {key:'gen_access', title:'Acceso al equipo', options:['Fácil acceso','Balcón','Terraza','Altura / difícil acceso','No sé']},
+        {key:'gen_qty', title:'Cantidad de equipos', options:['1','2','3 o más','A confirmar']}
+      ]
+    };
+
+    function selectedBank(){
+      const isAir = state.equipment.includes('Aire');
+      const isBoiler = state.equipment.includes('Caldera');
+      if(state.service === 'Mantenimiento') return questionBank.maintenance;
+      if(isAir && state.service === 'Instalación') return questionBank.airInstall;
+      if(isAir && (state.service === 'Reparación' || state.service === 'Diagnóstico')) return questionBank.airRepair;
+      if(isBoiler && state.service === 'Instalación') return questionBank.boilerInstall;
+      if(isBoiler && (state.service === 'Reparación' || state.service === 'Diagnóstico')) return questionBank.boilerRepair;
+      return questionBank.generic;
+    }
+
+    function renderDynamicQuestions(){
+      const box = $('#dynamicQuestions'); box.innerHTML = '';
+      selectedBank().forEach(q => {
+        const card = document.createElement('div'); card.className = 'question-card';
+        card.innerHTML = `<h3>${q.title}</h3>`;
+        if(q.options){
+          const row = document.createElement('div'); row.className = 'option-row';
+          q.options.forEach(op => {
+            const b = document.createElement('button'); b.type = 'button'; b.className = 'pill-option'; b.textContent = op;
+            if(state.answers[q.key] === op) b.classList.add('active');
+            b.addEventListener('click', () => { state.answers[q.key] = op; $$('.pill-option', row).forEach(x => x.classList.remove('active')); b.classList.add('active'); updateSummary(); });
+            row.appendChild(b);
+          });
+          card.appendChild(row);
+        }
+        if(q.input){
+          const input = document.createElement('input'); input.placeholder = q.input; input.value = state.answers[q.key] || '';
+          input.style.cssText = 'width:100%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:white;border-radius:14px;padding:11px 12px;outline:none;font-weight:800;';
+          input.addEventListener('input', () => { state.answers[q.key] = input.value.trim(); updateSummary(); });
+          card.appendChild(input);
+        }
+        box.appendChild(card);
+      });
+      renderPhotos();
+    }
+
+    function photoSuggestions(){
+      if(state.equipment.includes('Aire')){
+        if(state.service === 'Instalación') return ['Interior donde iría el split','Exterior, balcón o terraza','Etiqueta o caja del equipo','Distancia aproximada entre unidades'];
+        if(state.service === 'Reparación' || state.service === 'Diagnóstico') return ['Equipo encendido o error','Unidad interior','Unidad exterior','Zona de pérdida, ruido o falla'];
+        return ['Frente del equipo','Filtros si están accesibles','Unidad exterior'];
+      }
+      if(state.equipment.includes('Caldera')){
+        if(state.service === 'Instalación') return ['Lugar donde iría la caldera','Conexiones existentes','Etiqueta del equipo','Salida o ventilación'];
+        if(state.service === 'Reparación' || state.service === 'Diagnóstico') return ['Frente de la caldera','Código de error si aparece','Manómetro o presión','Zona de pérdida o conexión'];
+        return ['Frente de la caldera','Manómetro o presión','Radiadores si aplica'];
+      }
+      return ['Foto del equipo completo','Foto de etiqueta o marca','Foto del lugar o acceso'];
+    }
+
+    function renderPhotos(){
+      const box = $('#photoList'); box.innerHTML = '<div class="photo-title">Fotos recomendadas para enviar luego por WhatsApp</div>';
+      photoSuggestions().forEach((p, i) => {
+        const row = document.createElement('div'); row.className = 'photo-item';
+        if(state.photos[p]) row.classList.add('done');
+        row.innerHTML = `<span>${i+1}. ${p}</span><button type="button">${state.photos[p] ? 'Tengo' : 'Marcar'}</button>`;
+        $('button', row).addEventListener('click', () => { state.photos[p] = !state.photos[p]; renderPhotos(); updateSummary(); });
+        box.appendChild(row);
+      });
+    }
+
+    function buildMessage(){
+      const coords = state.coords ? `${state.coords.lat.toFixed(6)}, ${state.coords.lng.toFixed(6)}` : 'No marcado';
+      const mapLink = state.coords ? `https://www.openstreetmap.org/?mlat=${state.coords.lat.toFixed(6)}&mlon=${state.coords.lng.toFixed(6)}#map=18/${state.coords.lat.toFixed(6)}/${state.coords.lng.toFixed(6)}` : 'No marcado';
+      const answers = Object.entries(state.answers).filter(([k,v]) => v).map(([k,v]) => `• ${labelFor(k)}: ${v}`).join('\n') || '• Sin datos extra';
+      const photos = photoSuggestions().map(p => `• ${p}: ${state.photos[p] ? 'la tengo' : 'a enviar si hace falta'}`).join('\n');
+      return `Hola 24 Climatizaciones, quiero solicitar un presupuesto de climatización.\n\n`+
+        `NECESIDAD\n`+
+        `• Equipo: ${state.equipment || '-'}\n`+
+        `• Servicio probable: ${state.service || '-'}\n`+
+        `• Prioridad: ${state.urgency || 'Programado'}\n`+
+        `• Lugar: ${state.property || '-'}\n`+
+        `• Descripción: ${state.problem || '-'}\n\n`+
+        `DOMICILIO\n`+
+        `• Dirección: ${shortAddress()}\n`+
+        `• Mapa: ${mapLink}\n`+
+        `• Coordenadas técnicas: ${coords}\n\n`+
+        `DATOS PARA PRESUPUESTAR\n${answers}\n\n`+
+        `FOTOS DISPONIBLES / SUGERIDAS\n${photos}\n\n`+
+        `CONTACTO\n`+
+        `• Nombre: ${state.name || '-'}\n`+
+        `• Horario ideal: ${state.time || '-'}\n`+
+        `• Detalle extra: ${state.extra || '-'}\n\n`+
+        `Entiendo que la coordinación inicial y presupuesto se realizan por WhatsApp.`;
+    }
+
+    function labelFor(key){
+      const labels = {
+        air_power:'Potencia', air_pre:'Preinstalación', air_access:'Ubicación unidad exterior', air_symptom:'Síntoma', air_age:'Último mantenimiento', air_brand:'Marca/modelo',
+        boiler_type:'Tipo de trabajo', boiler_gas:'Instalación de gas', boiler_area:'Lugar', boiler_symptom:'Síntoma', boiler_pressure:'Presión', boiler_brand:'Marca/error',
+        main_when:'Fecha deseada', main_qty:'Cantidad de equipos', main_last:'Último mantenimiento', gen_help:'Necesidad', gen_access:'Acceso', gen_qty:'Cantidad'
+      };
+      return labels[key] || key;
+    }
+
+    function renderFinal(){
+      state.name = $('#nameInput').value.trim();
+      state.time = $('#timeInput').value;
+      state.extra = $('#extraInput').value.trim();
+      const msg = buildMessage();
+      $('#messagePreview').textContent = msg;
+      $('#sendWhatsApp').href = waLink(msg);
+      $('#tEquipment').textContent = state.equipment || '-';
+      $('#tService').textContent = state.service || '-';
+      $('#tLocation').textContent = truncate(shortAddress(), 45);
+      $('#tCompletion').textContent = `${Math.max(12, parseInt(scoreText.textContent, 10) || 12)}% completo`;
+      const pb = $('#priorityBadge');
+      pb.textContent = state.urgency;
+      pb.className = 'priority' + (state.risk ? ' danger' : state.urgency === 'Urgente' ? ' warn' : '');
+      updateSummary();
+    }
+
+    $('#copyMessage').addEventListener('click', async () => {
+      try{ await navigator.clipboard.writeText(buildMessage()); showToast('Mensaje copiado'); }
+      catch(e){ showToast('No se pudo copiar'); }
+    });
+
+    function showToast(txt){
+      const t = $('#toast'); t.textContent = txt; t.classList.add('show');
+      clearTimeout(showToast.timer); showToast.timer = setTimeout(() => t.classList.remove('show'), 2100);
+    }
+
+    $$('.faq-q').forEach(btn => btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const ans = $('.faq-a', item);
+      const open = item.classList.contains('open');
+      $$('.faq-item').forEach(i => { i.classList.remove('open'); const a=$('.faq-a',i); a.style.maxHeight=null; });
+      if(!open){ item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
+    }));
+
+    if('serviceWorker' in navigator){
+      window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js').catch(()=>{}));
+    }
+
+    analyzeIntent();
+  </script>
+</body>
+</html>
