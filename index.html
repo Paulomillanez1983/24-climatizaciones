@@ -104,26 +104,23 @@
       --logo-size:52px;--orbit:24px;
       width:var(--logo-size);height:var(--logo-size);border-radius:18px;display:grid;place-items:center;color:#fff;position:relative;isolation:isolate;overflow:hidden;flex:none;
       background:
-        radial-gradient(circle at 48% 44%,rgba(255,255,255,.24),transparent 36%),
-        radial-gradient(circle at 18% 16%,rgba(217,250,255,.58),transparent 31%),
-        radial-gradient(circle at 83% 86%,rgba(255,190,91,.54),transparent 35%),
-        linear-gradient(135deg,#18caff 0%,#1069ee 32%,#071226 57%,#ff7a1a 100%);
-      box-shadow:0 20px 44px -24px rgba(7,18,38,.70), inset 0 1px 0 rgba(255,255,255,.32), inset 0 -20px 38px rgba(6,17,38,.24);
+        radial-gradient(circle at 50% 51%,rgba(255,255,255,.22),transparent 43%),
+        radial-gradient(circle at 20% 18%,rgba(210,248,255,.45),transparent 34%),
+        radial-gradient(circle at 82% 86%,rgba(255,189,89,.42),transparent 36%),
+        linear-gradient(135deg,#128cff 0%,#0a4ac3 34%,#071226 56%,#ff7a1a 100%);
+      box-shadow:0 20px 44px -24px rgba(7,18,38,.68), inset 0 1px 0 rgba(255,255,255,.26);
     }
     .logo::before{
-      content:"";position:absolute;inset:7px 6px 6px;z-index:1;
+      content:"";position:absolute;inset:8px 7px 7px;z-index:1;
       background:
-        radial-gradient(circle at 32% 47%,#9be2ff 0 5%,transparent 5.6%),
-        radial-gradient(circle at 68% 47%,#ffd08d 0 5%,transparent 5.6%),
-        linear-gradient(90deg,transparent 29%,rgba(7,18,38,.18) 29% 32%,transparent 32% 68%,rgba(7,18,38,.18) 68% 71%,transparent 71%),
-        linear-gradient(180deg,rgba(255,255,255,.98),rgba(224,245,255,.90) 58%,rgba(198,224,244,.96));
+        linear-gradient(90deg,transparent 29%,rgba(7,18,38,.13) 29% 32%,transparent 32% 68%,rgba(7,18,38,.13) 68% 71%,transparent 71%),
+        linear-gradient(180deg,rgba(255,255,255,.97),rgba(218,242,255,.88));
       clip-path:polygon(50% 4%,91% 38%,80% 38%,80% 87%,20% 87%,20% 38%,9% 38%);
-      box-shadow:0 10px 15px -12px rgba(7,18,38,.58), inset 0 1px 0 rgba(255,255,255,.95), inset 0 -10px 16px rgba(7,18,38,.12);
+      filter:drop-shadow(0 10px 13px rgba(7,18,38,.25));
     }
-    .logo::after{content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.30);border-radius:15px;z-index:0;box-shadow:inset 0 0 0 1px rgba(7,18,38,.10)}
-    .logo b{font-family:var(--display);font-size:calc(var(--logo-size) * .33);letter-spacing:-.075em;position:relative;z-index:2;color:#071226;text-shadow:0 1px 0 rgba(255,255,255,.62);line-height:1;padding:2px 5px 3px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(232,245,255,.54));box-shadow:0 7px 13px -11px rgba(7,18,38,.75), inset 0 1px 0 rgba(255,255,255,.84)}
+    .logo::after{content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.28);border-radius:15px;z-index:0}
+    .logo b{font-family:var(--display);font-size:calc(var(--logo-size) * .34);letter-spacing:-.075em;position:relative;z-index:2;color:#071226;text-shadow:0 1px 0 rgba(255,255,255,.58);line-height:1}
     .logo b em{font-style:normal;font-size:.46em;letter-spacing:0;margin-left:1px;vertical-align:.48em}
-    .logo b::after{content:"";position:absolute;left:50%;bottom:-5px;width:22px;height:3px;border-radius:999px;background:linear-gradient(90deg,var(--cold),var(--warm));transform:translateX(-50%);box-shadow:0 4px 8px -5px rgba(7,18,38,.8)}
     .logo-snow,.logo-flame{
       position:absolute;left:50%;top:50%;z-index:3;display:grid;place-items:center;width:calc(var(--logo-size) * .30);height:calc(var(--logo-size) * .30);
       margin:calc(var(--logo-size) * -.15) 0 0 calc(var(--logo-size) * -.15);border-radius:50%;opacity:.96;
