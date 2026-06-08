@@ -1,4 +1,4 @@
-const CACHE = '24-climatizaciones-v1';
+const CACHE = '24-climatizaciones-v2';
 const ASSETS = ['./','./index.html','./icon.svg','./social-preview.png','./manifest.webmanifest'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).catch(() => null));
