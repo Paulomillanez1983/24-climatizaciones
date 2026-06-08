@@ -27,12 +27,6 @@
   <meta name="twitter:image:alt" content="Logo de 24 Climatizaciones con casa a 24 grados." />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.css" rel="stylesheet" />
-  <script src="https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js" defer></script>
-
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -72,8 +66,8 @@
       --shadow-soft:0 16px 40px -30px rgba(7,18,38,.35);
       --radius:28px;
       --radius-sm:18px;
-      --font:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-      --display:'Sora',var(--font);
+      --font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+      --display:var(--font);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -131,8 +125,10 @@
       background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.23);backdrop-filter:blur(7px);
       filter:drop-shadow(0 6px 10px rgba(7,18,38,.28));will-change:transform;
     }
-    .logo-snow{color:#e8fbff;animation:orbitCold 6.4s linear infinite}
-    .logo-flame{color:#ffd08c;animation:orbitWarm 6.4s linear infinite}
+    .logo-snow{color:#e8fbff;left:8px;top:8px;margin:0}
+    .logo-flame{color:#ffd08c;left:auto;right:8px;top:auto;bottom:8px;margin:0}
+    body.motion-ready .logo-snow{left:50%;top:50%;margin:calc(var(--logo-size) * -.15) 0 0 calc(var(--logo-size) * -.15);animation:orbitCold 6.4s linear infinite}
+    body.motion-ready .logo-flame{left:50%;right:auto;top:50%;bottom:auto;margin:calc(var(--logo-size) * -.15) 0 0 calc(var(--logo-size) * -.15);animation:orbitWarm 6.4s linear infinite}
     .logo-snow svg,.logo-flame svg{width:72%;height:72%;fill:none;stroke:currentColor;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
     @keyframes orbitCold{from{transform:rotate(0deg) translateX(calc(var(--orbit) * -1)) rotate(0deg)}to{transform:rotate(360deg) translateX(calc(var(--orbit) * -1)) rotate(-360deg)}}
     @keyframes orbitWarm{from{transform:rotate(180deg) translateX(calc(var(--orbit) * -1)) rotate(-180deg)}to{transform:rotate(540deg) translateX(calc(var(--orbit) * -1)) rotate(-540deg)}}
@@ -149,7 +145,8 @@
     .achievement-pill strong{display:block;font-size:.78rem;line-height:1.02;letter-spacing:-.025em}
     .achievement-pill small{display:block;color:#50627e;font-size:.63rem;font-weight:850;line-height:1.05;margin-top:2px}
     .brand-window{flex:1;min-width:0;overflow:hidden;mask-image:linear-gradient(90deg,black 0%,black 88%,transparent 100%)}
-    .brand-track{display:flex;align-items:center;gap:9px;width:max-content;animation:brandSlide 38s linear infinite;will-change:transform}
+    .brand-track{display:flex;align-items:center;gap:9px;width:max-content;will-change:transform}
+    body.motion-ready .brand-track{animation:brandSlide 38s linear infinite}
     .logo-pill{height:34px;min-width:86px;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;border-radius:16px;border:1px solid #dce6f2;background:#fbfdff;color:#142342;font-weight:950;font-size:.82rem;letter-spacing:-.025em;white-space:nowrap;box-shadow:0 12px 24px -22px rgba(7,18,38,.45);position:relative;overflow:hidden;isolation:isolate}
     .logo-pill::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.8),transparent 46%);opacity:.76;pointer-events:none;z-index:-1}
     .logo-pill span{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px}
@@ -170,10 +167,10 @@
     @keyframes brandSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
-      .brand-track,.logo-snow,.logo-flame{animation:none}
+      .brand-track,.logo-snow,.logo-flame{animation:none!important}
       .logo-snow{left:8px;top:8px;margin:0;transform:none}
       .logo-flame{left:auto;right:8px;top:auto;bottom:8px;margin:0;transform:none}
-      .btn-shine::before,.btn-shine::after{animation:none}
+      .btn-shine::before,.btn-shine::after{animation:none!important}
     }
     .brand strong{display:block;font-family:var(--display);letter-spacing:-.045em;font-size:1.03rem;white-space:nowrap;color:var(--ink)}
     .brand small{display:block;color:var(--muted);font-size:.77rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:270px}
@@ -196,17 +193,19 @@
     .btn-block{width:100%}
     .btn-shine{position:relative;overflow:hidden;isolation:isolate}
     .btn-shine::before{
-      content:"";position:absolute;inset:-40% auto -40% -38%;width:32%;transform:rotate(18deg);
+      content:"";position:absolute;inset:-40% auto -40% 0;width:32%;transform:translateX(-160%) rotate(18deg);
       background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);
-      animation:shine 2.7s ease-in-out infinite;z-index:-1;
+      z-index:-1;
     }
     .btn-shine::after{
-      content:"";position:absolute;inset:-3px;border-radius:18px;border:1px solid rgba(37,214,111,.45);animation:softRing 2.1s ease-out infinite;pointer-events:none;
+      content:"";position:absolute;inset:-3px;border-radius:18px;border:1px solid rgba(37,214,111,.45);pointer-events:none;
     }
+    body.motion-ready .btn-shine::before{animation:shine 2.7s ease-in-out infinite}
+    body.motion-ready .btn-shine::after{animation:softRing 2.1s ease-out infinite}
     .start-cta,.mobile-sticky{transition:opacity .24s ease,transform .24s ease,visibility .24s ease}
     body.flow-started .start-cta,body.flow-started .mobile-sticky{opacity:0;transform:translateY(18px);pointer-events:none;visibility:hidden}
     body.flow-started .mobile-sticky{display:none!important}
-    @keyframes shine{0%,42%{left:-42%}70%,100%{left:126%}}
+    @keyframes shine{0%,42%{transform:translateX(-160%) rotate(18deg)}70%,100%{transform:translateX(420%) rotate(18deg)}}
     @keyframes softRing{0%{opacity:.85;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
 
     /* Hero layout */
@@ -290,18 +289,19 @@
 
     /* Below fold */
     .section{padding:48px 0}.section-head{text-align:center;max-width:690px;margin:0 auto 24px}.section-head .tag{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:#0a48b7;font-weight:950;font-size:.77rem;box-shadow:var(--shadow-soft);margin-bottom:12px}.section-head h2{font-family:var(--display);font-size:clamp(1.7rem,3.2vw,3rem);letter-spacing:-.055em;line-height:1;margin-bottom:10px}.section-head p{color:var(--muted);font-size:1rem}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.info-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:17px;box-shadow:var(--shadow-soft)}.info-card .ico{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#e8f4ff,#fff2e4);display:grid;place-items:center;color:#0b62de;margin-bottom:12px}.info-card .ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.info-card h3{font-family:var(--display);letter-spacing:-.04em;font-size:1.02rem;margin-bottom:6px}.info-card p{color:var(--muted);font-size:.87rem}.quick-band{background:var(--navy);color:white;border-radius:30px;padding:26px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.quick-band::before{content:"";position:absolute;width:450px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(22,119,255,.35),transparent 70%);right:-130px;top:-80px}.quick-band>*{position:relative;z-index:1}.quick-band h2{font-family:var(--display);font-size:clamp(1.65rem,3.2vw,3rem);letter-spacing:-.055em;line-height:1;margin-bottom:8px}.quick-band p{color:#adbee3}.faq{display:grid;gap:10px;max-width:820px;margin:auto}.faq-item{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-soft)}.faq-q{width:100%;display:flex;justify-content:space-between;gap:12px;align-items:center;background:transparent;border:0;padding:17px;text-align:left;font-weight:950;color:#071226}.faq-q span:last-child{width:28px;height:28px;border-radius:10px;background:#eef6ff;display:grid;place-items:center;color:#0a48b7;flex:none}.faq-a{max-height:0;overflow:hidden;transition:max-height .26s ease}.faq-a p{padding:0 17px 17px;color:var(--muted);font-size:.91rem}.faq-item.open .faq-q span:last-child{background:#071226;color:white}
-    footer{padding:42px 0 88px;background:#061126;color:#9fb0d3;margin-top:34px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-start}.foot .brand strong{color:#fff}.foot p{max-width:470px;font-size:.88rem;margin-top:12px;color:#8fa3ca}.foot-links{display:grid;gap:8px;text-align:right;font-weight:850;font-size:.88rem}.foot-links a{color:#eaf2ff}.mobile-sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:9px 14px calc(9px + env(safe-area-inset-bottom));z-index:85;display:none;gap:10px}.mobile-sticky .btn{min-height:44px}
+    .section,footer{content-visibility:auto;contain-intrinsic-size:720px}
+    footer{padding:42px 0 88px;background:#061126;color:#9fb0d3;margin-top:34px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-start}.foot .brand strong{color:#fff}.foot .brand small{color:#c9d8f8;font-weight:800}.foot p{max-width:470px;font-size:.88rem;margin-top:12px;color:#afc2eb}.foot-links{display:grid;gap:8px;text-align:right;font-weight:850;font-size:.88rem}.foot-links a{color:#eaf2ff}.mobile-sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:9px 14px calc(9px + env(safe-area-inset-bottom));z-index:85;display:none;gap:10px;contain:layout paint}.mobile-sticky .btn{min-height:44px;contain:layout paint}
     .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(16px);background:#061126;color:white;border:1px solid rgba(255,255,255,.14);padding:11px 14px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.24s ease;z-index:100;font-weight:900;font-size:.84rem;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
     @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.foot-links{text-align:left}}
-    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.micro{border-radius:15px;padding:10px 8px;gap:6px;min-width:0}.micro::after{width:52px;height:52px;right:-18px;top:-20px}.micro-icon{width:30px;height:30px;border-radius:12px}.micro-icon svg{width:16px;height:16px}.micro b{font-size:.86rem;letter-spacing:-.03em}.micro small{font-size:.64rem;line-height:1.1}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.brand-rail{padding-top:7px}.brand-rail-shell{padding:8px 0 6px;border-radius:18px}.brand-rail-line{gap:8px;min-height:36px}.achievement-pill{margin-left:9px;padding:5px 8px 5px 7px;border-radius:15px}.achievement-pill svg{width:22px;height:22px}.achievement-pill strong{font-size:.68rem}.achievement-pill small{font-size:.58rem}.logo-pill{height:32px;min-width:76px;padding:0 11px;font-size:.76rem}.logo-pill.bgh{min-width:58px}.logo-pill.electrolux{min-width:102px}.brand-dots{padding-top:6px}}
+    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.micro{border-radius:15px;padding:10px 8px;gap:6px;min-width:0}.micro::after{width:52px;height:52px;right:-18px;top:-20px}.micro-icon{width:30px;height:30px;border-radius:12px}.micro-icon svg{width:16px;height:16px}.micro b{font-size:.86rem;letter-spacing:-.03em}.micro small{font-size:.64rem;line-height:1.1}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.brand-rail{display:none}}
     @media(max-width:650px){.brand-signal{gap:13px;margin-bottom:18px}.brand-signal .logo{--logo-size:72px;--orbit:34px;border-radius:22px}.brand-signal small{font-size:.66rem}.brand-signal strong{font-size:1.32rem}}
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="wrap">
-      <a href="#inicio" class="brand" aria-label="24 Climatizaciones">
+      <a href="#inicio" class="brand">
         <span class="logo"><span class="logo-snow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>24<em>°</em></b><span class="logo-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span></span>
         <span>
           <strong>24 Climatizaciones</strong>
@@ -433,7 +433,7 @@
               <h2 id="s1-title">¿Qué necesitás resolver?</h2>
               <p class="hint">Contanos el problema o elegí una opción. Con eso preparamos una solicitud clara para responderte más rápido.</p>
               <div class="panel smart-text">
-                <textarea id="problemText" placeholder="Escribí el síntoma o el servicio que necesitás"></textarea>
+                <textarea id="problemText" aria-label="Síntoma o servicio que necesitás" placeholder="Escribí el síntoma o el servicio que necesitás"></textarea>
                 <button class="clear-btn" id="clearText" type="button">Limpiar</button>
                 <div class="chips" id="symptomChips">
                   <button class="chip" data-text="aire split no enfría"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span>No enfría</button>
@@ -492,7 +492,7 @@
               <div class="map-card">
                 <div class="map-tools">
                   <div class="address-row">
-                    <input id="addressInput" type="text" placeholder="Calle, número, barrio o referencia" autocomplete="street-address" />
+                    <input id="addressInput" type="text" aria-label="Domicilio del servicio" placeholder="Calle, número, barrio o referencia" autocomplete="street-address" />
                     <button id="searchAddress" type="button">Buscar</button>
                   </div>
                   <button class="geo-btn" id="useLocation" type="button">Usar mi ubicación actual</button>
@@ -501,7 +501,7 @@
                 </div>
                 <div class="map-wrap">
                   <span class="map-lock">Mapa fijo · mové solo el pin</span>
-                  <div id="map" role="application" aria-label="Mapa fijo para ajustar domicilio con pin"></div>
+                  <div id="map" role="application" aria-label="Mapa para ajustar domicilio con pin"></div>
                 </div>
                 <div class="map-hint" id="mapStatus">Buscá una dirección para ubicar la zona. Después arrastrá el pin si hace falta.</div>
               </div>
@@ -518,9 +518,9 @@
               <div class="dynamic-box" id="dynamicQuestions"></div>
               <div class="panel" style="margin-top:12px">
                 <div class="inline-fields">
-                  <div class="field"><label>Nombre</label><input id="nameInput" type="text" placeholder="Tu nombre" autocomplete="name" /></div>
-                  <div class="field"><label>Horario ideal</label><select id="timeInput"><option value="">Elegí…</option><option>Mañana</option><option>Mediodía</option><option>Tarde</option><option>Lo antes posible</option><option>A coordinar</option></select></div>
-                  <div class="field full"><label>Detalle extra opcional</label><textarea id="extraInput" placeholder="Piso, balcón, acceso, marca, error del equipo u otra aclaración"></textarea></div>
+                  <div class="field"><label for="nameInput">Nombre</label><input id="nameInput" type="text" placeholder="Tu nombre" autocomplete="name" /></div>
+                  <div class="field"><label for="timeInput">Horario ideal</label><select id="timeInput"><option value="">Elegí…</option><option>Mañana</option><option>Mediodía</option><option>Tarde</option><option>Lo antes posible</option><option>A coordinar</option></select></div>
+                  <div class="field full"><label for="extraInput">Detalle extra opcional</label><textarea id="extraInput" placeholder="Piso, balcón, acceso, marca, error del equipo u otra aclaración"></textarea></div>
                 </div>
                 <div class="photo-list" id="photoList"></div>
               </div>
@@ -663,6 +663,39 @@
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
     const waLink = (msg) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg || 'Hola 24 Climatizaciones, quiero pedir un presupuesto de climatización.')}`;
 
+
+    const MAPLIBRE_VERSION = '5.24.0';
+    const MAPLIBRE_CSS = `https://unpkg.com/maplibre-gl@${MAPLIBRE_VERSION}/dist/maplibre-gl.css`;
+    const MAPLIBRE_JS = `https://unpkg.com/maplibre-gl@${MAPLIBRE_VERSION}/dist/maplibre-gl.js`;
+    let maplibrePromise;
+
+    function loadMaplibre(){
+      if(window.maplibregl) return Promise.resolve(true);
+      if(maplibrePromise) return maplibrePromise;
+      maplibrePromise = new Promise(resolve => {
+        if(!document.querySelector('link[data-maplibre]')){
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = MAPLIBRE_CSS;
+          link.dataset.maplibre = 'css';
+          document.head.appendChild(link);
+        }
+        const existing = document.querySelector('script[data-maplibre]');
+        if(existing){
+          existing.addEventListener('load', () => resolve(true), {once:true});
+          existing.addEventListener('error', () => resolve(false), {once:true});
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = MAPLIBRE_JS;
+        script.async = true;
+        script.dataset.maplibre = 'js';
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.head.appendChild(script);
+      });
+      return maplibrePromise;
+    }
 
     function startFlow(){
       if(state.flowStarted) return;
@@ -831,23 +864,27 @@
     }
 
     function updateChoices(){
-      $$('#equipmentChoices .choice').forEach(b => b.classList.toggle('active', b.dataset.equipment === state.equipment));
-      $$('#serviceChoices .choice').forEach(b => b.classList.toggle('active', b.dataset.service === state.service));
-      $$('#propertyChoices .choice').forEach(b => b.classList.toggle('active', b.dataset.property === state.property));
+      $$('#equipmentChoices .choice').forEach(b => { const active = b.dataset.equipment === state.equipment; b.classList.toggle('active', active); b.setAttribute('aria-pressed', String(active)); });
+      $$('#serviceChoices .choice').forEach(b => { const active = b.dataset.service === state.service; b.classList.toggle('active', active); b.setAttribute('aria-pressed', String(active)); });
+      $$('#propertyChoices .choice').forEach(b => { const active = b.dataset.property === state.property; b.classList.toggle('active', active); b.setAttribute('aria-pressed', String(active)); });
     }
 
     problemText.addEventListener('input', () => { state.problem = problemText.value.trim(); analyzeIntent(); });
     $('#clearText').addEventListener('click', () => {
-      state.problem = ''; problemText.value = ''; state.equipment = ''; state.service = ''; state.property = ''; state.urgency = 'Programado'; state.risk = false; state.manual = { equipment:false, service:false, property:false }; $$('#symptomChips .chip').forEach(c => c.classList.remove('active')); analyzeIntent();
+      state.problem = ''; problemText.value = ''; state.equipment = ''; state.service = ''; state.property = ''; state.urgency = 'Programado'; state.risk = false; state.manual = { equipment:false, service:false, property:false }; $$('#symptomChips .chip').forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); }); analyzeIntent();
     });
-    $$('#symptomChips .chip').forEach(chip => chip.addEventListener('click', () => {
-      chip.classList.toggle('active');
+    $$('#symptomChips .chip').forEach(chip => {
+      chip.setAttribute('aria-pressed', 'false');
+      chip.addEventListener('click', () => {
+      const active = chip.classList.toggle('active');
+      chip.setAttribute('aria-pressed', String(active));
       const text = chip.dataset.text;
       const current = problemText.value.trim();
       problemText.value = current ? `${current}. ${text}` : text;
       state.problem = problemText.value.trim();
       analyzeIntent();
-    }));
+      });
+    });
 
     $('#next1').addEventListener('click', () => setStep(2));
     $('#next2').addEventListener('click', () => setStep(3));
@@ -870,12 +907,17 @@
     $$('#propertyChoices .choice').forEach(b => b.addEventListener('click', () => { state.property = b.dataset.property; state.manual.property = true; updateChoices(); updateSummary(); }));
 
     let map, marker, mapReady = false;
-    function initMap(){
+    async function initMap(){
       if(mapReady) return;
+      $('#mapStatus').textContent = 'Cargando mapa de ubicación...';
+      const maplibreLoaded = await loadMaplibre();
       if(!window.maplibregl){
         $('#mapStatus').textContent = 'El mapa no cargó todavía. Podés buscar la dirección o usar tu ubicación.';
+        $('#mapStatus').classList.add('warn');
         return;
       }
+      if(!maplibreLoaded) return;
+      $('#mapStatus').classList.remove('warn');
       mapReady = true;
       map = new maplibregl.Map({
         container:'map',
@@ -1089,14 +1131,23 @@
           const row = document.createElement('div'); row.className = 'option-row';
           q.options.forEach(op => {
             const b = document.createElement('button'); b.type = 'button'; b.className = 'pill-option'; b.textContent = op;
-            if(state.answers[q.key] === op) b.classList.add('active');
-            b.addEventListener('click', () => { state.answers[q.key] = op; $$('.pill-option', row).forEach(x => x.classList.remove('active')); b.classList.add('active'); updateSummary(); });
+            const active = state.answers[q.key] === op;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-pressed', String(active));
+            b.addEventListener('click', () => {
+              state.answers[q.key] = op;
+              $$('.pill-option', row).forEach(x => { x.classList.remove('active'); x.setAttribute('aria-pressed', 'false'); });
+              b.classList.add('active');
+              b.setAttribute('aria-pressed', 'true');
+              updateSummary();
+            });
             row.appendChild(b);
           });
           card.appendChild(row);
         }
         if(q.input){
           const input = document.createElement('input'); input.placeholder = q.input; input.value = state.answers[q.key] || '';
+          input.setAttribute('aria-label', q.title);
           input.style.cssText = 'width:100%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:white;border-radius:14px;padding:11px 12px;outline:none;font-weight:800;';
           input.addEventListener('input', () => { state.answers[q.key] = input.value.trim(); updateSummary(); });
           card.appendChild(input);
@@ -1228,16 +1279,31 @@
       clearTimeout(showToast.timer); showToast.timer = setTimeout(() => t.classList.remove('show'), 2100);
     }
 
-    $$('.faq-q').forEach(btn => btn.addEventListener('click', () => {
+    $$('.faq-q').forEach((btn, index) => {
+      const item = btn.closest('.faq-item');
+      const ans = $('.faq-a', item);
+      const answerId = ans.id || `faq-answer-${index + 1}`;
+      ans.id = answerId;
+      btn.setAttribute('aria-controls', answerId);
+      btn.setAttribute('aria-expanded', String(item.classList.contains('open')));
+      btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
       const ans = $('.faq-a', item);
       const open = item.classList.contains('open');
-      $$('.faq-item').forEach(i => { i.classList.remove('open'); const a=$('.faq-a',i); a.style.maxHeight=null; });
-      if(!open){ item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
-    }));
+      $$('.faq-item').forEach(i => { i.classList.remove('open'); const q=$('.faq-q',i); const a=$('.faq-a',i); a.style.maxHeight=null; q.setAttribute('aria-expanded','false'); });
+      if(!open){ item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; btn.setAttribute('aria-expanded','true'); }
+      });
+    });
 
     if('serviceWorker' in navigator){
       window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js').catch(()=>{}));
+    }
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReducedMotion){
+      const enableMotion = () => document.body.classList.add('motion-ready');
+      if('requestIdleCallback' in window) requestIdleCallback(enableMotion, {timeout: 1600});
+      else setTimeout(enableMotion, 1200);
     }
 
     analyzeIntent();
