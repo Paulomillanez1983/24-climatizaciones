@@ -113,10 +113,12 @@
     .logo::before{
       content:"";position:absolute;inset:8px 7px 7px;z-index:1;
       background:
+        radial-gradient(circle at 31% 48%,#9fe8ff 0 4.5%,transparent 5.2%),
+        radial-gradient(circle at 69% 48%,#ffd097 0 4.5%,transparent 5.2%),
         linear-gradient(90deg,transparent 29%,rgba(7,18,38,.13) 29% 32%,transparent 32% 68%,rgba(7,18,38,.13) 68% 71%,transparent 71%),
         linear-gradient(180deg,rgba(255,255,255,.97),rgba(218,242,255,.88));
       clip-path:polygon(50% 4%,91% 38%,80% 38%,80% 87%,20% 87%,20% 38%,9% 38%);
-      filter:drop-shadow(0 10px 13px rgba(7,18,38,.25));
+      box-shadow:0 10px 14px -13px rgba(7,18,38,.68), inset 0 -8px 14px rgba(7,18,38,.08);
     }
     .logo::after{content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.28);border-radius:15px;z-index:0}
     .logo b{font-family:var(--display);font-size:calc(var(--logo-size) * .34);letter-spacing:-.075em;position:relative;z-index:2;color:#071226;text-shadow:0 1px 0 rgba(255,255,255,.58);line-height:1}
@@ -167,9 +169,11 @@
     .brand-dots{display:flex;justify-content:center;gap:7px;padding-top:7px;position:relative;z-index:1}
     .brand-dots i{width:7px;height:7px;border-radius:50%;background:#d2d8e2;display:block}.brand-dots i.active{background:var(--cold);box-shadow:0 0 0 4px rgba(22,119,255,.09)}
     @keyframes brandSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes sponsorLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes sponsorRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
-      .brand-track,.logo-snow,.logo-flame{animation:none!important}
+      .brand-track,.mobile-sponsor-track,.logo-snow,.logo-flame{animation:none!important}
       .logo-snow{left:8px;top:8px;margin:0;transform:none}
       .logo-flame{left:auto;right:8px;top:auto;bottom:8px;margin:0;transform:none}
       .btn-shine::before,.btn-shine::after{animation:none!important}
@@ -298,7 +302,7 @@
 
     @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.foot-links{text-align:left}}
     @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.micro{border-radius:15px;padding:10px 8px;gap:6px;min-width:0}.micro::after{width:52px;height:52px;right:-18px;top:-20px}.micro-icon{width:30px;height:30px;border-radius:12px}.micro-icon svg{width:16px;height:16px}.micro b{font-size:.86rem;letter-spacing:-.03em}.micro small{font-size:.64rem;line-height:1.1}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.brand-rail{display:none}}
-    @media(max-width:650px){.mobile-trust{display:flex;align-items:center;gap:7px;overflow:hidden;margin:-4px 0 14px;padding:7px 9px;border:1px solid #dce8f6;background:rgba(255,255,255,.82);border-radius:15px;color:#17325e;font-size:.68rem;font-weight:950;white-space:nowrap;box-shadow:0 12px 24px -22px rgba(7,18,38,.45)}.mobile-trust b{display:inline-flex;align-items:center;gap:5px;color:#071226}.mobile-trust b::before{content:"";width:13px;height:13px;border-radius:5px;background:linear-gradient(135deg,#eaf7ff,#fff0dd);border:1px solid #dbe8f4;flex:none}.mobile-trust span{color:#0b5bd7;flex:none}.mobile-trust small{color:#64748b;font-size:inherit;font-weight:900;overflow:hidden;text-overflow:ellipsis}}
+    @media(max-width:650px){.mobile-trust{display:grid;gap:7px;overflow:hidden;margin:-5px 0 14px;padding:8px 0;border:1px solid #dce8f6;background:linear-gradient(180deg,rgba(255,255,255,.90),rgba(247,251,255,.84));border-radius:17px;color:#17325e;font-size:.68rem;font-weight:950;box-shadow:0 12px 24px -22px rgba(7,18,38,.45)}.mobile-trust-kicker{display:flex;align-items:center;gap:7px;padding:0 10px;white-space:nowrap}.mobile-trust-kicker b{display:inline-flex;align-items:center;gap:5px;color:#071226}.mobile-trust-kicker b::before{content:"";width:13px;height:13px;border-radius:5px;background:linear-gradient(135deg,#eaf7ff,#fff0dd);border:1px solid #dbe8f4;flex:none}.mobile-trust-kicker span{color:#0b5bd7}.sponsor-lane{overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 9%,black 91%,transparent)}.mobile-sponsor-track{display:flex;gap:7px;width:max-content;will-change:transform}.mobile-sponsor-track span{height:24px;display:inline-flex;align-items:center;border:1px solid #dce8f6;background:#fff;border-radius:999px;padding:0 10px;color:#142342;font-size:.66rem;font-weight:1000;letter-spacing:-.015em;white-space:nowrap}.mobile-sponsor-track.hot span{background:#fff8f0;color:#7a3600;border-color:#f4dfc7}.mobile-sponsor-track.cold span{background:#f4fbff;color:#003d8f;border-color:#d7ebfb}body.motion-ready .mobile-sponsor-track.cold{animation:sponsorLeft 24s linear infinite}body.motion-ready .mobile-sponsor-track.hot{animation:sponsorRight 26s linear infinite}}
     @media(max-width:650px){.brand-signal{gap:13px;margin-bottom:18px}.brand-signal .logo{--logo-size:72px;--orbit:34px;border-radius:22px}.brand-signal small{font-size:.66rem}.brand-signal strong{font-size:1.32rem}}
   </style>
 </head>
@@ -382,7 +386,21 @@
             <span class="logo"><span class="logo-snow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>24<em>°</em></b><span class="logo-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span></span>
             <span><small>Casa templada todo el año</small><strong>24 Climatizaciones</strong></span>
           </div>
-          <div class="mobile-trust" aria-label="Experiencia y marcas frecuentes"><b>Más de 18 años</b><span>Marcas:</span><small>Midea · Carrier · Surrey · BGH · LG · Samsung · Peisa · Baxi · Ariston</small></div>
+          <div class="mobile-trust" aria-label="Experiencia y marcas frecuentes">
+            <div class="mobile-trust-kicker"><b>Más de 18 años</b><span>Marcas frecuentes</span></div>
+            <div class="sponsor-lane" aria-hidden="true">
+              <div class="mobile-sponsor-track cold">
+                <span>Midea</span><span>Carrier</span><span>Surrey</span><span>BGH</span><span>Samsung</span><span>LG</span><span>Daikin</span><span>York</span>
+                <span>Midea</span><span>Carrier</span><span>Surrey</span><span>BGH</span><span>Samsung</span><span>LG</span><span>Daikin</span><span>York</span>
+              </div>
+            </div>
+            <div class="sponsor-lane" aria-hidden="true">
+              <div class="mobile-sponsor-track hot">
+                <span>Peisa</span><span>Baxi</span><span>Ariston</span><span>Orbis</span><span>Rheem</span><span>Eskabe</span><span>Electrolux</span><span>Hitachi</span>
+                <span>Peisa</span><span>Baxi</span><span>Ariston</span><span>Orbis</span><span>Rheem</span><span>Eskabe</span><span>Electrolux</span><span>Hitachi</span>
+              </div>
+            </div>
+          </div>
           <div class="badge-row">
             <span class="badge"><span class="badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span> Rápido</span>
             <span class="badge"><span class="badge-icon warm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M6 12h12M8 17h8"/><circle cx="8" cy="7" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="10" cy="17" r="1.6"/></svg></span> Sin vueltas</span>
