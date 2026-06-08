@@ -1,5 +1,21 @@
-const CACHE = '24-climatizaciones-v4';
-const ASSETS = ['./','./index.html','./icon.svg','./manifest.webmanifest'];
+const CACHE = '24-climatizaciones-v5';
+const ASSETS = [
+  './',
+  './index.html',
+  './icon.svg',
+  './manifest.webmanifest',
+  './assets/brands/ariston.svg',
+  './assets/brands/bgh.svg',
+  './assets/brands/carrier.svg',
+  './assets/brands/daikin.svg',
+  './assets/brands/electrolux.svg',
+  './assets/brands/hitachi.svg',
+  './assets/brands/lg.svg',
+  './assets/brands/midea.svg',
+  './assets/brands/philco.svg',
+  './assets/brands/rheem.svg',
+  './assets/brands/samsung.svg'
+];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).catch(() => null));
   self.skipWaiting();
