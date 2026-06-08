@@ -2,3 +2,5 @@ qa-*.png
 .server.*.log
 .DS_Store
 Thumbs.db
+
+.vercel
