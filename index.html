@@ -7,10 +7,24 @@
   <meta name="description" content="24 Climatizaciones. Pedí instalación, reparación o mantenimiento de climatización por WhatsApp con diagnóstico guiado, domicilio en mapa y datos listos para cotizar." />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#071226" />
+  <link rel="canonical" href="https://24-climatizaciones.vercel.app/" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://24-climatizaciones.vercel.app/" />
+  <meta property="og:site_name" content="24 Climatizaciones" />
   <meta property="og:title" content="24 Climatizaciones | Presupuesto rápido por WhatsApp" />
   <meta property="og:description" content="Contá qué necesitás, marcá tu domicilio y enviá una solicitud clara para cotizar climatización." />
+  <meta property="og:image" content="https://24-climatizaciones.vercel.app/social-preview.png?v=2" />
+  <meta property="og:image:secure_url" content="https://24-climatizaciones.vercel.app/social-preview.png?v=2" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Logo de 24 Climatizaciones con casa a 24 grados y servicio por WhatsApp." />
   <meta property="og:locale" content="es_AR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="24 Climatizaciones | Presupuesto rápido por WhatsApp" />
+  <meta name="twitter:description" content="Instalación, reparación y mantenimiento de climatización con diagnóstico guiado y ubicación precisa." />
+  <meta name="twitter:image" content="https://24-climatizaciones.vercel.app/social-preview.png?v=2" />
+  <meta name="twitter:image:alt" content="Logo de 24 Climatizaciones con casa a 24 grados." />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,6 +39,8 @@
     "@type":"HVACBusiness",
     "name":"24 Climatizaciones",
     "telephone":"+5493513266650",
+    "url":"https://24-climatizaciones.vercel.app/",
+    "image":"https://24-climatizaciones.vercel.app/social-preview.png?v=2",
     "areaServed":"Córdoba y alrededores",
     "priceRange":"$$",
     "sameAs":["https://wa.me/5493513266650"]
@@ -583,7 +599,7 @@
       </div>
       <div class="faq">
         <div class="faq-item open"><button class="faq-q" type="button"><span>¿Por qué no hay botón de llamada?</span><span>+</span></button><div class="faq-a" style="max-height:120px"><p>Porque 24 Climatizaciones centraliza presupuestos por WhatsApp para recibir fotos, ubicación y detalles. Las llamadas quedan para clientes con turno o seguimiento.</p></div></div>
-        <div class="faq-item"><button class="faq-q" type="button"><span>¿El mapa manda la ubicación exacta?</span><span>+</span></button><div class="faq-a"><p>Sí. El mensaje incluye la dirección, un enlace de mapa y coordenadas técnicas para ubicar el domicilio con precisión.</p></div></div>
+        <div class="faq-item"><button class="faq-q" type="button"><span>¿El mapa manda la ubicación exacta?</span><span>+</span></button><div class="faq-a"><p>Sí. El mensaje incluye dirección, pin de Google Maps, ruta desde la ubicación actual del técnico y coordenadas para ubicar el domicilio con precisión.</p></div></div>
         <div class="faq-item"><button class="faq-q" type="button"><span>¿Puedo pedir servicio si no sé qué tiene el equipo?</span><span>+</span></button><div class="faq-a"><p>Sí. Elegí “No estoy seguro” o describí el síntoma. Se enviará como diagnóstico para revisar.</p></div></div>
         <div class="faq-item"><button class="faq-q" type="button"><span>¿Tengo que subir fotos en la web?</span><span>+</span></button><div class="faq-a"><p>No. La web prepara el pedido y te indica qué fotos conviene enviar después por WhatsApp.</p></div></div>
       </div>
@@ -634,6 +650,7 @@
       name: '',
       time: '',
       extra: '',
+      requestId: '',
       flowStarted: false,
       manual: { equipment:false, service:false, property:false }
     };
@@ -1066,29 +1083,61 @@
       });
     }
 
+    function getRequestId(){
+      if(state.requestId) return state.requestId;
+      const now = new Date();
+      const stamp = [
+        now.getFullYear().toString().slice(-2),
+        String(now.getMonth() + 1).padStart(2, '0'),
+        String(now.getDate()).padStart(2, '0'),
+        String(now.getHours()).padStart(2, '0'),
+        String(now.getMinutes()).padStart(2, '0')
+      ].join('');
+      const suffix = Math.random().toString(36).slice(2, 5).toUpperCase();
+      state.requestId = `24-${stamp}-${suffix}`;
+      return state.requestId;
+    }
+
+    function googleMapsPinLink(){
+      if(!state.coords) return 'No marcado';
+      const point = `${state.coords.lat.toFixed(6)},${state.coords.lng.toFixed(6)}`;
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point)}`;
+    }
+
+    function googleMapsRouteLink(){
+      if(!state.coords) return 'No marcado';
+      const point = `${state.coords.lat.toFixed(6)},${state.coords.lng.toFixed(6)}`;
+      return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(point)}&travelmode=driving&dir_action=navigate`;
+    }
+
     function buildMessage(){
       const coords = state.coords ? `${state.coords.lat.toFixed(6)}, ${state.coords.lng.toFixed(6)}` : 'No marcado';
-      const mapLink = state.coords ? `https://www.openstreetmap.org/?mlat=${state.coords.lat.toFixed(6)}&mlon=${state.coords.lng.toFixed(6)}#map=18/${state.coords.lat.toFixed(6)}/${state.coords.lng.toFixed(6)}` : 'No marcado';
-      const answers = Object.entries(state.answers).filter(([k,v]) => v).map(([k,v]) => `• ${labelFor(k)}: ${v}`).join('\n') || '• Sin datos extra';
-      const photos = photoSuggestions().map(p => `• ${p}: ${state.photos[p] ? 'la tengo' : 'a enviar si hace falta'}`).join('\n');
-      return `Hola 24 Climatizaciones, quiero solicitar un presupuesto de climatización.\n\n`+
-        `NECESIDAD\n`+
-        `• Equipo: ${state.equipment || '-'}\n`+
-        `• Servicio probable: ${state.service || '-'}\n`+
-        `• Prioridad: ${state.urgency || 'Programado'}\n`+
-        `• Lugar: ${state.property || '-'}\n`+
-        `• Descripción: ${state.problem || '-'}\n\n`+
-        `DOMICILIO\n`+
-        `• Dirección: ${shortAddress()}\n`+
-        `• Mapa: ${mapLink}\n`+
-        `• Coordenadas técnicas: ${coords}\n\n`+
-        `DATOS PARA PRESUPUESTAR\n${answers}\n\n`+
-        `FOTOS DISPONIBLES / SUGERIDAS\n${photos}\n\n`+
-        `CONTACTO\n`+
-        `• Nombre: ${state.name || '-'}\n`+
-        `• Horario ideal: ${state.time || '-'}\n`+
+      const googlePin = googleMapsPinLink();
+      const googleRoute = googleMapsRouteLink();
+      const answers = Object.entries(state.answers).filter(([k,v]) => v).map(([k,v]) => `• ${labelFor(k)}: ${v}`).join('\n') || '• Sin datos extra cargados';
+      const photos = photoSuggestions().map(p => `• ${p}: ${state.photos[p] ? 'cliente indicó que la tiene' : 'pedir si hace falta'}`).join('\n');
+      const requestedAt = new Date().toLocaleString('es-AR', { dateStyle:'short', timeStyle:'short' });
+      return `*24 CLIMATIZACIONES | NUEVA SOLICITUD*\n`+
+        `ID: ${getRequestId()}\n`+
+        `Fecha: ${requestedAt}\n`+
+        `Prioridad: *${state.urgency || 'Programado'}*\n\n`+
+        `*CONTACTO DEL CLIENTE*\n`+
+        `• Nombre: ${state.name || 'A confirmar'}\n`+
+        `• Horario ideal: ${state.time || 'A coordinar'}\n\n`+
+        `*TRABAJO SOLICITADO*\n`+
+        `• Equipo: ${state.equipment || 'A confirmar'}\n`+
+        `• Servicio probable: ${state.service || 'Diagnóstico'}\n`+
+        `• Lugar: ${state.property || 'A confirmar'}\n`+
+        `• Descripción: ${state.problem || 'Sin descripción'}\n`+
         `• Detalle extra: ${state.extra || '-'}\n\n`+
-        `Entiendo que la coordinación inicial y presupuesto se realizan por WhatsApp.`;
+        `*UBICACIÓN PARA EL TÉCNICO*\n`+
+        `• Dirección: ${shortAddress()}\n`+
+        `• Ruta Google Maps desde tu ubicación: ${googleRoute}\n`+
+        `• Pin Google Maps: ${googlePin}\n`+
+        `• Coordenadas: ${coords}\n\n`+
+        `*DATOS PARA COTIZAR*\n${answers}\n\n`+
+        `*FOTOS SUGERIDAS*\n${photos}\n\n`+
+        `Nota operativa: abrir la ruta de Google Maps para calcular distancia, tiempo de viaje y costo de traslado según la ubicación actual del técnico.`;
     }
 
     function labelFor(key){
