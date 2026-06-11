@@ -245,9 +245,11 @@
     .step h2{font-family:var(--display);font-size:clamp(1.45rem,3.6vw,2.08rem);letter-spacing:-.052em;line-height:1.04;color:white;margin-bottom:8px}.hint{color:#a8b9df;font-size:.92rem;margin-bottom:14px}
     .step-note{margin-top:10px;border:1px solid rgba(255,189,89,.24);background:rgba(255,189,89,.10);color:#ffe3bd;border-radius:15px;padding:10px 11px;font-weight:850;font-size:.78rem}
     .panel{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:15px;box-shadow:0 22px 50px -42px black}
-    .smart-text{position:relative}.smart-text textarea{width:100%;min-height:120px;resize:vertical;background:#e9f7ff;color:#0b1730;border:0;border-radius:20px;padding:17px;font-weight:800;outline:none}.smart-text textarea::placeholder{color:#54729f;font-weight:800}
-    .clear-btn{position:absolute;right:11px;bottom:11px;background:#0b1730;color:white;border:0;border-radius:13px;padding:8px 11px;font-weight:900;font-size:.78rem}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#eaf2ff;border-radius:999px;padding:8px 10px;font-size:.8rem;font-weight:900;transition:.18s ease;display:inline-flex;align-items:center;gap:6px}.chip:hover,.chip.active{background:#e9f7ff;color:#071226;border-color:#e9f7ff}.chip-icon{width:22px;height:22px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.08);color:#8ed8ff}.chip:hover .chip-icon,.chip.active .chip-icon{background:#fff;color:#0c59d6}.chip-icon svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .smart-text{position:relative}.smart-text textarea{width:100%;min-height:132px;resize:vertical;background:#e9f7ff;color:#0b1730;border:0;border-radius:20px;padding:17px 88px 17px 17px;font-weight:800;outline:none;box-shadow:inset 0 0 0 1px rgba(22,119,255,.06)}.smart-text textarea:focus{box-shadow:0 0 0 4px rgba(28,200,255,.15),inset 0 0 0 1px rgba(22,119,255,.16)}.smart-text textarea::placeholder{color:#54729f;font-weight:800}
+    .clear-btn{position:absolute;right:26px;top:26px;background:#0b1730;color:white;border:0;border-radius:13px;padding:8px 11px;font-weight:900;font-size:.78rem}
+    .problem-helper{margin-top:10px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.06);border-radius:18px;padding:11px;display:grid;gap:10px}.problem-helper-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.problem-helper-head b{color:white;font-size:.84rem}.problem-helper-head span{color:#a8b9df;font-size:.73rem;font-weight:850;text-align:right;max-width:230px;line-height:1.25}.problem-checks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.problem-check{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);border-radius:13px;padding:8px 7px;color:#b9caee;font-size:.72rem;font-weight:950;white-space:nowrap}.problem-check i{width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.24);flex:none}.problem-check.done{background:rgba(37,214,111,.12);border-color:rgba(37,214,111,.25);color:#dcffe8}.problem-check.done i{border-color:#25d66f;background:#25d66f;box-shadow:inset 0 0 0 3px #0b1730}
+    .example-title{margin-top:13px;color:#b3c4ea;font-size:.74rem;font-weight:950}.quick-examples{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.example-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#eaf2ff;border-radius:14px;padding:8px 10px;font-size:.76rem;font-weight:950;display:inline-flex;align-items:center;gap:6px}.example-btn:hover{background:#e9f7ff;color:#071226;border-color:#e9f7ff}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.chip{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#eaf2ff;border-radius:999px;padding:8px 10px;font-size:.8rem;font-weight:900;transition:.18s ease;display:inline-flex;align-items:center;gap:6px}.chip:hover,.chip.active{background:#e9f7ff;color:#071226;border-color:#e9f7ff}.chip-icon{width:22px;height:22px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.08);color:#8ed8ff}.chip:hover .chip-icon,.chip.active .chip-icon{background:#fff;color:#0c59d6}.chip-icon svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
     .prediction{margin-top:13px}.predict-card{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:10px}.predict-card .ico{width:42px;height:42px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cold),var(--warm));color:white}.predict-card .ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round}.predict-card b{display:block;color:white;font-size:.9rem}.predict-card small{display:block;color:#95a9d3;font-size:.75rem;font-weight:800}.confidence{font-size:.72rem;font-weight:950;color:#8affb6;background:rgba(37,214,111,.12);border:1px solid rgba(37,214,111,.22);border-radius:999px;padding:6px 8px}
     .safety{display:none;margin-top:12px;background:rgba(255,68,90,.14);border:1px solid rgba(255,68,90,.26);color:#ffdbe1;border-radius:17px;padding:12px;font-weight:840;font-size:.81rem}.safety.show{display:block}
     .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini-title{color:#b3c4ea;font-weight:950;font-size:.78rem;margin:14px 0 8px}.mini-title:first-child{margin-top:0}
@@ -289,6 +291,7 @@
 
     @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.foot-links{text-align:left}.social-block{justify-items:start}.social-icons{justify-content:flex-start}.footer-brand-head{display:grid}.experience-seal{width:max-content}}
     @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.micro{border-radius:15px;padding:10px 8px;gap:6px;min-width:0}.micro::after{width:52px;height:52px;right:-18px;top:-20px}.micro-icon{width:30px;height:30px;border-radius:12px}.micro-icon svg{width:16px;height:16px}.micro b{font-size:.86rem;letter-spacing:-.03em}.micro small{font-size:.64rem;line-height:1.1}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.footer-brands{border-radius:24px;padding:15px;margin-bottom:24px}.footer-brand-copy h2{font-size:1.55rem}.footer-brand-copy p{font-size:.83rem}.experience-seal{font-size:.76rem;padding:7px 10px}.brand-logo-card{height:45px;min-width:112px;border-radius:14px;padding:8px 13px}.brand-logo-card img{max-width:88px;height:23px}.brand-logo-card.carrier img{height:29px}.brand-logo-card.lg img{height:27px}.brand-logo-card.rheem img{height:29px;width:29px}.brand-logo-card.samsung img{height:24px}.brand-logo-card.hitachi img{height:18px}.brand-logo-card.bgh img{height:25px}.brand-logo-card.philco img{height:21px}}
+    @media(max-width:650px){.problem-helper-head{display:grid}.problem-helper-head span{text-align:left;max-width:none}.problem-checks{grid-template-columns:repeat(2,minmax(0,1fr))}.problem-check{font-size:.7rem}.quick-examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.example-btn{justify-content:center;padding:8px 7px;font-size:.72rem}.smart-text textarea{padding-right:72px}.clear-btn{right:22px}}
     @media(max-width:650px){.brand-signal{gap:13px;margin-bottom:18px}.brand-signal .logo{--logo-size:72px;--orbit:34px;border-radius:22px}.brand-signal small{font-size:.66rem}.brand-signal strong{font-size:1.32rem}}
   </style>
 </head>
@@ -372,11 +375,30 @@
 
           <div class="screen">
             <section class="step active" data-step="1" aria-labelledby="s1-title">
-              <h2 id="s1-title">¿Qué necesitás resolver?</h2>
-              <p class="hint">Contanos el problema o elegí una opción. Con eso preparamos una solicitud clara para responderte más rápido.</p>
+              <h2 id="s1-title">Contanos qu&eacute; pasa.</h2>
+              <p class="hint">Escrib&iacute; como lo mandar&iacute;as por WhatsApp. Mientras m&aacute;s claro sea el mensaje, mejor podemos orientarte desde el primer contacto.</p>
               <div class="panel smart-text">
-                <textarea id="problemText" aria-label="Síntoma o servicio que necesitás" placeholder="Escribí el síntoma o el servicio que necesitás"></textarea>
+                <textarea id="problemText" aria-label="Problema, s&iacute;ntoma o servicio que necesit&aacute;s" placeholder="Ej: El split del dormitorio no enfr&iacute;a desde ayer y la unidad exterior est&aacute; en el balc&oacute;n."></textarea>
                 <button class="clear-btn" id="clearText" type="button">Limpiar</button>
+                <div class="problem-helper" id="problemHelper" aria-label="Datos que ayudan a preparar el presupuesto">
+                  <div class="problem-helper-head">
+                    <b>Para ayudarte mejor</b>
+                    <span>Sum&aacute; lo que sepas. Si algo no lo sab&eacute;s, segu&iacute; igual.</span>
+                  </div>
+                  <div class="problem-checks">
+                    <span class="problem-check" data-guide-check="equipment"><i></i>Equipo</span>
+                    <span class="problem-check" data-guide-check="symptom"><i></i>Qu&eacute; pasa</span>
+                    <span class="problem-check" data-guide-check="time"><i></i>Desde cu&aacute;ndo</span>
+                    <span class="problem-check" data-guide-check="access"><i></i>Ubicaci&oacute;n</span>
+                  </div>
+                </div>
+                <div class="example-title">Ejemplos r&aacute;pidos</div>
+                <div class="quick-examples" id="problemExamples">
+                  <button class="example-btn" type="button" data-example="Quiero instalar un aire split nuevo. La unidad exterior ir&iacute;a en balc&oacute;n o pared exterior.">Instalaci&oacute;n</button>
+                  <button class="example-btn" type="button" data-example="El aire no enfr&iacute;a y hace ruido. Empez&oacute; hace unos d&iacute;as.">No enfr&iacute;a</button>
+                  <button class="example-btn" type="button" data-example="La caldera no enciende o pierde presi&oacute;n. Necesito que la revisen.">Caldera</button>
+                </div>
+                <div class="example-title">Atajos frecuentes</div>
                 <div class="chips" id="symptomChips">
                   <button class="chip" data-text="aire split no enfría"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span>No enfría</button>
                   <button class="chip" data-text="aire pierde agua"><span class="chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>Pierde agua</button>
@@ -735,9 +757,39 @@
     const problemText = $('#problemText');
     const predictionBox = $('#predictionBox');
     const safetyBox = $('#safetyBox');
+    const problemGuideChecks = $$('[data-guide-check]');
 
     function normalize(txt){
       return (txt || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    }
+
+    function problemGuideFlags(){
+      const t = normalize(state.problem);
+      const has = words => words.some(word => t.includes(normalize(word)));
+      const hasText = state.problem.trim().length > 2;
+      return {
+        equipment: has(['aire','split','acondicionado','caldera','radiador','radiadores','termostato','calefaccion','calefactor']) || !!state.equipment,
+        symptom: hasText && (has(['no enfria','no calienta','pierde','gotea','ruido','no enciende','no prende','error','falla','instalar','instalacion','limpieza','mantenimiento','presion','urgente']) || state.problem.trim().length > 18),
+        time: has(['hoy','ayer','recien','recién','desde','dias','días','semana','mes','urgente','mañana','manana','hace']),
+        access: has(['balcon','balcón','terraza','patio','pared','exterior','interior','dormitorio','living','cocina','departamento','casa','local','oficina','piso','techo','altura']) || !!state.property
+      };
+    }
+
+    function problemCoachText(){
+      if(!state.problem.trim()) return 'Con una frase ya podemos avanzar.';
+      const flags = problemGuideFlags();
+      if(!flags.equipment) return 'Sumá si es aire, split, caldera o radiadores.';
+      if(!flags.symptom) return 'Contá qué falla o qué servicio necesitás.';
+      if(!flags.time) return 'Si podés, agregá desde cuándo pasa.';
+      if(!flags.access) return 'Si podés, agregá dónde está o cómo se accede.';
+      return 'Perfecto. En el próximo paso confirmás equipo y servicio.';
+    }
+
+    function updateProblemGuide(){
+      const flags = problemGuideFlags();
+      problemGuideChecks.forEach(item => {
+        item.classList.toggle('done', !!flags[item.dataset.guideCheck]);
+      });
     }
 
     function analyzeIntent(){
@@ -779,6 +831,7 @@
       const rawScore = Math.max(...Object.values(eqScore)) + Math.max(...Object.values(serviceScore)) + Math.max(...Object.values(propertyScore)) + (urgent ? 10 : 0) + (risk ? 16 : 0) + (t.length > 16 ? 12 : 0) + (t.length > 70 ? 8 : 0);
       state.confidence = t ? Math.max(18, Math.min(96, rawScore)) : 0;
       updatePrediction();
+      updateProblemGuide();
       updateChoices();
       updateSummary();
       $('#next1').disabled = state.problem.trim().length < 3;
@@ -802,7 +855,7 @@
       const urg = state.urgency || 'Programado';
       const iconType = state.risk ? 'warn' : state.equipment.includes('Caldera') ? 'flame' : state.equipment.includes('Aire') ? 'air' : state.problem.trim() ? 'search' : 'robot';
       const title = state.problem.trim() ? `${svc} · ${eq}` : 'Esperando descripción';
-      const small = state.problem.trim() ? `Prioridad: ${urg}. Podés corregirlo en el próximo paso.` : 'Con una frase ya podemos avanzar.';
+      const small = state.problem.trim() ? `${problemCoachText()} Prioridad: ${urg}.` : 'Con una frase ya podemos avanzar.';
       predictionBox.innerHTML = `<div class="predict-card"><div class="ico">${uiIcon(iconType)}</div><div><b>${title}</b><small>${small}</small></div><span class="confidence">${state.confidence}%</span></div>`;
     }
 
@@ -875,6 +928,15 @@
     problemText.addEventListener('input', () => { state.problem = problemText.value.trim(); analyzeIntent(); });
     $('#clearText').addEventListener('click', () => {
       state.problem = ''; problemText.value = ''; state.equipment = ''; state.service = ''; state.property = ''; state.urgency = 'Programado'; state.risk = false; state.manual = { equipment:false, service:false, property:false }; $$('#symptomChips .chip').forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); }); analyzeIntent();
+    });
+    $$('#problemExamples .example-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        problemText.value = btn.dataset.example || '';
+        state.problem = problemText.value.trim();
+        $$('#symptomChips .chip').forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
+        analyzeIntent();
+        problemText.focus();
+      });
     });
     $$('#symptomChips .chip').forEach(chip => {
       chip.setAttribute('aria-pressed', 'false');
