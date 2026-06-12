@@ -16,7 +16,8 @@ Abrir `index.html` directamente alcanza para revisar la interfaz. Para probar PW
 
 ## Calificaciones de Google
 
-La seccion de opiniones funciona con fallback honesto: si no hay credenciales, envia a la ficha oficial de Google. Para mostrar rating real en Vercel, configurar estas variables:
+La seccion de opiniones funciona con fallback honesto: si no hay credenciales, envia a la ficha oficial de Google. Para mostrar rating real en Vercel, configurar:
 
 - `GOOGLE_PLACES_API_KEY`
-- `GOOGLE_PLACE_ID`
+- `GOOGLE_PLACE_ID` opcional. Si falta, la API busca `24 Climatizaciones Cordoba Argentina` con Places Text Search.
+- `GOOGLE_PLACE_QUERY` opcional si se quiere ajustar la busqueda.

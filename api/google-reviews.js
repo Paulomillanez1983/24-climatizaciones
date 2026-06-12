@@ -1,4 +1,7 @@
 const REVIEW_URL = 'https://g.page/r/CQbJALb3zyusEBM/review';
+const DEFAULT_QUERY = '24 Climatizaciones Cordoba Argentina';
+const BUSINESS_WEBSITE = '24-climatizaciones.vercel.app';
+const BUSINESS_PHONE = '0351 811-1652';
 
 function sendJson(response, statusCode, body, maxAge = 900) {
   response.statusCode = statusCode;
@@ -16,6 +19,97 @@ function cleanReview(review) {
   };
 }
 
+function normalize(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function pickBestTextSearchCandidate(places) {
+  const normalizedName = '24 climatizaciones';
+  return (places || []).find((place) => {
+    const name = normalize(place.displayName && place.displayName.text);
+    const website = normalize(place.websiteUri);
+    const phone = normalize(place.nationalPhoneNumber || place.internationalPhoneNumber);
+    return name.includes(normalizedName) || website.includes(BUSINESS_WEBSITE) || phone.includes(normalize(BUSINESS_PHONE));
+  }) || (places || [])[0];
+}
+
+async function fetchReviewsByPlaceId(apiKey, placeId) {
+  const params = new URLSearchParams({
+    place_id: placeId,
+    fields: 'rating,user_ratings_total,url,reviews',
+    language: 'es',
+    reviews_sort: 'newest',
+    key: apiKey
+  });
+
+  const googleResponse = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?${params}`);
+  const payload = await googleResponse.json();
+
+  if (!googleResponse.ok || payload.status !== 'OK') {
+    return null;
+  }
+
+  const result = payload.result || {};
+  return {
+    rating: result.rating || null,
+    totalReviewCount: result.user_ratings_total || 0,
+    url: result.url || REVIEW_URL,
+    reviews: Array.isArray(result.reviews) ? result.reviews.slice(0, 3).map(cleanReview) : []
+  };
+}
+
+async function fetchReviewsByTextSearch(apiKey) {
+  const googleResponse = await fetch('https://places.googleapis.com/v1/places:searchText', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': apiKey,
+      'X-Goog-FieldMask': [
+        'places.id',
+        'places.displayName',
+        'places.formattedAddress',
+        'places.googleMapsUri',
+        'places.rating',
+        'places.userRatingCount',
+        'places.websiteUri',
+        'places.nationalPhoneNumber',
+        'places.internationalPhoneNumber'
+      ].join(',')
+    },
+    body: JSON.stringify({
+      textQuery: process.env.GOOGLE_PLACE_QUERY || DEFAULT_QUERY,
+      languageCode: 'es-419',
+      regionCode: 'AR',
+      includePureServiceAreaBusinesses: true,
+      locationBias: {
+        circle: {
+          center: { latitude: -31.3994723, longitude: -64.1896443 },
+          radius: 50000
+        }
+      }
+    })
+  });
+  const payload = await googleResponse.json();
+
+  if (!googleResponse.ok || !Array.isArray(payload.places) || !payload.places.length) {
+    return null;
+  }
+
+  const place = pickBestTextSearchCandidate(payload.places);
+  if (!place) return null;
+
+  return {
+    placeId: place.id || null,
+    rating: place.rating || null,
+    totalReviewCount: place.userRatingCount || 0,
+    url: place.googleMapsUri || REVIEW_URL,
+    reviews: []
+  };
+}
+
 module.exports = async function googleReviews(request, response) {
   if (request.method !== 'GET') {
     response.setHeader('Allow', 'GET');
@@ -26,7 +120,7 @@ module.exports = async function googleReviews(request, response) {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
   const placeId = process.env.GOOGLE_PLACE_ID;
 
-  if (!apiKey || !placeId) {
+  if (!apiKey) {
     sendJson(response, 200, {
       configured: false,
       reviewUrl: REVIEW_URL
@@ -34,19 +128,12 @@ module.exports = async function googleReviews(request, response) {
     return;
   }
 
-  const params = new URLSearchParams({
-    place_id: placeId,
-    fields: 'rating,user_ratings_total,url,reviews',
-    language: 'es',
-    reviews_sort: 'newest',
-    key: apiKey
-  });
-
   try {
-    const googleResponse = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?${params}`);
-    const payload = await googleResponse.json();
+    const result = placeId
+      ? await fetchReviewsByPlaceId(apiKey, placeId)
+      : await fetchReviewsByTextSearch(apiKey);
 
-    if (!googleResponse.ok || payload.status !== 'OK') {
+    if (!result || typeof result.rating !== 'number') {
       sendJson(response, 502, {
         configured: true,
         reviewUrl: REVIEW_URL,
@@ -55,14 +142,14 @@ module.exports = async function googleReviews(request, response) {
       return;
     }
 
-    const result = payload.result || {};
     sendJson(response, 200, {
       configured: true,
-      rating: result.rating || null,
-      totalReviewCount: result.user_ratings_total || 0,
+      placeId: result.placeId || placeId || null,
+      rating: result.rating,
+      totalReviewCount: result.totalReviewCount || 0,
       url: result.url || REVIEW_URL,
       reviewUrl: REVIEW_URL,
-      reviews: Array.isArray(result.reviews) ? result.reviews.slice(0, 3).map(cleanReview) : []
+      reviews: result.reviews || []
     });
   } catch (error) {
     sendJson(response, 502, {
