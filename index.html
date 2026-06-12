@@ -1616,34 +1616,67 @@
       return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(point)}&travelmode=driving&dir_action=navigate`;
     }
 
+    function cleanLine(value, fallback='A confirmar'){
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      return text || fallback;
+    }
+
+    function computedPriority(){
+      const combined = normalize([
+        state.problem,
+        state.extra,
+        state.time,
+        Object.values(state.answers || {}).join(' ')
+      ].join(' '));
+      const riskWords = ['olor a gas','fuga de gas','perdida de gas','pérdida de gas','humo','chispa','chispas','quemado','monoxido','monóxido','explosion','explosión','llama amarilla'];
+      const urgentWords = ['urgente','hoy','ahora','lo antes','sin calefaccion','sin calefacción','no tengo calefaccion','no tengo calefacción','mucho calor','mucho frio','mucho frío','bebe','bebé','adulto mayor','no enciende','no prende'];
+      if(state.risk || riskWords.some(word => combined.includes(normalize(word)))) return 'Riesgo / urgente';
+      if(state.urgency === 'Urgente' || urgentWords.some(word => combined.includes(normalize(word)))) return 'Urgente';
+      return 'Programado';
+    }
+
+    function formattedPhotoBlock(){
+      const suggestions = photoSuggestions();
+      const available = suggestions.filter(p => state.photos[p]);
+      const pending = suggestions.filter(p => !state.photos[p]);
+      const blocks = [];
+      blocks.push(available.length
+        ? `Disponibles indicadas:\n${available.map(p => `• ${p}`).join('\n')}`
+        : 'Disponibles indicadas: ninguna por ahora');
+      if(pending.length) blocks.push(`A pedir si hace falta:\n${pending.map(p => `• ${p}`).join('\n')}`);
+      return blocks.join('\n');
+    }
+
     function buildMessage(){
       const coords = state.coords ? `${state.coords.lat.toFixed(6)}, ${state.coords.lng.toFixed(6)}` : 'No marcado';
       const googlePin = googleMapsPinLink();
       const googleRoute = googleMapsRouteLink();
-      const answers = Object.entries(state.answers).filter(([k,v]) => v).map(([k,v]) => `• ${labelFor(k)}: ${v}`).join('\n') || '• Sin datos extra cargados';
-      const photos = photoSuggestions().map(p => `• ${p}: ${state.photos[p] ? 'cliente indicó que la tiene' : 'pedir si hace falta'}`).join('\n');
+      const priority = computedPriority();
+      const answers = Object.entries(state.answers).filter(([k,v]) => v).map(([k,v]) => `• ${labelFor(k)}: ${cleanLine(v)}`).join('\n') || '• Sin datos técnicos cargados';
+      const photos = formattedPhotoBlock();
       const requestedAt = new Date().toLocaleString('es-AR', { dateStyle:'short', timeStyle:'short' });
-      return `*24 CLIMATIZACIONES | NUEVA SOLICITUD*\n`+
+      return `*24 CLIMATIZACIONES | SOLICITUD DE PRESUPUESTO*\n`+
         `ID: ${getRequestId()}\n`+
         `Fecha: ${requestedAt}\n`+
-        `Prioridad: *${state.urgency || 'Programado'}*\n\n`+
-        `*CONTACTO DEL CLIENTE*\n`+
-        `• Nombre: ${state.name || 'A confirmar'}\n`+
-        `• Horario ideal: ${state.time || 'A coordinar'}\n\n`+
-        `*TRABAJO SOLICITADO*\n`+
-        `• Equipo: ${state.equipment || 'A confirmar'}\n`+
-        `• Servicio probable: ${state.service || 'Diagnóstico'}\n`+
-        `• Lugar: ${state.property || 'A confirmar'}\n`+
-        `• Descripción: ${state.problem || 'Sin descripción'}\n`+
-        `• Detalle extra: ${state.extra || '-'}\n\n`+
-        `*UBICACIÓN PARA EL TÉCNICO*\n`+
+        `Prioridad: *${priority}*\n\n`+
+        `*RESUMEN PARA EL TÉCNICO*\n`+
+        `• Trabajo: ${cleanLine(state.service, 'Diagnóstico')} · ${cleanLine(state.equipment)}\n`+
+        `• Problema: ${cleanLine(state.problem, 'Sin descripción')}\n`+
+        `• Lugar: ${cleanLine(state.property)}\n`+
+        `• Cliente: ${cleanLine(state.name)}\n`+
+        `• Horario ideal: ${cleanLine(state.time, 'A coordinar')}\n\n`+
+        `*UBICACIÓN*\n`+
         `• Dirección: ${shortAddress()}\n`+
-        `• Ruta Google Maps desde tu ubicación: ${googleRoute}\n`+
-        `• Pin Google Maps: ${googlePin}\n`+
+        `• Ruta Google Maps: ${googleRoute}\n`+
+        `• Pin: ${googlePin}\n`+
         `• Coordenadas: ${coords}\n\n`+
         `*DATOS PARA COTIZAR*\n${answers}\n\n`+
-        `*FOTOS SUGERIDAS*\n${photos}\n\n`+
-        `Nota operativa: abrir la ruta de Google Maps para calcular distancia, tiempo de viaje y costo de traslado según la ubicación actual del técnico.`;
+        `*OBSERVACIONES*\n`+
+        `• ${state.extra ? `Detalle extra: ${cleanLine(state.extra, '-')}` : 'Sin detalle extra cargado'}\n\n`+
+        `*FOTOS*\n${photos}\n\n`+
+        `*COORDINACIÓN*\n`+
+        `• Abrir la ruta de Google Maps para estimar distancia, tiempo de llegada y disponibilidad.\n`+
+        `• Si falta una foto clave, pedirla por este mismo WhatsApp antes de confirmar el trabajo.`;
     }
 
     function labelFor(key){
@@ -1663,6 +1696,7 @@
       state.name = $('#nameInput').value.trim();
       state.time = $('#timeInput').value;
       state.extra = $('#extraInput').value.trim();
+      state.urgency = computedPriority();
       const msg = buildMessage();
       $('#messagePreview').textContent = msg;
       $('#sendWhatsApp').href = waLink(msg);
@@ -1674,7 +1708,7 @@
       if(finalScore) finalScore.textContent = `${Math.max(12, parseInt(scoreText.textContent, 10) || 12)}% listo`;
       const pb = $('#priorityBadge');
       pb.textContent = state.urgency;
-      pb.className = 'priority' + (state.risk ? ' danger' : state.urgency === 'Urgente' ? ' warn' : '');
+      pb.className = 'priority' + (state.urgency === 'Riesgo / urgente' ? ' danger' : state.urgency === 'Urgente' ? ' warn' : '');
       updateSummary();
     }
 
