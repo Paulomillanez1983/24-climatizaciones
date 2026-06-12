@@ -350,16 +350,18 @@
 
     /* Below fold */
     .section{padding:48px 0}.section-head{text-align:center;max-width:690px;margin:0 auto 24px}.section-head .tag{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:#0a48b7;font-weight:950;font-size:.77rem;box-shadow:var(--shadow-soft);margin-bottom:12px}.section-head h2{font-family:var(--display);font-size:clamp(1.7rem,3.2vw,3rem);letter-spacing:-.055em;line-height:1;margin-bottom:10px}.section-head p{color:var(--muted);font-size:1rem}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.info-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:17px;box-shadow:var(--shadow-soft)}.info-card .ico{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#e8f4ff,#fff2e4);display:grid;place-items:center;color:#0b62de;margin-bottom:12px}.info-card .ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.info-card h3{font-family:var(--display);letter-spacing:-.04em;font-size:1.02rem;margin-bottom:6px}.info-card p{color:var(--muted);font-size:.87rem}.quick-band{background:var(--navy);color:white;border-radius:30px;padding:26px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.quick-band::before{content:"";position:absolute;width:450px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(22,119,255,.35),transparent 70%);right:-130px;top:-80px}.quick-band>*{position:relative;z-index:1}.quick-band h2{font-family:var(--display);font-size:clamp(1.65rem,3.2vw,3rem);letter-spacing:-.055em;line-height:1;margin-bottom:8px}.quick-band p{color:#adbee3}.faq{display:grid;gap:10px;max-width:820px;margin:auto}.faq-item{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-soft)}.faq-q{width:100%;display:flex;justify-content:space-between;gap:12px;align-items:center;background:transparent;border:0;padding:17px;text-align:left;font-weight:950;color:#071226}.faq-q span:last-child{width:28px;height:28px;border-radius:10px;background:#eef6ff;display:grid;place-items:center;color:#0a48b7;flex:none}.faq-a{max-height:0;overflow:hidden;transition:max-height .26s ease}.faq-a p{padding:0 17px 17px;color:var(--muted);font-size:.91rem}.faq-item.open .faq-q span:last-child{background:#071226;color:white}
-    .proof-carousel{background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow-soft);overflow:hidden;position:relative;max-width:900px;margin:0 auto}
+    .proof-carousel{background:#fff;border:1px solid var(--line);border-radius:30px;box-shadow:0 26px 70px -46px rgba(7,18,38,.58);overflow:hidden;position:relative;max-width:960px;margin:0 auto}
     .proof-viewport{overflow:hidden}
     .proof-track{display:flex;transition:transform .42s ease;will-change:transform}
-    .proof-slide{min-width:100%;display:grid;grid-template-columns:minmax(0,1fr) 1.05fr;gap:16px;align-items:center;padding:18px;min-height:250px;background:linear-gradient(135deg,#fff,#f3f8ff 72%,#fff4e8)}
+    .proof-slide{min-width:100%;display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:20px;align-items:center;padding:22px;min-height:292px;background:linear-gradient(135deg,#fff 0%,#f6fbff 58%,#fff8ef 100%);position:relative}
+    .proof-slide::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--cold),var(--cold-2),var(--warm))}
     .proof-copy{display:grid;gap:7px;text-align:left;position:relative;z-index:1}
     .proof-copy span{width:max-content;border:1px solid #dbe7f6;background:#f6fbff;color:#0b62de;border-radius:999px;padding:6px 9px;font-size:.68rem;font-weight:950;text-transform:uppercase;letter-spacing:.06em}
     .proof-copy h3{font-family:var(--display);font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-.055em;line-height:1;color:#071226}
     .proof-copy p{color:#657287;font-weight:820;font-size:.92rem;line-height:1.42;max-width:390px}
-    .proof-visual{height:190px;border-radius:22px;background:linear-gradient(135deg,#e9f7ff,#fff1e5);border:1px solid #dfeaf7;display:grid;place-items:center;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.8);position:relative}
-    .proof-visual::before{content:"";position:absolute;inset:auto -55px -70px auto;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,122,26,.20),transparent 70%)}
+    .proof-visual{height:224px;border-radius:26px;background:linear-gradient(135deg,#071226 0%,#0d2145 58%,#173257 100%);border:1px solid rgba(7,18,38,.12);display:grid;place-items:center;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 24px 54px -44px rgba(7,18,38,.85);position:relative;color:#fff}
+    .proof-visual::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:32px 32px;opacity:.38;pointer-events:none}
+    .proof-visual::after{content:"";position:absolute;left:18px;right:18px;bottom:15px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);pointer-events:none}
     .proof-visual svg{width:100%;height:100%;display:block;position:relative;z-index:1}
     .proof-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-top:1px solid #e5edf7;background:#fbfdff}
     .proof-arrow{width:36px;height:36px;border-radius:13px;border:1px solid #dce8f6;background:#fff;color:#071226;font-weight:950;display:grid;place-items:center;box-shadow:0 12px 28px -24px rgba(7,18,38,.45)}
@@ -368,7 +370,7 @@
     .proof-dot{width:9px;height:9px;border-radius:999px;border:0;background:#c9d6e8;transition:.22s ease;padding:0}
     .proof-dot.active{width:28px;background:linear-gradient(90deg,var(--cold),var(--warm))}
     .proof-dot:focus-visible,.proof-arrow:focus-visible{outline:3px solid rgba(22,119,255,.32);outline-offset:2px}
-    .proof-time .minute-hand{transform-origin:196px 88px}.proof-time .pulse{opacity:.16}
+    .proof-time .minute-hand{transform-origin:228px 102px}.proof-time .pulse{opacity:.16}
     body.motion-ready .proof-time .minute-hand{animation:tickSpin 5s linear infinite}
     body.motion-ready .proof-time .pulse{animation:proofPulse 1.8s ease-in-out infinite}
     body.motion-ready .route-line{stroke-dasharray:8 9;animation:routeMove 2s linear infinite}
@@ -443,7 +445,7 @@
     .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(16px);background:#061126;color:white;border:1px solid rgba(255,255,255,.14);padding:11px 14px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.24s ease;z-index:100;font-weight:900;font-size:.84rem;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
     @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.flow-summary{grid-column:auto;margin-top:0}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.local-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.review-proof-card{grid-template-columns:1fr}.foot-links{text-align:left}.social-block{justify-items:start}.social-icons{justify-content:flex-start}.review-card{justify-self:start}.footer-brand-head{display:grid}.experience-seal{width:max-content}}
-    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.micro{border-radius:14px;padding:8px 7px;gap:5px;min-width:0}.micro::after{width:46px;height:46px;right:-16px;top:-18px}.micro-icon{width:28px;height:28px;border-radius:11px}.micro-icon svg{width:15px;height:15px}.micro b{font-size:.8rem;letter-spacing:-.03em}.micro small{font-size:.59rem;line-height:1.05}.micro-detail{font-size:.76rem;padding:10px 11px}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.proof-slide{grid-template-columns:1fr;gap:10px;padding:14px;min-height:0}.proof-copy{gap:6px}.proof-copy h3{font-size:1.38rem}.proof-copy p{font-size:.82rem;line-height:1.35}.proof-visual{height:138px;border-radius:19px}.proof-controls{padding:8px 10px}.proof-arrow{width:34px;height:34px;border-radius:12px}.local-service-grid{grid-template-columns:1fr;gap:9px}.local-service-card{min-height:0;border-radius:18px;padding:13px;grid-template-columns:36px 1fr;align-items:start}.local-service-card p{grid-column:2}.local-service-note{font-size:.8rem;border-radius:16px}.review-proof-card{border-radius:24px;padding:14px;gap:12px}.review-proof-main{gap:11px}.review-proof-main h2{font-size:1.58rem}.review-proof-main p{font-size:.86rem}.google-rating-panel{grid-template-columns:1fr;padding:12px;border-radius:19px}.google-score strong{width:52px;height:52px;border-radius:18px;font-size:1rem}.google-actions .google-review-link{width:100%}.review-proof-side{border-radius:20px;padding:13px}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.footer-brands{border-radius:24px;padding:15px;margin-bottom:24px}.footer-brand-copy h2{font-size:1.55rem}.footer-brand-copy p{font-size:.83rem}.experience-seal{font-size:.76rem;padding:7px 10px}.brand-logo-card{height:45px;min-width:112px;border-radius:14px;padding:8px 13px}.brand-logo-card img{max-width:88px;height:23px}.brand-logo-card.carrier img{height:29px}.brand-logo-card.lg img{height:27px}.brand-logo-card.rheem img{height:29px;width:29px}.brand-logo-card.samsung img{height:24px}.brand-logo-card.hitachi img{height:18px}.brand-logo-card.bgh img{height:25px}.brand-logo-card.philco img{height:21px}}
+    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.micro{border-radius:14px;padding:8px 7px;gap:5px;min-width:0}.micro::after{width:46px;height:46px;right:-16px;top:-18px}.micro-icon{width:28px;height:28px;border-radius:11px}.micro-icon svg{width:15px;height:15px}.micro b{font-size:.8rem;letter-spacing:-.03em}.micro small{font-size:.59rem;line-height:1.05}.micro-detail{font-size:.76rem;padding:10px 11px}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.proof-slide{grid-template-columns:1fr;gap:10px;padding:14px;min-height:0}.proof-copy{gap:6px}.proof-copy h3{font-size:1.38rem}.proof-copy p{font-size:.82rem;line-height:1.35}.proof-visual{height:172px;border-radius:19px}.proof-controls{padding:8px 10px}.proof-arrow{width:34px;height:34px;border-radius:12px}.local-service-grid{grid-template-columns:1fr;gap:9px}.local-service-card{min-height:0;border-radius:18px;padding:13px;grid-template-columns:36px 1fr;align-items:start}.local-service-card p{grid-column:2}.local-service-note{font-size:.8rem;border-radius:16px}.review-proof-card{border-radius:24px;padding:14px;gap:12px}.review-proof-main{gap:11px}.review-proof-main h2{font-size:1.58rem}.review-proof-main p{font-size:.86rem}.google-rating-panel{grid-template-columns:1fr;padding:12px;border-radius:19px}.google-score strong{width:52px;height:52px;border-radius:18px;font-size:1rem}.google-actions .google-review-link{width:100%}.review-proof-side{border-radius:20px;padding:13px}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.footer-brands{border-radius:24px;padding:15px;margin-bottom:24px}.footer-brand-copy h2{font-size:1.55rem}.footer-brand-copy p{font-size:.83rem}.experience-seal{font-size:.76rem;padding:7px 10px}.brand-logo-card{height:45px;min-width:112px;border-radius:14px;padding:8px 13px}.brand-logo-card img{max-width:88px;height:23px}.brand-logo-card.carrier img{height:29px}.brand-logo-card.lg img{height:27px}.brand-logo-card.rheem img{height:29px;width:29px}.brand-logo-card.samsung img{height:24px}.brand-logo-card.hitachi img{height:18px}.brand-logo-card.bgh img{height:25px}.brand-logo-card.philco img{height:21px}}
     @media(max-width:650px){.step-intro{gap:9px;margin-bottom:11px}.step-mini-seal{width:46px;height:46px;border-radius:17px}.step-mini-seal svg{width:23px;height:23px}.step-kicker{font-size:.66rem;padding:6px 8px;margin-bottom:7px}.step-intro .hint{font-size:.88rem;line-height:1.42}.composer-head{padding:11px 12px;align-items:flex-start}.composer-actions{display:grid;gap:6px;justify-items:end}.composer-badge{font-size:.62rem;padding:6px 8px}.smart-text textarea{min-height:112px;padding:16px;font-size:.9rem}.clear-btn{font-size:.66rem;padding:6px 8px}.problem-helper{margin:10px;border-radius:18px;padding:10px}.problem-helper-head{display:flex;align-items:center}.problem-helper-head span{text-align:left;max-width:none}.guide-score{font-size:.62rem;padding:6px 7px}.problem-checks{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.problem-check{font-size:.68rem;padding:8px 7px;min-height:45px}.problem-check small{font-size:.58rem}.quick-examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-inline:10px}.example-title{margin-left:10px;margin-right:10px}.example-btn{padding:8px 7px;min-height:55px}.example-btn b{font-size:.7rem}.example-btn small{font-size:.58rem}.chips{margin-inline:10px;gap:6px}.chip{font-size:.72rem;padding:7px 8px}.predict-card{border-radius:18px;padding:11px 12px}.predict-card b{font-size:.88rem}.predict-card small{font-size:.69rem}}
     @media(max-width:650px){.flow-panel{border-radius:20px;padding:12px}.choice-group+.choice-group{margin-top:13px}.group-heading{gap:8px;margin-bottom:8px}.group-number{width:23px;height:23px;border-radius:9px;font-size:.66rem}.group-heading b{font-size:.74rem}.group-heading small{font-size:.62rem}.group-status{font-size:.58rem;padding:5px 7px}.service-panel .seg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.service-panel .choice{border-radius:15px;min-height:82px;padding:10px 8px;gap:6px}.service-panel .choice::before{right:8px;top:8px;width:11px;height:11px}.service-panel .choice-icon{width:30px;height:30px;border-radius:12px}.service-panel .choice-icon svg{width:16px;height:16px}.service-panel .choice b{font-size:.74rem;line-height:1.04;letter-spacing:-.025em}.service-panel .choice small{font-size:.6rem;line-height:1.12}.location-guide{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px}.location-step{grid-template-columns:1fr;gap:5px;padding:7px;justify-items:start}.location-step i{width:24px;height:24px;border-radius:9px;font-size:.66rem}.location-step b{font-size:.66rem}.location-step small{font-size:.56rem}.map-search-label{font-size:.62rem}.map-hint{font-size:.72rem;line-height:1.3}.detail-brief{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.detail-card{border-radius:15px;padding:9px;gap:7px;align-items:flex-start;min-height:63px}.detail-card i{width:27px;height:27px;border-radius:10px;font-size:.72rem}.detail-card small{font-size:.58rem}.detail-card b{font-size:.72rem;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.contact-head{align-items:flex-start}.contact-head span{font-size:.58rem}.question-card{border-radius:16px;padding:11px}.question-top h3{font-size:.82rem}.question-index{width:23px;height:23px;border-radius:9px;font-size:.66rem}.pill-option{font-size:.69rem;padding:7px 9px}.photo-item{align-items:flex-start;border-radius:14px;padding:9px}.photo-icon{width:27px;height:27px}.photo-copy small{font-size:.61rem}.photo-item button{padding:7px 8px;font-size:.66rem;white-space:nowrap}.final-status{grid-template-columns:42px 1fr;align-items:start}.final-status-icon{width:42px;height:42px;border-radius:16px}.final-score{grid-column:1/-1;width:max-content}.ticket-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ticket-mini{border-radius:13px;padding:9px;min-height:60px}.ticket-mini small{font-size:.58rem}.ticket-mini b{font-size:.72rem}.final-note{font-size:.72rem}.secondary-actions{grid-template-columns:1fr 1fr}}
     @media(max-width:380px){.service-panel .seg-grid,.ticket-grid,.detail-brief,.secondary-actions{grid-template-columns:1fr}.location-guide{grid-template-columns:1fr}.final-status{grid-template-columns:1fr}.final-score{grid-column:auto}}
@@ -753,93 +755,121 @@
     <div class="wrap">
       <div class="section-head">
         <span class="tag">Presupuesto claro</span>
-        <h2>Solicitá presupuesto sin llamadas ni idas y vueltas.</h2>
-        <p>Enviá el problema, el domicilio y los detalles importantes en un solo mensaje de WhatsApp.</p>
+        <h2>Pedí presupuesto sin compromiso.</h2>
+        <p>Contanos qué pasa, marcá el domicilio y mandá todo por WhatsApp en un mensaje ordenado.</p>
       </div>
       <div class="proof-carousel" data-proof-carousel aria-label="Ventajas para solicitar presupuesto">
         <div class="proof-viewport">
           <div class="proof-track">
             <article class="proof-slide">
               <div class="proof-copy">
-                <span>01 / Rápido</span>
-                <h3>Te lleva pocos minutos.</h3>
-                <p>Completás lo necesario para pedir presupuesto sin explicar lo mismo varias veces.</p>
+                <span>01 / 5 min</span>
+                <h3>Pedido en pocos minutos.</h3>
+                <p>Cargá lo importante una sola vez y recibimos el resumen listo para revisar.</p>
               </div>
               <div class="proof-visual proof-time" aria-hidden="true">
-                <svg viewBox="0 0 360 210">
-                  <circle class="pulse" cx="196" cy="88" r="74" fill="#1677ff"/>
-                  <rect x="38" y="134" width="184" height="38" rx="19" fill="#fff" stroke="#d9e7f5"/>
-                  <path d="M74 153h78" stroke="#071226" stroke-width="9" stroke-linecap="round"/>
-                  <path d="M176 153h26" stroke="#25d66f" stroke-width="9" stroke-linecap="round"/>
-                  <circle cx="196" cy="88" r="58" fill="#fff" stroke="#cfe1f4" stroke-width="8"/>
-                  <path d="M196 88V52" stroke="#1677ff" stroke-width="9" stroke-linecap="round"/>
-                  <path class="minute-hand" d="M196 88h35" stroke="#ff7a1a" stroke-width="9" stroke-linecap="round"/>
-                  <circle cx="196" cy="88" r="8" fill="#071226"/>
-                  <text x="260" y="96" font-size="38" font-weight="900" fill="#071226">5</text>
-                  <text x="260" y="122" font-size="18" font-weight="900" fill="#657287">min</text>
-                  <path d="M46 66h54M58 92h32M286 54h36M278 140h46" stroke="#9fc8f8" stroke-width="8" stroke-linecap="round"/>
+                <svg viewBox="0 0 360 230">
+                  <defs>
+                    <linearGradient id="proofBlue" x1="0" x2="1"><stop stop-color="#1cc8ff"/><stop offset="1" stop-color="#1677ff"/></linearGradient>
+                    <linearGradient id="proofWarm" x1="0" x2="1"><stop stop-color="#ffbd59"/><stop offset="1" stop-color="#ff7a1a"/></linearGradient>
+                    <filter id="proofShadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000" flood-opacity=".25"/></filter>
+                  </defs>
+                  <rect x="30" y="32" width="300" height="166" rx="28" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.16)"/>
+                  <rect x="54" y="55" width="126" height="120" rx="22" fill="#fff" filter="url(#proofShadow)"/>
+                  <rect x="72" y="78" width="70" height="10" rx="5" fill="#dce8f6"/>
+                  <rect x="72" y="100" width="88" height="10" rx="5" fill="#071226"/>
+                  <rect x="72" y="123" width="62" height="10" rx="5" fill="#dce8f6"/>
+                  <rect x="72" y="146" width="78" height="12" rx="6" fill="#25d66f"/>
+                  <circle class="pulse" cx="228" cy="102" r="64" fill="rgba(28,200,255,.18)"/>
+                  <circle cx="228" cy="102" r="52" fill="#fff" stroke="rgba(255,255,255,.7)" stroke-width="7" filter="url(#proofShadow)"/>
+                  <circle cx="228" cy="102" r="40" fill="#f5fbff"/>
+                  <path d="M228 102V72" stroke="url(#proofBlue)" stroke-width="8" stroke-linecap="round"/>
+                  <path class="minute-hand" d="M228 102h31" stroke="url(#proofWarm)" stroke-width="8" stroke-linecap="round"/>
+                  <circle cx="228" cy="102" r="7" fill="#071226"/>
+                  <rect x="250" y="134" width="66" height="38" rx="17" fill="#071226" filter="url(#proofShadow)"/>
+                  <text x="263" y="160" font-size="24" font-weight="950" fill="#fff">5</text>
+                  <text x="286" y="160" font-size="13" font-weight="900" fill="#b8c9ed">min</text>
+                  <path d="M50 190h260" stroke="rgba(255,255,255,.16)" stroke-width="2"/>
                 </svg>
               </div>
             </article>
             <article class="proof-slide">
               <div class="proof-copy">
                 <span>02 / Ubicación</span>
-                <h3>Domicilio preciso.</h3>
-                <p>Marcás el punto y el técnico puede calcular zona, traslado y disponibilidad.</p>
+                <h3>Ruta clara para el técnico.</h3>
+                <p>El domicilio llega con pin y acceso directo a Google Maps para calcular traslado.</p>
               </div>
               <div class="proof-visual" aria-hidden="true">
-                <svg viewBox="0 0 360 210">
-                  <rect width="360" height="210" fill="#edf7ff"/>
-                  <path d="M0 62h360M0 128h360M84 0v210M182 0v210M276 0v210" stroke="#d7e7f6" stroke-width="10"/>
-                  <path d="M36 162C78 110 102 120 136 92c44-36 68-18 100-46 20-18 42-22 84-10" class="route-line" fill="none" stroke="#1677ff" stroke-width="9" stroke-linecap="round"/>
-                  <circle cx="48" cy="160" r="18" fill="#25d66f" stroke="#fff" stroke-width="6"/>
-                  <path d="M284 54c0 28-34 58-34 58s-34-30-34-58a34 34 0 1 1 68 0Z" fill="#ff7a1a" stroke="#fff" stroke-width="6"/>
-                  <circle cx="250" cy="54" r="11" fill="#fff"/>
-                  <rect x="112" y="140" width="118" height="40" rx="14" fill="#fff" stroke="#dce8f6"/>
-                  <path d="M132 160h78" stroke="#071226" stroke-width="8" stroke-linecap="round"/>
+                <svg viewBox="0 0 360 230">
+                  <defs>
+                    <linearGradient id="mapRoad" x1="0" x2="1"><stop stop-color="#e9f7ff"/><stop offset="1" stop-color="#fff2e3"/></linearGradient>
+                    <filter id="mapShadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000" flood-opacity=".24"/></filter>
+                  </defs>
+                  <rect x="34" y="28" width="292" height="174" rx="28" fill="url(#mapRoad)" filter="url(#mapShadow)"/>
+                  <path d="M50 70h258M50 122h258M88 42v138M154 42v138M226 42v138M288 42v138" stroke="#d9e8f8" stroke-width="9"/>
+                  <path d="M58 166C84 132 113 143 137 112c26-34 57-30 86-47 22-13 43-25 84-17" class="route-line" fill="none" stroke="#1677ff" stroke-width="9" stroke-linecap="round"/>
+                  <path d="M58 166C84 132 113 143 137 112c26-34 57-30 86-47 22-13 43-25 84-17" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".72"/>
+                  <circle cx="59" cy="166" r="18" fill="#25d66f" stroke="#fff" stroke-width="6"/>
+                  <path d="M302 48c0 31-37 65-37 65s-37-34-37-65a37 37 0 1 1 74 0Z" fill="#ff7a1a" stroke="#fff" stroke-width="6"/>
+                  <circle cx="265" cy="48" r="12" fill="#fff"/>
+                  <rect x="82" y="154" width="152" height="39" rx="17" fill="#fff" stroke="#dce8f6"/>
+                  <path d="M101 172h72" stroke="#071226" stroke-width="8" stroke-linecap="round"/>
+                  <path d="M188 172h24" stroke="#25d66f" stroke-width="8" stroke-linecap="round"/>
+                  <text x="244" y="180" font-size="13" font-weight="950" fill="#0b62de">Maps</text>
                 </svg>
               </div>
             </article>
             <article class="proof-slide">
               <div class="proof-copy">
                 <span>03 / Fotos</span>
-                <h3>Fotos concretas.</h3>
-                <p>La web te indica qué conviene enviar para evaluar mejor el trabajo.</p>
+                <h3>Fotos que ayudan.</h3>
+                <p>Te indicamos qué fotos conviene mandar para evitar preguntas innecesarias.</p>
               </div>
               <div class="proof-visual" aria-hidden="true">
-                <svg viewBox="0 0 360 210">
-                  <rect x="42" y="24" width="126" height="164" rx="26" fill="#071226"/>
-                  <rect x="56" y="46" width="98" height="122" rx="16" fill="#e9f7ff"/>
-                  <circle cx="105" cy="176" r="5" fill="#8fa3ca"/>
-                  <rect class="photo-fly" x="184" y="42" width="94" height="70" rx="16" fill="#fff" stroke="#dce8f6"/>
-                  <path class="photo-fly" d="M202 92l22-24 18 16 12-13 16 21Z" fill="#1677ff" opacity=".85"/>
-                  <circle class="photo-fly" cx="214" cy="62" r="9" fill="#ffbd59"/>
-                  <rect x="184" y="128" width="118" height="44" rx="22" fill="#25d66f"/>
-                  <path d="M208 150h60" stroke="#052711" stroke-width="8" stroke-linecap="round"/>
-                  <path d="M154 104C188 96 196 92 216 80" stroke="#25d66f" stroke-width="7" stroke-linecap="round" stroke-dasharray="8 10"/>
-                  <path d="M82 78h48M82 104h34M82 130h54" stroke="#0b62de" stroke-width="8" stroke-linecap="round"/>
+                <svg viewBox="0 0 360 230">
+                  <defs>
+                    <filter id="photoShadow" x="-20%" y="-20%" width="145%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000" flood-opacity=".26"/></filter>
+                  </defs>
+                  <rect x="44" y="26" width="124" height="178" rx="28" fill="#071226" filter="url(#photoShadow)"/>
+                  <rect x="58" y="49" width="96" height="128" rx="18" fill="#eaf7ff"/>
+                  <rect x="72" y="66" width="68" height="44" rx="12" fill="#fff"/>
+                  <path d="M82 98l18-18 14 12 10-11 14 17Z" fill="#1677ff" opacity=".88"/>
+                  <circle cx="92" cy="78" r="7" fill="#ffbd59"/>
+                  <path d="M76 130h54M76 150h38" stroke="#0b62de" stroke-width="8" stroke-linecap="round"/>
+                  <circle cx="106" cy="188" r="5" fill="#8fa3ca"/>
+                  <rect class="photo-fly" x="190" y="38" width="104" height="76" rx="18" fill="#fff" stroke="#dce8f6" filter="url(#photoShadow)"/>
+                  <path class="photo-fly" d="M208 92l22-25 18 17 13-14 17 22Z" fill="#1677ff" opacity=".9"/>
+                  <circle class="photo-fly" cx="220" cy="60" r="8" fill="#ffbd59"/>
+                  <rect x="188" y="132" width="126" height="48" rx="24" fill="#25d66f" filter="url(#photoShadow)"/>
+                  <path d="M211 156h65" stroke="#052711" stroke-width="8" stroke-linecap="round"/>
+                  <path d="M160 107C186 107 197 94 218 78" stroke="#25d66f" stroke-width="7" stroke-linecap="round" stroke-dasharray="7 10"/>
+                  <path d="M158 141C181 147 194 152 215 155" stroke="#25d66f" stroke-width="7" stroke-linecap="round" stroke-dasharray="7 10"/>
                 </svg>
               </div>
             </article>
             <article class="proof-slide">
               <div class="proof-copy">
                 <span>04 / WhatsApp</span>
-                <h3>Respuesta por WhatsApp.</h3>
-                <p>La información llega ordenada para preparar un presupuesto más claro.</p>
+                <h3>Mensaje listo para responder.</h3>
+                <p>El pedido llega con servicio, ubicación y datos clave para preparar el presupuesto.</p>
               </div>
               <div class="proof-visual" aria-hidden="true">
-                <svg viewBox="0 0 360 210">
-                  <rect x="54" y="30" width="252" height="150" rx="26" fill="#071226"/>
-                  <rect x="72" y="50" width="216" height="110" rx="18" fill="#e9f7ff"/>
-                  <rect x="92" y="70" width="122" height="32" rx="16" fill="#fff"/>
-                  <path d="M110 86h78" stroke="#071226" stroke-width="7" stroke-linecap="round"/>
-                  <rect class="chat-pop" x="136" y="112" width="128" height="36" rx="18" fill="#25d66f"/>
-                  <path class="chat-pop" d="M156 130h82" stroke="#052711" stroke-width="7" stroke-linecap="round"/>
-                  <circle cx="268" cy="54" r="26" fill="#25d66f" stroke="#fff" stroke-width="6"/>
-                  <path d="M260 54c2 7 8 10 14 11M258 64l3-8" stroke="#052711" stroke-width="5" stroke-linecap="round"/>
-                  <rect x="82" y="168" width="96" height="18" rx="9" fill="#fff" opacity=".95"/>
-                  <path d="M96 177h62" stroke="#1677ff" stroke-width="6" stroke-linecap="round"/>
-                  <text x="218" y="184" font-size="16" font-weight="900" fill="#fff">en minutos</text>
+                <svg viewBox="0 0 360 230">
+                  <defs>
+                    <filter id="waShadow" x="-20%" y="-20%" width="145%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000" flood-opacity=".28"/></filter>
+                  </defs>
+                  <rect x="42" y="28" width="276" height="174" rx="30" fill="#061126" stroke="rgba(255,255,255,.13)" filter="url(#waShadow)"/>
+                  <rect x="63" y="51" width="234" height="128" rx="22" fill="#eaf7ff"/>
+                  <rect x="82" y="70" width="134" height="34" rx="17" fill="#fff"/>
+                  <path d="M101 87h86" stroke="#071226" stroke-width="7" stroke-linecap="round"/>
+                  <rect class="chat-pop" x="117" y="119" width="151" height="40" rx="20" fill="#25d66f"/>
+                  <path class="chat-pop" d="M140 140h92" stroke="#052711" stroke-width="7" stroke-linecap="round"/>
+                  <circle cx="271" cy="58" r="28" fill="#25d66f" stroke="#fff" stroke-width="6"/>
+                  <path d="M261 57c3 8 9 12 17 13M260 70l4-10" stroke="#052711" stroke-width="5" stroke-linecap="round"/>
+                  <rect x="78" y="171" width="114" height="22" rx="11" fill="#fff" opacity=".98"/>
+                  <path d="M94 182h72" stroke="#1677ff" stroke-width="6" stroke-linecap="round"/>
+                  <rect x="211" y="171" width="88" height="22" rx="11" fill="rgba(255,255,255,.12)"/>
+                  <text x="225" y="186" font-size="12" font-weight="950" fill="#fff">presupuesto</text>
                 </svg>
               </div>
             </article>
