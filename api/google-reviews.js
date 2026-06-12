@@ -11,10 +11,12 @@ function sendJson(response, statusCode, body, maxAge = 900) {
 }
 
 function cleanReview(review) {
+  const textValue = review.text && typeof review.text === 'object' ? review.text.text : review.text;
+  const authorName = review.author_name || (review.authorAttribution && review.authorAttribution.displayName);
   return {
-    author: review.author_name || 'Cliente de Google',
+    author: authorName || 'Cliente de Google',
     rating: review.rating || 5,
-    text: String(review.text || '').slice(0, 260),
+    text: String(textValue || '').slice(0, 260),
     relativeTime: review.relative_time_description || ''
   };
 }
@@ -38,26 +40,28 @@ function pickBestTextSearchCandidate(places) {
 
 async function fetchReviewsByPlaceId(apiKey, placeId) {
   const params = new URLSearchParams({
-    place_id: placeId,
-    fields: 'rating,user_ratings_total,url,reviews',
-    language: 'es',
-    reviews_sort: 'newest',
-    key: apiKey
+    languageCode: 'es-419',
+    regionCode: 'AR'
   });
-
-  const googleResponse = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?${params}`);
+  const googleResponse = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}?${params}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': apiKey,
+      'X-Goog-FieldMask': 'id,displayName,googleMapsUri,rating,userRatingCount,reviews'
+    }
+  });
   const payload = await googleResponse.json();
 
-  if (!googleResponse.ok || payload.status !== 'OK') {
+  if (!googleResponse.ok || typeof payload.rating !== 'number') {
     return null;
   }
 
-  const result = payload.result || {};
   return {
-    rating: result.rating || null,
-    totalReviewCount: result.user_ratings_total || 0,
-    url: result.url || REVIEW_URL,
-    reviews: Array.isArray(result.reviews) ? result.reviews.slice(0, 3).map(cleanReview) : []
+    placeId: payload.id || placeId,
+    rating: payload.rating,
+    totalReviewCount: payload.userRatingCount || 0,
+    url: payload.googleMapsUri || REVIEW_URL,
+    reviews: Array.isArray(payload.reviews) ? payload.reviews.slice(0, 3).map(cleanReview) : []
   };
 }
 
