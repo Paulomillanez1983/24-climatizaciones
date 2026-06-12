@@ -181,6 +181,8 @@
     body.motion-ready .btn-shine::before{animation:shine 2.7s ease-in-out infinite}
     body.motion-ready .btn-shine::after{animation:softRing 2.1s ease-out infinite}
     .start-cta,.mobile-sticky{transition:opacity .24s ease,transform .24s ease,visibility .24s ease}
+    .mobile-sticky{opacity:0;transform:translateY(16px);pointer-events:none;visibility:hidden}
+    .mobile-sticky.is-visible{opacity:1;transform:translateY(0);pointer-events:auto;visibility:visible}
     body.flow-started .start-cta,body.flow-started .mobile-sticky{opacity:0;transform:translateY(18px);pointer-events:none;visibility:hidden}
     body.flow-started .mobile-sticky{display:none!important}
     @keyframes shine{0%,42%{transform:translateX(-160%) rotate(18deg)}70%,100%{transform:translateX(420%) rotate(18deg)}}
@@ -211,12 +213,15 @@
     .trust-line{display:flex;align-items:center;gap:8px;margin-top:14px;color:#50627e;font-size:.84rem;font-weight:800}
     .trust-line i{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 5px rgba(37,214,111,.11)}
     .micro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .micro{background:linear-gradient(180deg,#fff,#f8fbff);border:1px solid var(--line);border-radius:18px;padding:13px;box-shadow:var(--shadow-soft);display:grid;gap:8px;position:relative;overflow:hidden}
+    .micro{background:linear-gradient(180deg,#fff,#f8fbff);border:1px solid var(--line);border-radius:18px;padding:13px;box-shadow:var(--shadow-soft);display:grid;gap:8px;position:relative;overflow:hidden;text-align:left;font:inherit;cursor:pointer;width:100%}
     .micro::after{content:"";position:absolute;right:-20px;top:-28px;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle,rgba(22,119,255,.10),transparent 70%)}
+    .micro.active{border-color:rgba(22,119,255,.38);box-shadow:0 18px 36px -28px rgba(22,119,255,.65);background:#fff}
     .micro-icon{width:36px;height:36px;border-radius:14px;background:linear-gradient(135deg,#eaf5ff,#fff1e6);display:grid;place-items:center;color:#0b62de;box-shadow:inset 0 1px 0 rgba(255,255,255,.85);position:relative;z-index:1}
     .micro-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
     .micro b{display:block;font-family:var(--display);font-size:1rem;letter-spacing:-.04em;color:#0f2040;position:relative;z-index:1}
     .micro small{display:block;color:var(--muted);font-weight:800;font-size:.73rem;margin-top:2px;position:relative;z-index:1}
+    .micro-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px 12px;color:#334866;font-weight:850;font-size:.82rem;line-height:1.35;box-shadow:var(--shadow-soft);margin-top:-4px}
+    .micro-detail.show{display:block}
     .live-summary{background:var(--navy);color:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
     .live-summary::before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(22,119,255,.3),transparent 70%);right:-90px;top:-92px}
     .live-title{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;z-index:1;margin-bottom:12px}
@@ -230,6 +235,7 @@
     .known i{width:22px;height:22px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,.08);color:#fff;font-style:normal;font-size:.76rem;font-weight:900;flex:none}
     .known.done{color:#fff}.known.done i{background:rgba(37,214,111,.15);color:#71ffaa}
     .call-note{position:relative;z-index:1;margin-top:13px;padding:11px 12px;border-radius:16px;background:rgba(255,189,89,.12);border:1px solid rgba(255,189,89,.24);color:#ffe2bb;font-size:.79rem;font-weight:820}
+    .flow-summary{grid-column:2;margin-top:-10px}
 
     /* App shell */
     .app{border-radius:34px;background:#061126;color:#eaf2ff;padding:10px;box-shadow:0 34px 96px -42px rgba(6,17,38,.82);border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden}
@@ -298,8 +304,8 @@
     .google-review-link em{font-style:normal;font-size:.8rem;font-weight:950;color:#172033}
     .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(16px);background:#061126;color:white;border:1px solid rgba(255,255,255,.14);padding:11px 14px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.24s ease;z-index:100;font-weight:900;font-size:.84rem;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-    @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.foot-links{text-align:left}.social-block{justify-items:start}.social-icons{justify-content:flex-start}.review-card{justify-self:start}.footer-brand-head{display:grid}.experience-seal{width:max-content}}
-    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.micro{border-radius:15px;padding:10px 8px;gap:6px;min-width:0}.micro::after{width:52px;height:52px;right:-18px;top:-20px}.micro-icon{width:30px;height:30px;border-radius:12px}.micro-icon svg{width:16px;height:16px}.micro b{font-size:.86rem;letter-spacing:-.03em}.micro small{font-size:.64rem;line-height:1.1}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.footer-brands{border-radius:24px;padding:15px;margin-bottom:24px}.footer-brand-copy h2{font-size:1.55rem}.footer-brand-copy p{font-size:.83rem}.experience-seal{font-size:.76rem;padding:7px 10px}.brand-logo-card{height:45px;min-width:112px;border-radius:14px;padding:8px 13px}.brand-logo-card img{max-width:88px;height:23px}.brand-logo-card.carrier img{height:29px}.brand-logo-card.lg img{height:27px}.brand-logo-card.rheem img{height:29px;width:29px}.brand-logo-card.samsung img{height:24px}.brand-logo-card.hitachi img{height:18px}.brand-logo-card.bgh img{height:25px}.brand-logo-card.philco img{height:21px}}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.flow-summary{grid-column:auto;margin-top:0}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.foot-links{text-align:left}.social-block{justify-items:start}.social-icons{justify-content:flex-start}.review-card{justify-self:start}.footer-brand-head{display:grid}.experience-seal{width:max-content}}
+    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.micro{border-radius:14px;padding:8px 7px;gap:5px;min-width:0}.micro::after{width:46px;height:46px;right:-16px;top:-18px}.micro-icon{width:28px;height:28px;border-radius:11px}.micro-icon svg{width:15px;height:15px}.micro b{font-size:.8rem;letter-spacing:-.03em}.micro small{font-size:.59rem;line-height:1.05}.micro-detail{font-size:.76rem;padding:10px 11px}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.footer-brands{border-radius:24px;padding:15px;margin-bottom:24px}.footer-brand-copy h2{font-size:1.55rem}.footer-brand-copy p{font-size:.83rem}.experience-seal{font-size:.76rem;padding:7px 10px}.brand-logo-card{height:45px;min-width:112px;border-radius:14px;padding:8px 13px}.brand-logo-card img{max-width:88px;height:23px}.brand-logo-card.carrier img{height:29px}.brand-logo-card.lg img{height:27px}.brand-logo-card.rheem img{height:29px;width:29px}.brand-logo-card.samsung img{height:24px}.brand-logo-card.hitachi img{height:18px}.brand-logo-card.bgh img{height:25px}.brand-logo-card.philco img{height:21px}}
     @media(max-width:650px){.problem-helper-head{display:grid}.problem-helper-head span{text-align:left;max-width:none}.problem-checks{grid-template-columns:repeat(2,minmax(0,1fr))}.problem-check{font-size:.7rem}.quick-examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.example-btn{justify-content:center;padding:8px 7px;font-size:.72rem}.smart-text textarea{padding-right:72px}.clear-btn{right:22px}}
     @media(max-width:650px){.review-card{grid-template-columns:1fr;max-width:100%;padding:13px}.google-review-link{width:100%}}
     @media(max-width:650px){.brand-signal{gap:13px;margin-bottom:18px}.brand-signal .logo{--logo-size:72px;--orbit:34px;border-radius:22px}.brand-signal small{font-size:.66rem}.brand-signal strong{font-size:1.32rem}}
@@ -317,7 +323,7 @@
       </a>
       <div class="top-actions">
         <span class="status-pill"><i></i> Respuesta rápida</span>
-        <a class="wa-mini" href="#smartflow" data-start-flow aria-label="Empezar solicitud por WhatsApp">
+        <a class="wa-mini" href="#smartflow" data-start-flow aria-label="Solicitar presupuesto por WhatsApp">
           <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2.7a9.25 9.25 0 0 0-8 13.9L3 21.3l4.85-1.27A9.25 9.25 0 1 0 12 2.7Zm0 1.85a7.4 7.4 0 0 1 6.32 11.23l-.22.35.55 2.78-2.87-.76-.34.2A7.4 7.4 0 1 1 12 4.55Zm-3.05 3.7c-.22 0-.5.08-.74.35-.28.3-.9.88-.9 2.16 0 1.27.93 2.5 1.06 2.68.13.17 1.83 2.9 4.5 3.94 2.22.87 2.68.7 3.16.64.5-.07 1.58-.65 1.8-1.28.22-.63.22-1.17.15-1.28-.08-.12-.28-.19-.58-.34l-1.7-.82c-.25-.12-.43-.18-.61.12l-.73.92c-.17.2-.34.22-.63.08-.3-.15-1.23-.45-2.34-1.43-.86-.77-1.45-1.72-1.62-2.01-.17-.3-.02-.46.13-.6l.44-.52c.15-.17.2-.3.3-.49.1-.2.05-.37-.03-.52l-.77-1.86c-.2-.48-.4-.42-.6-.43h-.29Z"/></svg>
           <span>Solicitar</span>
         </a>
@@ -342,34 +348,19 @@
           <div class="hero-actions start-cta" id="heroStartCta">
             <a href="#smartflow" class="btn btn-primary btn-shine" data-start-flow>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              Empezar solicitud
+              Solicitar presupuesto
             </a>
           </div>
           <div class="trust-line"><i></i> Solo WhatsApp para presupuestos. Llamadas únicamente para clientes con turno.</div>
         </section>
 
         <div class="micro-grid" aria-label="Beneficios principales">
-          <div class="micro"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span><b>Rápido</b><small>en minutos</small></div>
-          <div class="micro"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><b>Mapa</b><small>ubicación</small></div>
-          <div class="micro"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.7 7.4L4 20.3l1.2-3.7a8.5 8.5 0 1 1 15.3-4.8z"/><path d="M9 8.8c.3-.6.6-.7 1-.5l.8 1.5c.2.4.1.7-.2 1l-.4.4c.7 1.2 1.7 2.2 3.1 2.9l.5-.5c.3-.3.6-.4 1-.2l1.5.7c.4.2.5.5.3.9-.3.9-1.1 1.4-2 1.3-2.9-.3-6.2-3.3-6.7-6.1-.1-.6.2-1.1.7-1.4z"/></svg></span><b>Listo</b><small>WhatsApp</small></div>
+          <button class="micro" type="button" data-micro-info="Completás lo esencial en pocos pasos: problema, servicio, domicilio, datos y contacto." aria-expanded="false" aria-controls="microInfo"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span><b>Rápido</b><small>en minutos</small></button>
+          <button class="micro" type="button" data-micro-info="La ubicación marcada ayuda a calcular zona, traslado y disponibilidad antes de responderte." aria-expanded="false" aria-controls="microInfo"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><b>Mapa</b><small>ubicación</small></button>
+          <button class="micro" type="button" data-micro-info="Al final se arma un mensaje claro para WhatsApp. No es compra inmediata: es una solicitud de presupuesto." aria-expanded="false" aria-controls="microInfo"><span class="micro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.7 7.4L4 20.3l1.2-3.7a8.5 8.5 0 1 1 15.3-4.8z"/><path d="M9 8.8c.3-.6.6-.7 1-.5l.8 1.5c.2.4.1.7-.2 1l-.4.4c.7 1.2 1.7 2.2 3.1 2.9l.5-.5c.3-.3.6-.4 1-.2l1.5.7c.4.2.5.5.3.9-.3.9-1.1 1.4-2 1.3-2.9-.3-6.2-3.3-6.7-6.1-.1-.6.2-1.1.7-1.4z"/></svg></span><b>Listo</b><small>WhatsApp</small></button>
         </div>
+        <div class="micro-detail" id="microInfo" role="status"></div>
 
-        <section class="live-summary" aria-live="polite">
-          <div class="live-title">
-            <div>
-              <b>Resumen de solicitud</b>
-              <small>Lo necesario para presupuestar</small>
-            </div>
-            <div class="score-ring" id="scoreRing" style="--score:12%"><span id="scoreText">12%</span></div>
-          </div>
-          <div class="known-list">
-            <div class="known" id="kIntent"><i>1</i><span>Motivo: falta contar qué pasa</span></div>
-            <div class="known" id="kService"><i>2</i><span>Servicio: pendiente</span></div>
-            <div class="known" id="kLocation"><i>3</i><span>Domicilio: pendiente</span></div>
-            <div class="known" id="kDetails"><i>4</i><span>Datos clave: pendientes</span></div>
-          </div>
-          <div class="call-note">Para ordenar el trabajo, la primera consulta y el presupuesto se gestionan por WhatsApp.</div>
-        </section>
       </aside>
 
       <section class="app" id="smartflow" aria-label="Solicitud guiada 24 Climatizaciones">
@@ -377,7 +368,7 @@
           <div class="app-head">
             <div class="app-brand">
               <span class="logo"><span class="logo-snow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>24<em>°</em></b><span class="logo-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span></span>
-              <div><strong>Solicitud 24</strong><small id="appSubtitle">Contanos qué necesitás</small></div>
+              <div><strong>Presupuesto 24</strong><small id="appSubtitle">Contanos qué necesitás</small></div>
             </div>
             <span class="step-chip"><i></i><span id="stepLabel">Paso 1/5</span></span>
           </div>
@@ -505,7 +496,7 @@
             </section>
 
             <section class="step" data-step="5" aria-labelledby="s5-title">
-              <h2 id="s5-title">Solicitud lista para enviar.</h2>
+              <h2 id="s5-title">Presupuesto listo para enviar.</h2>
               <p class="hint">Revisá que esté todo bien y enviá la solicitud por WhatsApp.</p>
               <div class="final-preview">
                 <div class="ticket">
@@ -530,12 +521,28 @@
                     <button class="btn btn-soft" id="copyMessage" type="button">Copiar mensaje</button>
                     <button class="btn btn-ghost" id="editRequest" type="button">Corregir datos</button>
                   </div>
-                  <button class="btn btn-danger-soft" id="restart" type="button">Borrar y cargar otra solicitud</button>
+                  <button class="btn btn-danger-soft" id="restart" type="button">Borrar y cargar otro presupuesto</button>
                 </div>
               </div>
             </section>
           </div>
         </div>
+      </section>
+      <section class="live-summary flow-summary" aria-live="polite">
+        <div class="live-title">
+          <div>
+            <b>Resumen para presupuesto</b>
+            <small>Lo necesario para responderte mejor</small>
+          </div>
+          <div class="score-ring" id="scoreRing" style="--score:12%"><span id="scoreText">12%</span></div>
+        </div>
+        <div class="known-list">
+          <div class="known" id="kIntent"><i>1</i><span>Motivo: falta contar qué pasa</span></div>
+          <div class="known" id="kService"><i>2</i><span>Servicio: pendiente</span></div>
+          <div class="known" id="kLocation"><i>3</i><span>Domicilio: pendiente</span></div>
+          <div class="known" id="kDetails"><i>4</i><span>Datos clave: pendientes</span></div>
+        </div>
+        <div class="call-note">Esto no confirma una compra ni un turno: sirve para preparar un presupuesto claro por WhatsApp.</div>
       </section>
     </div>
   </main>
@@ -543,29 +550,16 @@
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <span class="tag">Pedido claro</span>
-        <h2>Pedí el servicio sin llamadas ni idas y vueltas.</h2>
+        <span class="tag">Presupuesto claro</span>
+        <h2>Solicitá presupuesto sin llamadas ni idas y vueltas.</h2>
         <p>Enviá el problema, el domicilio y los detalles importantes en un solo mensaje de WhatsApp.</p>
       </div>
       <div class="cards">
         <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div><h3>Te lleva pocos minutos</h3><p>Completás lo necesario sin perder tiempo explicando lo mismo varias veces.</p></article>
         <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></div><h3>Domicilio preciso</h3><p>Mandás la ubicación para que podamos calcular zona, traslado y disponibilidad.</p></article>
         <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h4l1.5-2h5L16 8h4v12H4z"/><circle cx="12" cy="14" r="3.5"/></svg></div><h3>Fotos correctas</h3><p>Te indicamos qué fotos ayudan para evaluar mejor el trabajo.</p></article>
-        <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.7 7.4L4 20.3l1.2-3.7a8.5 8.5 0 1 1 15.3-4.8z"/><path d="M9 8.8c.3-.6.6-.7 1-.5l.8 1.5c.2.4.1.7-.2 1l-.4.4c.7 1.2 1.7 2.2 3.1 2.9l.5-.5c.3-.3.6-.4 1-.2l1.5.7c.4.2.5.5.3.9-.3.9-1.1 1.4-2 1.3-2.9-.3-6.2-3.3-6.7-6.1-.1-.6.2-1.1.7-1.4z"/></svg></div><h3>Respuesta por WhatsApp</h3><p>El pedido llega completo para responderte con más claridad.</p></article>
+        <article class="info-card"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.7 7.4L4 20.3l1.2-3.7a8.5 8.5 0 1 1 15.3-4.8z"/><path d="M9 8.8c.3-.6.6-.7 1-.5l.8 1.5c.2.4.1.7-.2 1l-.4.4c.7 1.2 1.7 2.2 3.1 2.9l.5-.5c.3-.3.6-.4 1-.2l1.5.7c.4.2.5.5.3.9-.3.9-1.1 1.4-2 1.3-2.9-.3-6.2-3.3-6.7-6.1-.1-.6.2-1.1.7-1.4z"/></svg></div><h3>Respuesta por WhatsApp</h3><p>La información llega ordenada para responderte con más claridad.</p></article>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap quick-band">
-      <div>
-        <h2>Presupuesto por WhatsApp, claro desde el primer mensaje.</h2>
-        <p>Las llamadas quedan reservadas para clientes con turno confirmado, seguimiento o coordinación técnica.</p>
-      </div>
-      <a class="btn btn-primary btn-shine" data-wa-generic href="#">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163A11.87 11.87 0 0 1 .16 11.891C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg>
-        Abrir WhatsApp
-      </a>
     </div>
   </section>
 
@@ -677,8 +671,8 @@
     </div>
   </footer>
 
-  <div class="mobile-sticky" id="mobileStartBar">
-    <a class="btn btn-primary btn-shine btn-block" href="#smartflow" data-start-flow>Empezar solicitud</a>
+  <div class="mobile-sticky" id="mobileStartBar" aria-hidden="true">
+    <a class="btn btn-primary btn-shine btn-block" href="#smartflow" data-start-flow>Solicitar presupuesto</a>
   </div>
   <div class="toast" id="toast">Copiado</div>
 
@@ -755,8 +749,64 @@
       state.flowStarted = true;
       document.body.classList.add('flow-started');
       const sticky = $('#mobileStartBar');
-      if(sticky) sticky.setAttribute('aria-hidden','true');
+      if(sticky){
+        sticky.classList.remove('is-visible');
+        sticky.setAttribute('aria-hidden','true');
+      }
     }
+
+    const stickyMedia = window.matchMedia ? window.matchMedia('(max-width:650px)') : {matches:false};
+    let heroCtaVisible = true;
+    function setStickyVisible(visible){
+      const sticky = $('#mobileStartBar');
+      if(!sticky) return;
+      const shouldShow = Boolean(visible && stickyMedia.matches && !state.flowStarted);
+      sticky.classList.toggle('is-visible', shouldShow);
+      sticky.setAttribute('aria-hidden', String(!shouldShow));
+    }
+
+    function updateStickyFromHero(){
+      const heroCta = $('#heroStartCta');
+      if(!heroCta){ setStickyVisible(false); return; }
+      const rect = heroCta.getBoundingClientRect();
+      heroCtaVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+      setStickyVisible(!heroCtaVisible);
+    }
+
+    const heroCta = $('#heroStartCta');
+    if(heroCta && 'IntersectionObserver' in window){
+      const heroCtaObserver = new IntersectionObserver(entries => {
+        const entry = entries[0];
+        heroCtaVisible = Boolean(entry && entry.isIntersecting && entry.intersectionRatio > .15);
+        setStickyVisible(!heroCtaVisible);
+      }, {threshold:[0, .15, .5]});
+      heroCtaObserver.observe(heroCta);
+    }else{
+      window.addEventListener('scroll', updateStickyFromHero, {passive:true});
+    }
+    window.addEventListener('resize', updateStickyFromHero, {passive:true});
+    updateStickyFromHero();
+
+    const microInfo = $('#microInfo');
+    $$('.micro[data-micro-info]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const alreadyOpen = btn.classList.contains('active');
+        $$('.micro[data-micro-info]').forEach(item => {
+          item.classList.remove('active');
+          item.setAttribute('aria-expanded', 'false');
+        });
+        if(alreadyOpen){
+          if(microInfo){ microInfo.textContent = ''; microInfo.classList.remove('show'); }
+          return;
+        }
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+        if(microInfo){
+          microInfo.textContent = btn.dataset.microInfo || '';
+          microInfo.classList.add('show');
+        }
+      });
+    });
 
     $$('[data-start-flow]').forEach(btn => btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -899,7 +949,7 @@
       steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
       stepLabel.textContent = `Paso ${n}/5`;
       progressBar.style.width = `${n * 20}%`;
-      const labels = ['Contanos qué necesitás','Confirmá necesidad','Domicilio preciso','Datos para cotizar','Solicitud lista'];
+      const labels = ['Contanos qué necesitás','Confirmá necesidad','Domicilio preciso','Datos para cotizar','Presupuesto listo'];
       appSubtitle.textContent = labels[n-1] || 'Solicitud guiada';
       if(n === 3) setTimeout(initMap, 120);
       if(n === 4) renderDynamicQuestions();
