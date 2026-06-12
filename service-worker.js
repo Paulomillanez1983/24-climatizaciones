@@ -1,9 +1,12 @@
-const CACHE = '24-climatizaciones-v15';
+const CACHE = '24-climatizaciones-v16';
 const ASSETS = [
   './',
   './index.html',
   './icon.svg',
   './manifest.webmanifest',
+  './robots.txt',
+  './sitemap.xml',
+  './llms.txt',
   './assets/brands/ariston.svg',
   './assets/brands/bgh.svg',
   './assets/brands/carrier.svg',

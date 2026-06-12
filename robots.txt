@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://24-climatizaciones.vercel.app/sitemap.xml

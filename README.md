@@ -14,3 +14,9 @@ Sitio/PWA estático para solicitar presupuestos de climatización por WhatsApp.
 
 Abrir `index.html` directamente alcanza para revisar la interfaz. Para probar PWA, manifest y service worker conviene servir la carpeta con un servidor local o publicarla en HTTPS.
 
+## Calificaciones de Google
+
+La seccion de opiniones funciona con fallback honesto: si no hay credenciales, envia a la ficha oficial de Google. Para mostrar rating real en Vercel, configurar estas variables:
+
+- `GOOGLE_PLACES_API_KEY`
+- `GOOGLE_PLACE_ID`
