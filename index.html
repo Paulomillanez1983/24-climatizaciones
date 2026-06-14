@@ -56,7 +56,10 @@
       "mantenimiento de aire acondicionado",
       "reparación de calderas",
       "calefacción residencial",
-      "climatización comercial"
+      "climatización comercial",
+      "sistemas VRF",
+      "puesta en marcha de sistemas VRF",
+      "diagnóstico de climatización"
     ],
     "hasOfferCatalog":{
       "@type":"OfferCatalog",
@@ -67,7 +70,8 @@
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Mantenimiento de climatización"}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Reparación de calderas y calefacción"}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Service de aire acondicionado en Córdoba"}},
-        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Diagnóstico de repuestos y fallas de climatización"}}
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Diagnóstico de repuestos y fallas de climatización"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Instalación y puesta en marcha de sistemas VRF"}}
       ]
     },
     "sameAs":[
@@ -415,6 +419,43 @@
     .local-service-card h3{font-family:var(--display);font-size:1rem;line-height:1.08;letter-spacing:-.035em;color:#071226;position:relative;z-index:1}
     .local-service-card p{color:#657287;font-weight:790;font-size:.82rem;line-height:1.38;position:relative;z-index:1}
     .local-service-note{margin-top:14px;border:1px solid #dce8f6;background:#f8fbff;border-radius:18px;padding:12px 14px;color:#657287;font-weight:850;font-size:.88rem;line-height:1.45}
+    .trust-proof-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(320px,.94fr);gap:16px;align-items:stretch}
+    .trust-feature,.trust-side-card{border:1px solid #dce8f6;background:#fff;border-radius:28px;box-shadow:var(--shadow-soft);overflow:hidden}
+    .trust-feature{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(280px,.98fr);min-height:360px}
+    .proof-photo{display:block;width:100%;border:0;background:#071226;padding:0;position:relative;overflow:hidden;cursor:zoom-in;text-align:left;color:#fff}
+    .proof-photo img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .36s ease,filter .36s ease}
+    .proof-certificate img{object-fit:contain;background:linear-gradient(135deg,#eef7ff,#fff7ee);box-sizing:border-box;padding:8px}
+    .proof-photo:hover img{transform:scale(1.035);filter:saturate(1.06)}
+    .proof-photo::after{content:"";position:absolute;inset:auto 0 0;height:56%;background:linear-gradient(180deg,transparent,rgba(6,17,38,.82));pointer-events:none}
+    .proof-photo-label{position:absolute;left:12px;right:12px;bottom:12px;z-index:1;display:grid;gap:4px}
+    .proof-photo-label b{font-family:var(--display);letter-spacing:-.035em;line-height:1.05;font-size:1.02rem;color:#fff}
+    .proof-photo-label small{font-size:.76rem;color:#cfe0ff;font-weight:850;line-height:1.25}
+    .trust-feature-copy{padding:20px;display:grid;align-content:center;gap:14px}
+    .trust-feature-copy h2{font-family:var(--display);letter-spacing:-.055em;line-height:1;font-size:clamp(1.55rem,3.2vw,2.55rem);color:#071226}
+    .trust-feature-copy p{color:#657287;font-weight:820;line-height:1.48;font-size:.92rem}
+    .trust-checks{display:grid;gap:9px}
+    .trust-check{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;border:1px solid #e2edf8;background:#f8fbff;border-radius:17px;padding:10px}
+    .trust-check i{width:34px;height:34px;border-radius:13px;background:linear-gradient(135deg,#e9f7ff,#fff0e4);display:grid;place-items:center;color:#0b62de;font-style:normal;font-weight:950}
+    .trust-check b{display:block;color:#071226;font-size:.86rem;line-height:1.12}
+    .trust-check small{display:block;color:#657287;font-size:.74rem;font-weight:820;line-height:1.25;margin-top:2px}
+    .trust-side{display:grid;gap:12px}
+    .trust-side-card{padding:15px;display:grid;gap:12px;background:linear-gradient(180deg,#fff,#f8fbff)}
+    .trust-side-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .trust-side-head h3{font-family:var(--display);letter-spacing:-.04em;font-size:1.08rem;line-height:1.05;color:#071226}
+    .trust-side-head span{border:1px solid rgba(37,214,111,.25);background:rgba(37,214,111,.10);color:#067b35;border-radius:999px;padding:7px 9px;font-size:.7rem;font-weight:950;white-space:nowrap}
+    .proof-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+    .proof-card{min-height:142px;border-radius:18px}
+    .proof-card .proof-photo-label{left:10px;right:10px;bottom:10px}
+    .proof-card .proof-photo-label b{font-size:.82rem}
+    .proof-card .proof-photo-label small{font-size:.66rem}
+    .trust-note{border:1px solid rgba(22,119,255,.16);background:#eef7ff;border-radius:18px;padding:12px;color:#18315e;font-weight:850;font-size:.82rem;line-height:1.42}
+    .photo-lightbox{position:fixed;inset:0;z-index:110;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(6,17,38,.82);backdrop-filter:blur(16px)}
+    .photo-lightbox.show{display:flex}
+    .photo-lightbox-card{width:min(100%,980px);max-height:min(90vh,780px);display:grid;gap:10px}
+    .photo-lightbox-top{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff}
+    .photo-lightbox-top b{font-family:var(--display);letter-spacing:-.035em;font-size:1.1rem}
+    .photo-lightbox-top button{width:42px;height:42px;border-radius:15px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-size:1.2rem;font-weight:950}
+    .photo-lightbox img{max-width:100%;max-height:calc(90vh - 58px);object-fit:contain;border-radius:22px;box-shadow:0 34px 90px -42px rgba(0,0,0,.95);background:#fff}
     .section,footer{content-visibility:auto;contain-intrinsic-size:720px}
     footer{padding:42px 0 88px;background:#061126;color:#9fb0d3;margin-top:34px}
     .footer-brands{border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border-radius:28px;padding:18px;margin-bottom:28px;overflow:hidden;box-shadow:0 30px 70px -52px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.08)}
@@ -444,8 +485,8 @@
     .google-review-link em{font-style:normal;font-size:.8rem;font-weight:950;color:#172033}
     .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(16px);background:#061126;color:white;border:1px solid rgba(255,255,255,.14);padding:11px 14px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.24s ease;z-index:100;font-weight:900;font-size:.84rem;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-    @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.flow-summary{grid-column:auto;margin-top:0}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.local-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.review-proof-card{grid-template-columns:1fr}.foot-links{text-align:left}.social-block{justify-items:start}.social-icons{justify-content:flex-start}.review-card{justify-self:start}.footer-brand-head{display:grid}.experience-seal{width:max-content}}
-    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.micro{border-radius:14px;padding:8px 7px;gap:5px;min-width:0}.micro::after{width:46px;height:46px;right:-16px;top:-18px}.micro-icon{width:28px;height:28px;border-radius:11px}.micro-icon svg{width:15px;height:15px}.micro b{font-size:.8rem;letter-spacing:-.03em}.micro small{font-size:.59rem;line-height:1.05}.micro-detail{font-size:.76rem;padding:10px 11px}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.proof-slide{grid-template-columns:1fr;gap:10px;padding:14px;min-height:0}.proof-copy{gap:6px}.proof-copy h3{font-size:1.38rem}.proof-copy p{font-size:.82rem;line-height:1.35}.proof-visual{height:172px;border-radius:19px}.proof-controls{padding:8px 10px}.proof-arrow{width:34px;height:34px;border-radius:12px}.local-service-grid{grid-template-columns:1fr;gap:9px}.local-service-card{min-height:0;border-radius:18px;padding:13px;grid-template-columns:36px 1fr;align-items:start}.local-service-card p{grid-column:2}.local-service-note{font-size:.8rem;border-radius:16px}.review-proof-card{border-radius:24px;padding:14px;gap:12px}.review-proof-main{gap:11px}.review-proof-main h2{font-size:1.58rem}.review-proof-main p{font-size:.86rem}.google-rating-panel{grid-template-columns:1fr;padding:12px;border-radius:19px}.google-score strong{width:52px;height:52px;border-radius:18px;font-size:1rem}.google-actions .google-review-link{width:100%}.review-proof-side{border-radius:20px;padding:13px}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.footer-brands{border-radius:24px;padding:15px;margin-bottom:24px}.footer-brand-copy h2{font-size:1.55rem}.footer-brand-copy p{font-size:.83rem}.experience-seal{font-size:.76rem;padding:7px 10px}.brand-logo-card{height:45px;min-width:112px;border-radius:14px;padding:8px 13px}.brand-logo-card img{max-width:88px;height:23px}.brand-logo-card.carrier img{height:29px}.brand-logo-card.lg img{height:27px}.brand-logo-card.rheem img{height:29px;width:29px}.brand-logo-card.samsung img{height:24px}.brand-logo-card.hitachi img{height:18px}.brand-logo-card.bgh img{height:25px}.brand-logo-card.philco img{height:21px}}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}.intro{position:relative;top:auto}.app-shell{min-height:auto}.flow-summary{grid-column:auto;margin-top:0}.cards{grid-template-columns:repeat(2,1fr)}.quick-band{grid-template-columns:1fr}.local-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.trust-proof-grid,.trust-feature{grid-template-columns:1fr}.trust-feature{min-height:0}.trust-feature .proof-photo{height:280px}.review-proof-card{grid-template-columns:1fr}.foot-links{text-align:left}.social-block{justify-items:start}.social-icons{justify-content:flex-start}.review-card{justify-self:start}.footer-brand-head{display:grid}.experience-seal{width:max-content}}
+    @media(max-width:650px){.topbar .wrap{height:64px}.brand small{max-width:165px}.status-pill{display:none}.wa-mini span{display:none}.wa-mini{width:42px;padding:0;justify-content:center}.hero{padding-top:18px}.hero-card{padding:19px;border-radius:24px}.hero-actions .btn{width:100%;max-width:320px}.hero-actions{justify-content:center}.micro-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.micro{border-radius:14px;padding:8px 7px;gap:5px;min-width:0}.micro::after{width:46px;height:46px;right:-16px;top:-18px}.micro-icon{width:28px;height:28px;border-radius:11px}.micro-icon svg{width:15px;height:15px}.micro b{font-size:.8rem;letter-spacing:-.03em}.micro small{font-size:.59rem;line-height:1.05}.micro-detail{font-size:.76rem;padding:10px 11px}.app{border-radius:28px;padding:8px}.app-shell{border-radius:22px}.screen{padding:0 12px 16px}.app-head{padding:14px 12px 10px}.app-brand small{max-width:170px}.progress-track{margin:0 12px 14px}.seg-grid,.inline-fields,.ticket-grid,.secondary-actions{grid-template-columns:1fr}.address-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.proof-slide{grid-template-columns:1fr;gap:10px;padding:14px;min-height:0}.proof-copy{gap:6px}.proof-copy h3{font-size:1.38rem}.proof-copy p{font-size:.82rem;line-height:1.35}.proof-visual{height:172px;border-radius:19px}.proof-controls{padding:8px 10px}.proof-arrow{width:34px;height:34px;border-radius:12px}.local-service-grid{grid-template-columns:1fr;gap:9px}.local-service-card{min-height:0;border-radius:18px;padding:13px;grid-template-columns:36px 1fr;align-items:start}.local-service-card p{grid-column:2}.local-service-note{font-size:.8rem;border-radius:16px}.trust-feature .proof-photo{height:210px}.trust-feature-copy{padding:15px;gap:11px}.trust-feature-copy h2{font-size:1.55rem}.trust-feature-copy p{font-size:.84rem}.trust-check{grid-template-columns:30px 1fr;border-radius:15px;padding:9px}.trust-check i{width:30px;height:30px;border-radius:11px}.trust-side-card{border-radius:22px;padding:13px}.trust-side-head{align-items:flex-start}.trust-side-head h3{font-size:1rem}.trust-side-head span{font-size:.62rem}.proof-gallery{display:flex;overflow-x:auto;gap:9px;padding-bottom:4px;scroll-snap-type:x mandatory}.proof-card{width:202px;min-width:202px;height:138px;scroll-snap-align:start}.trust-note{font-size:.76rem;border-radius:15px}.photo-lightbox{padding:11px}.photo-lightbox-top b{font-size:.94rem}.photo-lightbox-top button{width:38px;height:38px;border-radius:13px}.photo-lightbox img{border-radius:16px}.review-proof-card{border-radius:24px;padding:14px;gap:12px}.review-proof-main{gap:11px}.review-proof-main h2{font-size:1.58rem}.review-proof-main p{font-size:.86rem}.google-rating-panel{grid-template-columns:1fr;padding:12px;border-radius:19px}.google-score strong{width:52px;height:52px;border-radius:18px;font-size:1rem}.google-actions .google-review-link{width:100%}.review-proof-side{border-radius:20px;padding:13px}.quick-band{padding:22px;border-radius:26px}.mobile-sticky{display:grid;grid-template-columns:1fr}#map{height:232px}.wrap{width:min(100% - 22px,1120px)}.section{padding:36px 0}.topbar{background:rgba(250,252,255,.94)}.btn{min-height:42px;padding:10px 14px}.nav-row{grid-template-columns:1fr}.back{order:2}.next{order:1}.badge-row{gap:7px;margin-bottom:15px}.badge{padding:6px 9px;font-size:.72rem}.badge-icon{width:20px;height:20px;border-radius:8px}.footer-brands{border-radius:24px;padding:15px;margin-bottom:24px}.footer-brand-copy h2{font-size:1.55rem}.footer-brand-copy p{font-size:.83rem}.experience-seal{font-size:.76rem;padding:7px 10px}.brand-logo-card{height:45px;min-width:112px;border-radius:14px;padding:8px 13px}.brand-logo-card img{max-width:88px;height:23px}.brand-logo-card.carrier img{height:29px}.brand-logo-card.lg img{height:27px}.brand-logo-card.rheem img{height:29px;width:29px}.brand-logo-card.samsung img{height:24px}.brand-logo-card.hitachi img{height:18px}.brand-logo-card.bgh img{height:25px}.brand-logo-card.philco img{height:21px}}
     @media(max-width:650px){.step-intro{gap:9px;margin-bottom:11px}.step-mini-seal{width:46px;height:46px;border-radius:17px}.step-mini-seal svg{width:23px;height:23px}.step-kicker{font-size:.66rem;padding:6px 8px;margin-bottom:7px}.step-intro .hint{font-size:.88rem;line-height:1.42}.composer-head{padding:11px 12px;align-items:flex-start}.composer-actions{display:grid;gap:6px;justify-items:end}.composer-badge{font-size:.62rem;padding:6px 8px}.smart-text textarea{min-height:112px;padding:16px;font-size:.9rem}.clear-btn{font-size:.66rem;padding:6px 8px}.problem-helper{margin:10px;border-radius:18px;padding:10px}.problem-helper-head{display:flex;align-items:center}.problem-helper-head span{text-align:left;max-width:none}.guide-score{font-size:.62rem;padding:6px 7px}.problem-checks{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.problem-check{font-size:.68rem;padding:8px 7px;min-height:45px}.problem-check small{font-size:.58rem}.quick-examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-inline:10px}.example-title{margin-left:10px;margin-right:10px}.example-btn{padding:8px 7px;min-height:55px}.example-btn b{font-size:.7rem}.example-btn small{font-size:.58rem}.chips{margin-inline:10px;gap:6px}.chip{font-size:.72rem;padding:7px 8px}.predict-card{border-radius:18px;padding:11px 12px}.predict-card b{font-size:.88rem}.predict-card small{font-size:.69rem}}
     @media(max-width:650px){.flow-panel{border-radius:20px;padding:12px}.choice-group+.choice-group{margin-top:13px}.group-heading{gap:8px;margin-bottom:8px}.group-number{width:23px;height:23px;border-radius:9px;font-size:.66rem}.group-heading b{font-size:.74rem}.group-heading small{font-size:.62rem}.group-status{font-size:.58rem;padding:5px 7px}.service-panel .seg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.service-panel .choice{border-radius:15px;min-height:82px;padding:10px 8px;gap:6px}.service-panel .choice::before{right:8px;top:8px;width:11px;height:11px}.service-panel .choice-icon{width:30px;height:30px;border-radius:12px}.service-panel .choice-icon svg{width:16px;height:16px}.service-panel .choice b{font-size:.74rem;line-height:1.04;letter-spacing:-.025em}.service-panel .choice small{font-size:.6rem;line-height:1.12}.location-guide{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px}.location-step{grid-template-columns:1fr;gap:5px;padding:7px;justify-items:start}.location-step i{width:24px;height:24px;border-radius:9px;font-size:.66rem}.location-step b{font-size:.66rem}.location-step small{font-size:.56rem}.map-search-label{font-size:.62rem}.map-hint{font-size:.72rem;line-height:1.3}.detail-brief{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.detail-card{border-radius:15px;padding:9px;gap:7px;align-items:flex-start;min-height:63px}.detail-card i{width:27px;height:27px;border-radius:10px;font-size:.72rem}.detail-card small{font-size:.58rem}.detail-card b{font-size:.72rem;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.contact-head{align-items:flex-start}.contact-head span{font-size:.58rem}.question-card{border-radius:16px;padding:11px}.question-top h3{font-size:.82rem}.question-index{width:23px;height:23px;border-radius:9px;font-size:.66rem}.pill-option{font-size:.69rem;padding:7px 9px}.photo-item{align-items:flex-start;border-radius:14px;padding:9px}.photo-icon{width:27px;height:27px}.photo-copy small{font-size:.61rem}.photo-item button{padding:7px 8px;font-size:.66rem;white-space:nowrap}.final-status{grid-template-columns:42px 1fr;align-items:start}.final-status-icon{width:42px;height:42px;border-radius:16px}.final-score{grid-column:1/-1;width:max-content}.ticket-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ticket-mini{border-radius:13px;padding:9px;min-height:60px}.ticket-mini small{font-size:.58rem}.ticket-mini b{font-size:.72rem}.final-note{font-size:.72rem}.secondary-actions{grid-template-columns:1fr 1fr}}
     @media(max-width:380px){.service-panel .seg-grid,.ticket-grid,.detail-brief,.secondary-actions{grid-template-columns:1fr}.location-guide{grid-template-columns:1fr}.final-status{grid-template-columns:1fr}.final-score{grid-column:auto}}
@@ -937,6 +978,63 @@
     </div>
   </section>
 
+  <section class="section trust-proof" id="capacitacion-trabajos">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Capacitaci&oacute;n y trabajos reales</span>
+        <h2>Confianza antes de pedir presupuesto.</h2>
+        <p>Mostramos capacitaciones, herramientas y trabajos reales para que sepas qui&eacute;n va a revisar tu equipo.</p>
+      </div>
+      <div class="trust-proof-grid">
+        <article class="trust-feature">
+          <button class="proof-photo" type="button" data-photo-src="assets/proof/puesta-marcha-inverter.webp" data-photo-title="Puesta en marcha y diagn&oacute;stico de equipo inverter" aria-label="Ver puesta en marcha y diagn&oacute;stico de equipo inverter">
+            <img src="assets/proof/puesta-marcha-inverter.webp" srcset="assets/proof/puesta-marcha-inverter-thumb.webp 420w, assets/proof/puesta-marcha-inverter.webp 860w" sizes="(max-width:650px) 100vw, 430px" alt="Equipo inverter usado para puesta en marcha y diagn&oacute;stico" width="860" height="1143" loading="lazy" decoding="async">
+            <span class="proof-photo-label">
+              <b>Puesta en marcha</b>
+              <small>Diagn&oacute;stico con equipo inverter y componentes reales.</small>
+            </span>
+          </button>
+          <div class="trust-feature-copy">
+            <h2>Trabajo con respaldo, no improvisado.</h2>
+            <p>La climatizaci&oacute;n exige diagn&oacute;stico, herramientas y criterio. Por eso mostramos evidencia real: capacitaci&oacute;n, instrumental y equipos atendidos.</p>
+            <div class="trust-checks" aria-label="Se&ntilde;ales de confianza">
+              <div class="trust-check"><i>1</i><span><b>Capacitaci&oacute;n VRF Gree</b><small>Asistencia documentada para instalaci&oacute;n y puesta en marcha.</small></span></div>
+              <div class="trust-check"><i>2</i><span><b>Herramientas de diagn&oacute;stico</b><small>Medici&oacute;n, vac&iacute;o, presi&oacute;n y prueba antes de presupuestar.</small></span></div>
+              <div class="trust-check"><i>3</i><span><b>Casos reales</b><small>Fotos propias para mostrar c&oacute;mo se trabaja y qu&eacute; se revisa.</small></span></div>
+            </div>
+          </div>
+        </article>
+        <aside class="trust-side">
+          <div class="trust-side-card">
+            <div class="trust-side-head">
+              <h3>Trabajos y herramientas</h3>
+              <span>Fotos reales</span>
+            </div>
+            <div class="proof-gallery" aria-label="Galer&iacute;a de capacitaci&oacute;n y trabajos reales">
+              <button class="proof-photo proof-card proof-certificate" type="button" data-photo-src="assets/proof/certificado-vrf-gree.webp" data-photo-title="Capacitaci&oacute;n documentada en sistemas VRF Gree">
+                <img src="assets/proof/certificado-vrf-gree-thumb.webp" alt="Certificado de asistencia a curso de sistemas VRF marca Gree" width="420" height="300" loading="lazy" decoding="async">
+                <span class="proof-photo-label"><b>VRF Gree</b><small>Capacitaci&oacute;n</small></span>
+              </button>
+              <button class="proof-photo proof-card" type="button" data-photo-src="assets/proof/herramientas-diagnostico.webp" data-photo-title="Herramientas de diagn&oacute;stico y refrigeraci&oacute;n">
+                <img src="assets/proof/herramientas-diagnostico-thumb.webp" alt="Herramientas de diagn&oacute;stico para refrigeraci&oacute;n y climatizaci&oacute;n" width="420" height="300" loading="lazy" decoding="async">
+                <span class="proof-photo-label"><b>Diagn&oacute;stico</b><small>Instrumental</small></span>
+              </button>
+              <button class="proof-photo proof-card" type="button" data-photo-src="assets/proof/banco-entrenamiento-refrigeracion.webp" data-photo-title="Banco de entrenamiento de refrigeraci&oacute;n">
+                <img src="assets/proof/banco-entrenamiento-refrigeracion-thumb.webp" alt="Banco de entrenamiento de refrigeraci&oacute;n" width="420" height="300" loading="lazy" decoding="async">
+                <span class="proof-photo-label"><b>Capacitaci&oacute;n</b><small>Refrigeraci&oacute;n</small></span>
+              </button>
+              <button class="proof-photo proof-card" type="button" data-photo-src="assets/proof/reparacion-caldera.webp" data-photo-title="Trabajo real en caldera y calefacci&oacute;n">
+                <img src="assets/proof/reparacion-caldera-thumb.webp" alt="Trabajo real de reparaci&oacute;n en caldera" width="420" height="300" loading="lazy" decoding="async">
+                <span class="proof-photo-label"><b>Calderas</b><small>Reparaci&oacute;n</small></span>
+              </button>
+            </div>
+          </div>
+          <div class="trust-note">Para cuidar la velocidad de la web, las fotos est&aacute;n optimizadas en WebP y se cargan solo cuando esta secci&oacute;n aparece en pantalla.</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <section class="section review-proof" id="opiniones-google">
     <div class="wrap">
       <div class="review-proof-card" data-google-reviews-card>
@@ -1071,6 +1169,15 @@
 
   <div class="mobile-sticky" id="mobileStartBar" aria-hidden="true">
     <a class="btn btn-primary btn-shine btn-block" href="#smartflow" data-start-flow>Solicitar presupuesto</a>
+  </div>
+  <div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+    <div class="photo-lightbox-card" role="dialog" aria-modal="true" aria-labelledby="photoLightboxTitle">
+      <div class="photo-lightbox-top">
+        <b id="photoLightboxTitle">Trabajo real</b>
+        <button type="button" id="photoLightboxClose" aria-label="Cerrar imagen">×</button>
+      </div>
+      <img id="photoLightboxImage" src="" alt="">
+    </div>
   </div>
   <div class="toast" id="toast">Copiado</div>
 
@@ -1247,6 +1354,42 @@
       setProofSlide(0);
       startProofTimer();
     }
+
+    const photoLightbox = $('#photoLightbox');
+    const photoLightboxImage = $('#photoLightboxImage');
+    const photoLightboxTitle = $('#photoLightboxTitle');
+    const photoLightboxClose = $('#photoLightboxClose');
+
+    function closePhotoLightbox(){
+      if(!photoLightbox) return;
+      photoLightbox.classList.remove('show');
+      photoLightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if(photoLightboxImage) photoLightboxImage.src = '';
+    }
+
+    $$('.proof-photo[data-photo-src]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(!photoLightbox || !photoLightboxImage || !photoLightboxTitle) return;
+        const title = btn.dataset.photoTitle || 'Trabajo real';
+        photoLightboxTitle.textContent = title;
+        photoLightboxImage.src = btn.dataset.photoSrc;
+        photoLightboxImage.alt = title;
+        photoLightbox.classList.add('show');
+        photoLightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if(photoLightboxClose) photoLightboxClose.focus();
+      });
+    });
+    if(photoLightboxClose) photoLightboxClose.addEventListener('click', closePhotoLightbox);
+    if(photoLightbox){
+      photoLightbox.addEventListener('click', (e) => {
+        if(e.target === photoLightbox) closePhotoLightbox();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closePhotoLightbox();
+    });
 
     $$('[data-start-flow]').forEach(btn => btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -1999,7 +2142,7 @@
 
     function setupIconMotion(){
       if(prefersReducedMotion) return;
-      const targets = '.choice,.micro,.badge,.wa-mini,.btn,.proof-arrow,.proof-dot,.faq-q,.social-link,.google-review-link,.photo-item button,.location-step';
+      const targets = '.choice,.micro,.badge,.wa-mini,.btn,.proof-arrow,.proof-dot,.proof-photo,.faq-q,.social-link,.google-review-link,.photo-item button,.location-step';
       document.addEventListener('pointerdown', event => {
         const target = event.target.closest(targets);
         if(!target) return;
