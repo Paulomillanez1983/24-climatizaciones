@@ -563,7 +563,7 @@
           <div class="app-head">
             <div class="app-brand">
               <span class="logo"><span class="logo-snow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M4.2 6.2l15.6 11.6M19.8 6.2L4.2 17.8M2 12h20"/><circle cx="12" cy="12" r="2.4"/></svg></span><b>24<em>°</em></b><span class="logo-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 14.8A3 3 0 0 0 12 11.8c0-1.6-.7-2.4-1.1-3.4-.8-1.9.2-4 2.5-5.8.4 2.7 1.9 5 4 6.6 2.1 1.7 3.1 3.6 3.1 5.9a8.5 8.5 0 1 1-17 0c0-1.4.5-2.8 1.3-3.8a3.4 3.4 0 0 0 3.8 3.5z"/></svg></span></span>
-              <div><strong>Presupuesto 24</strong><small id="appSubtitle">Contanos qué necesitás</small></div>
+              <div><strong>Asistente 24</strong><small id="appSubtitle">Presupuesto guiado</small></div>
             </div>
             <span class="step-chip"><i></i><span id="stepLabel">Paso 1/5</span></span>
           </div>
@@ -573,9 +573,9 @@
             <section class="step active" data-step="1" aria-labelledby="s1-title">
               <div class="step-intro">
                 <div>
-                  <span class="step-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><path d="m16 14 2 2 4-5"/></svg> Primer mensaje</span>
-                  <h2 id="s1-title">Contanos qu&eacute; pasa.</h2>
-                  <p class="hint">Escrib&iacute; como lo mandar&iacute;as por WhatsApp. Con una frase clara ya podemos preparar mejor el presupuesto.</p>
+                  <span class="step-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><path d="m16 14 2 2 4-5"/></svg> Paso 1</span>
+                  <h2 id="s1-title">Describ&iacute; el problema.</h2>
+                  <p class="hint">No hace falta usar palabras t&eacute;cnicas. Escrib&iacute; lo que pasa y seguimos.</p>
                 </div>
                 <span class="step-mini-seal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.7 7.4L4 20.3l1.2-3.7a8.5 8.5 0 1 1 15.3-4.8z"/><path d="M9 8.8c.3-.6.6-.7 1-.5l.8 1.5c.2.4.1.7-.2 1l-.4.4c.7 1.2 1.7 2.2 3.1 2.9l.5-.5c.3-.3.6-.4 1-.2l1.5.7"/></svg></span>
               </div>
@@ -583,7 +583,7 @@
                 <div class="composer-head">
                   <div class="composer-title">
                     <span class="composer-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H9l-5 4v-4.5A2.5 2.5 0 0 1 4 13z"/><path d="M8 8h8M8 11h5"/></svg></span>
-                    <div><b>Mensaje para presupuesto</b><small>Escrib&iacute; una frase. Nosotros ordenamos lo importante.</small></div>
+                    <div><b>Gu&iacute;a 24</b><small>Te orienta cuando termina tu mensaje.</small></div>
                   </div>
                   <div class="composer-actions">
                     <span class="composer-badge"><i></i> WhatsApp</span>
@@ -591,13 +591,13 @@
                   </div>
                 </div>
                 <div class="input-stage">
-                  <div class="input-status"><span>Ahora contanos el problema</span><small>Una frase alcanza para empezar</small></div>
-                  <textarea id="problemText" aria-label="Problema, s&iacute;ntoma o servicio que necesit&aacute;s" placeholder="Ej: La caldera pierde presi&oacute;n, los radiadores no calientan o el split no enfr&iacute;a."></textarea>
-                  <div class="input-footer"><i>24</i><span>Cuando termines, te mostramos qu&eacute; datos conviene completar para presupuestar mejor.</span></div>
+                  <div class="input-status"><span>Escrib&iacute; ac&aacute;</span><small>Ejemplos rotativos</small></div>
+                  <textarea id="problemText" aria-label="Problema, s&iacute;ntoma o servicio que necesit&aacute;s" placeholder="Mi caldera pierde presi&oacute;n desde ayer."></textarea>
+                  <div class="input-footer"><i>24</i><span>No hace falta saber la falla exacta. Con tus palabras alcanza.</span></div>
                 </div>
                 <div class="prediction" id="predictionBox" aria-live="polite"></div>
                 <details class="assist-tools" id="assistTools">
-                  <summary><span>Ver ejemplos si no sab&eacute;s c&oacute;mo escribirlo</span><small>Opcional</small></summary>
+                  <summary><span>Necesito ver ejemplos</span><small>Opcional</small></summary>
                   <div class="assist-tools-body">
                 <div class="example-title">Ejemplos r&aacute;pidos</div>
                 <div class="quick-examples" id="problemExamples">
@@ -1415,6 +1415,23 @@
     const predictionBox = $('#predictionBox');
     const safetyBox = $('#safetyBox');
     let predictionTimer;
+    const problemPlaceholders = [
+      'Se me rompio el aire y necesito que lo revisen urgente.',
+      'Mi caldera pierde agua desde anoche.',
+      'Los radiadores no calientan bien.',
+      'Quiero instalar un split en el dormitorio.',
+      'El aire prende, pero no enfria.',
+      'La caldera pierde presion y no se mantiene.'
+    ];
+    let placeholderIndex = 0;
+
+    function rotateProblemPlaceholder(force = false){
+      if(!problemText || (state && state.problem)) return;
+      if(!force) placeholderIndex = (placeholderIndex + 1) % problemPlaceholders.length;
+      problemText.placeholder = problemPlaceholders[placeholderIndex];
+    }
+    rotateProblemPlaceholder(true);
+    setInterval(() => rotateProblemPlaceholder(), 2800);
 
     function normalize(txt){
       return (txt || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -1846,7 +1863,7 @@
       steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
       stepLabel.textContent = `Paso ${n}/5`;
       progressBar.style.width = `${n * 20}%`;
-      const labels = ['Contanos qué necesitás','Confirmá necesidad','Domicilio preciso','Datos para cotizar','Presupuesto listo'];
+      const labels = ['Escribí el problema','Confirmá necesidad','Domicilio preciso','Datos para cotizar','Presupuesto listo'];
       appSubtitle.textContent = labels[n-1] || 'Solicitud guiada';
       if(n === 3) setTimeout(initMap, 120);
       if(n === 4) renderDynamicQuestions();
