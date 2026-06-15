@@ -1,4 +1,4 @@
-const CACHE = '24-climatizaciones-v27';
+const CACHE = '24-climatizaciones-v28';
 const ASSETS = [
   './',
   './index.html',

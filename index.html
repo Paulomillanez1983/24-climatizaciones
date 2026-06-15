@@ -1424,14 +1424,40 @@
       'La caldera pierde presion y no se mantiene.'
     ];
     let placeholderIndex = 0;
+    let placeholderChar = 0;
+    let placeholderDeleting = false;
+    let placeholderTimer;
 
-    function rotateProblemPlaceholder(force = false){
-      if(!problemText || (state && state.problem)) return;
-      if(!force) placeholderIndex = (placeholderIndex + 1) % problemPlaceholders.length;
-      problemText.placeholder = problemPlaceholders[placeholderIndex];
+    function typeProblemPlaceholder(){
+      if(!problemText) return;
+      clearTimeout(placeholderTimer);
+      if(state.problem){
+        placeholderTimer = setTimeout(typeProblemPlaceholder, 500);
+        return;
+      }
+      const text = problemPlaceholders[placeholderIndex];
+      if(!placeholderDeleting){
+        placeholderChar = Math.min(placeholderChar + 1, text.length);
+        problemText.placeholder = text.slice(0, placeholderChar);
+        if(placeholderChar === text.length){
+          placeholderDeleting = true;
+          placeholderTimer = setTimeout(typeProblemPlaceholder, 1300);
+          return;
+        }
+        placeholderTimer = setTimeout(typeProblemPlaceholder, 34);
+        return;
+      }
+      placeholderChar = Math.max(placeholderChar - 1, 0);
+      problemText.placeholder = text.slice(0, placeholderChar) || ' ';
+      if(placeholderChar === 0){
+        placeholderDeleting = false;
+        placeholderIndex = (placeholderIndex + 1) % problemPlaceholders.length;
+        placeholderTimer = setTimeout(typeProblemPlaceholder, 360);
+        return;
+      }
+      placeholderTimer = setTimeout(typeProblemPlaceholder, 18);
     }
-    rotateProblemPlaceholder(true);
-    setInterval(() => rotateProblemPlaceholder(), 2800);
+    typeProblemPlaceholder();
 
     function normalize(txt){
       return (txt || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
