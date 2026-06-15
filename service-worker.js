@@ -1,4 +1,4 @@
-const CACHE = '24-climatizaciones-v28';
+const CACHE = '24-climatizaciones-v29';
 const ASSETS = [
   './',
   './index.html',
@@ -7,6 +7,10 @@ const ASSETS = [
   './robots.txt',
   './sitemap.xml',
   './llms.txt',
+  './assets/flow/presupuesto-5-min.webp',
+  './assets/flow/ruta-tecnico.webp',
+  './assets/flow/fotos-servicio.webp',
+  './assets/flow/whatsapp-solicitud.webp',
   './assets/brands/ariston.svg',
   './assets/brands/bgh.svg',
   './assets/brands/carrier.svg',

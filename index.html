@@ -373,6 +373,8 @@
     .proof-visual::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:32px 32px;opacity:.38;pointer-events:none}
     .proof-visual::after{content:"";position:absolute;left:18px;right:18px;bottom:15px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);pointer-events:none}
     .proof-visual svg{width:100%;height:100%;display:block;position:relative;z-index:1}
+    .proof-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1}
+    .proof-media+svg{display:none}
     .proof-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-top:1px solid #e5edf7;background:#fbfdff}
     .proof-arrow{width:36px;height:36px;border-radius:13px;border:1px solid #dce8f6;background:#fff;color:#071226;font-weight:950;display:grid;place-items:center;box-shadow:0 12px 28px -24px rgba(7,18,38,.45)}
     .proof-arrow svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
@@ -386,11 +388,13 @@
     body.motion-ready .route-line{stroke-dasharray:8 9;animation:routeMove 2s linear infinite}
     body.motion-ready .photo-fly{animation:photoFly 2.8s ease-in-out infinite}
     body.motion-ready .chat-pop{animation:chatPop 2.5s ease-in-out infinite}
+    body.motion-ready .proof-media{animation:proofMediaFloat 5.4s ease-in-out infinite}
     @keyframes tickSpin{to{transform:rotate(360deg)}}
     @keyframes proofPulse{0%,100%{opacity:.12}50%{opacity:.32}}
     @keyframes routeMove{to{stroke-dashoffset:-34}}
     @keyframes photoFly{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-10px)}}
     @keyframes chatPop{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+    @keyframes proofMediaFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
     @keyframes iconTapBoost{0%{transform:scale(1) rotate(0)}42%{transform:scale(1.14) rotate(-7deg)}78%{transform:scale(.98) rotate(2deg)}100%{transform:scale(1) rotate(0)}}
     .logo,.wa-mini svg,.btn svg,.choice-icon,.micro-icon,.badge-icon,.proof-arrow svg,.photo-icon,.location-step i,.social-mark,.google-mark{transition:transform .18s ease}
     .wa-mini:active svg,.btn:active svg,.choice:active .choice-icon,.micro:active .micro-icon,.badge:active .badge-icon,.proof-arrow:active svg,.photo-item button:active .photo-icon,.location-step:active i,.social-link:active .social-mark,.google-review-link:active .google-mark{transform:scale(1.08) rotate(-6deg)}
@@ -807,8 +811,8 @@
     <div class="wrap">
       <div class="section-head">
         <span class="tag">Presupuesto claro</span>
-        <h2>Pedí presupuesto sin compromiso.</h2>
-        <p>Contanos qué pasa, marcá el domicilio y mandá todo por WhatsApp en un mensaje ordenado.</p>
+        <h2>Pedí presupuesto sin vueltas.</h2>
+        <p>Escribí el problema, marcá el domicilio y enviá la solicitud por WhatsApp.</p>
       </div>
       <div class="proof-carousel" data-proof-carousel aria-label="Ventajas para solicitar presupuesto">
         <div class="proof-viewport">
@@ -816,10 +820,11 @@
             <article class="proof-slide">
               <div class="proof-copy">
                 <span>01 / 5 min</span>
-                <h3>Pedido en pocos minutos.</h3>
-                <p>Cargá lo importante una sola vez y recibimos el resumen listo para revisar.</p>
+                <h3>Pedilo en 5 minutos.</h3>
+                <p>Completás lo clave una vez y seguimos por WhatsApp.</p>
               </div>
               <div class="proof-visual proof-time" aria-hidden="true">
+                <img class="proof-media" src="assets/flow/presupuesto-5-min.webp" width="720" height="460" loading="lazy" decoding="async" alt="">
                 <svg viewBox="0 0 360 230">
                   <defs>
                     <linearGradient id="proofBlue" x1="0" x2="1"><stop stop-color="#1cc8ff"/><stop offset="1" stop-color="#1677ff"/></linearGradient>
@@ -847,11 +852,12 @@
             </article>
             <article class="proof-slide">
               <div class="proof-copy">
-                <span>02 / Ubicación</span>
-                <h3>Ruta clara para el técnico.</h3>
-                <p>El domicilio llega con pin y acceso directo a Google Maps para calcular traslado.</p>
+                <span>02 / Domicilio</span>
+                <h3>Ruta para llegar.</h3>
+                <p>El técnico recibe el pin y puede calcular el traslado.</p>
               </div>
               <div class="proof-visual" aria-hidden="true">
+                <img class="proof-media" src="assets/flow/ruta-tecnico.webp" width="720" height="460" loading="lazy" decoding="async" alt="">
                 <svg viewBox="0 0 360 230">
                   <defs>
                     <linearGradient id="mapRoad" x1="0" x2="1"><stop stop-color="#e9f7ff"/><stop offset="1" stop-color="#fff2e3"/></linearGradient>
@@ -874,10 +880,11 @@
             <article class="proof-slide">
               <div class="proof-copy">
                 <span>03 / Fotos</span>
-                <h3>Fotos que ayudan.</h3>
-                <p>Te indicamos qué fotos conviene mandar para evitar preguntas innecesarias.</p>
+                <h3>Fotos que orientan.</h3>
+                <p>Te sugerimos qué mostrar para evaluar mejor el trabajo.</p>
               </div>
               <div class="proof-visual" aria-hidden="true">
+                <img class="proof-media" src="assets/flow/fotos-servicio.webp" width="720" height="460" loading="lazy" decoding="async" alt="">
                 <svg viewBox="0 0 360 230">
                   <defs>
                     <filter id="photoShadow" x="-20%" y="-20%" width="145%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000" flood-opacity=".26"/></filter>
@@ -902,10 +909,11 @@
             <article class="proof-slide">
               <div class="proof-copy">
                 <span>04 / WhatsApp</span>
-                <h3>Mensaje listo para responder.</h3>
-                <p>El pedido llega con servicio, ubicación y datos clave para preparar el presupuesto.</p>
+                <h3>Mensaje listo.</h3>
+                <p>La solicitud llega ordenada para responderte con claridad.</p>
               </div>
               <div class="proof-visual" aria-hidden="true">
+                <img class="proof-media" src="assets/flow/whatsapp-solicitud.webp" width="720" height="460" loading="lazy" decoding="async" alt="">
                 <svg viewBox="0 0 360 230">
                   <defs>
                     <filter id="waShadow" x="-20%" y="-20%" width="145%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000" flood-opacity=".28"/></filter>
