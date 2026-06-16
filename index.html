@@ -1012,7 +1012,7 @@
       </div>
       <div class="trust-proof-grid">
         <article class="trust-feature">
-          <button class="proof-photo" type="button" data-photo-src="assets/proof/puesta-marcha-inverter.webp" data-photo-title="Puesta en marcha y diagn&oacute;stico de equipo inverter" aria-label="Ver puesta en marcha y diagn&oacute;stico de equipo inverter">
+          <button class="proof-photo" type="button" data-managed-feature data-photo-src="assets/proof/puesta-marcha-inverter.webp" data-photo-title="Puesta en marcha y diagn&oacute;stico de equipo inverter" aria-label="Ver puesta en marcha y diagn&oacute;stico de equipo inverter">
             <img src="assets/proof/puesta-marcha-inverter.webp" srcset="assets/proof/puesta-marcha-inverter-thumb.webp 420w, assets/proof/puesta-marcha-inverter.webp 860w" sizes="(max-width:650px) 100vw, 430px" alt="Equipo inverter usado para puesta en marcha y diagn&oacute;stico" width="860" height="1143" loading="lazy" decoding="async">
             <span class="proof-photo-label">
               <b>Puesta en marcha</b>
@@ -1035,7 +1035,7 @@
               <h3>Trabajos y herramientas</h3>
               <span>Fotos reales</span>
             </div>
-            <div class="proof-gallery" aria-label="Galer&iacute;a de capacitaci&oacute;n y trabajos reales">
+            <div class="proof-gallery" data-managed-gallery aria-label="Galer&iacute;a de capacitaci&oacute;n y trabajos reales">
               <button class="proof-photo proof-card proof-certificate" type="button" data-photo-src="assets/proof/certificado-vrf-gree.webp" data-photo-title="Capacitaci&oacute;n documentada en sistemas VRF Gree">
                 <img src="assets/proof/certificado-vrf-gree-thumb.webp" alt="Certificado de asistencia a curso de sistemas VRF marca Gree" width="420" height="300" loading="lazy" decoding="async">
                 <span class="proof-photo-label"><b>VRF Gree</b><small>Capacitaci&oacute;n</small></span>
@@ -1427,19 +1427,65 @@
       if(photoLightboxImage) photoLightboxImage.src = '';
     }
 
-    $$('.proof-photo[data-photo-src]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if(!photoLightbox || !photoLightboxImage || !photoLightboxTitle) return;
-        const title = btn.dataset.photoTitle || 'Trabajo real';
-        photoLightboxTitle.textContent = title;
-        photoLightboxImage.src = btn.dataset.photoSrc;
-        photoLightboxImage.alt = title;
-        photoLightbox.classList.add('show');
-        photoLightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        if(photoLightboxClose) photoLightboxClose.focus();
-      });
+    function openPhotoLightbox(btn){
+      if(!photoLightbox || !photoLightboxImage || !photoLightboxTitle) return;
+      const title = btn.dataset.photoTitle || 'Trabajo real';
+      photoLightboxTitle.textContent = title;
+      photoLightboxImage.src = btn.dataset.photoSrc;
+      photoLightboxImage.alt = title;
+      photoLightbox.classList.add('show');
+      photoLightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if(photoLightboxClose) photoLightboxClose.focus();
+    }
+
+    document.addEventListener('click', (event) => {
+      const btn = event.target.closest('.proof-photo[data-photo-src]');
+      if(btn) openPhotoLightbox(btn);
     });
+
+    function proofButtonTemplate(item, index){
+      const title = escapeHtml(item.title || 'Trabajo real');
+      const category = escapeHtml(item.category || 'Trabajo real');
+      const description = escapeHtml(item.description || '');
+      const imageUrl = escapeHtml(item.imageUrl || '');
+      return `<button class="proof-photo proof-card" type="button" data-photo-src="${imageUrl}" data-photo-title="${title}" aria-label="Ver ${title}">
+        <img src="${imageUrl}" alt="${description || title}" width="420" height="300" loading="lazy" decoding="async">
+        <span class="proof-photo-label"><b>${title}</b><small>${category}</small></span>
+      </button>`;
+    }
+
+    async function loadManagedGallery(){
+      const feature = $('[data-managed-feature]');
+      const gallery = $('[data-managed-gallery]');
+      if(!feature || !gallery) return;
+      try{
+        const response = await fetch('/api/admin-gallery', {headers:{Accept:'application/json'}});
+        if(!response.ok) return;
+        const payload = await response.json();
+        const items = Array.isArray(payload.items) ? payload.items.filter(item => item.imageUrl) : [];
+        if(!items.length) return;
+        const featured = items.find(item => item.featured) || items[0];
+        const title = featured.title || 'Trabajo real';
+        const category = featured.category || 'Trabajo real';
+        const description = featured.description || 'Trabajo realizado por 24 Climatizaciones.';
+        feature.dataset.photoSrc = featured.imageUrl;
+        feature.dataset.photoTitle = title;
+        feature.setAttribute('aria-label', `Ver ${title}`);
+        feature.innerHTML = `<img src="${escapeHtml(featured.imageUrl)}" alt="${escapeHtml(description)}" width="860" height="1143" loading="lazy" decoding="async">
+          <span class="proof-photo-label">
+            <b>${escapeHtml(title)}</b>
+            <small>${escapeHtml(description || category)}</small>
+          </span>`;
+        const sideItems = items.filter(item => item.id !== featured.id).slice(0, 4);
+        if(sideItems.length){
+          gallery.innerHTML = sideItems.map(proofButtonTemplate).join('');
+        }
+      }catch(error){
+        // Keep the built-in gallery if the admin gallery is unavailable.
+      }
+    }
+    loadManagedGallery();
     if(photoLightboxClose) photoLightboxClose.addEventListener('click', closePhotoLightbox);
     if(photoLightbox){
       photoLightbox.addEventListener('click', (e) => {
