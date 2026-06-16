@@ -78,7 +78,9 @@
     .file-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .file-row input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
     .file-name{color:var(--muted);font-size:.8rem;font-weight:850}
-    .output-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .output-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .package-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+    .package-list span{border:1px solid #dbe8f8;background:#f8fbff;border-radius:13px;padding:9px 10px;color:#173258;font-size:.76rem;font-weight:900}
     .note{border-left:4px solid var(--warm);background:#fff8ef;color:#593515;border-radius:15px;padding:12px;font-size:.82rem;line-height:1.45;font-weight:820}
     .preview-shell{position:sticky;top:14px;display:grid;gap:12px}
     .preview-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px}
@@ -121,7 +123,7 @@
       .hero,.panel,.block{border-radius:22px;padding:15px}
       .top{align-items:flex-start}
       .actions{justify-content:flex-start}
-      .two,.three,.output-actions{grid-template-columns:1fr}
+      .two,.three,.output-actions,.package-list{grid-template-columns:1fr}
       .phone{padding:8px;border-radius:28px}
       .screen{border-radius:22px;min-height:680px}
     }
@@ -214,6 +216,16 @@
               <input id="whatsapp" data-field="whatsapp" placeholder="+5493513266650" />
             </div>
           </div>
+          <div class="two" style="margin-top:10px">
+            <div class="field">
+              <label for="domain">Dominio o URL final</label>
+              <input id="domain" data-field="domain" placeholder="https://cliente.com" />
+            </div>
+            <div class="field">
+              <label for="email">Email publico</label>
+              <input id="email" data-field="email" placeholder="contacto@cliente.com" />
+            </div>
+          </div>
         </section>
 
         <section class="block">
@@ -285,10 +297,17 @@
           </div>
           <div class="output-actions">
             <button class="btn primary" id="downloadHtml" type="button">Descargar HTML</button>
+            <button class="btn dark" id="downloadProject" type="button">Proyecto ZIP</button>
             <button class="btn dark" id="downloadConfig" type="button">Descargar JSON</button>
             <button class="btn green" id="copyPrompt" type="button">Copiar brief</button>
           </div>
-          <div class="note" style="margin-top:12px">Esta primera version no publica sola ni compra dominios. Genera el paquete base para que despues creemos el repo, dominio y deploy cuando el cliente confirme.</div>
+          <div class="package-list" aria-label="Contenido del paquete">
+            <span>SEO local y Open Graph</span>
+            <span>Sitemap, robots y llms.txt</span>
+            <span>Manifest e iconos</span>
+            <span>README y guia de deploy</span>
+          </div>
+          <div class="note" style="margin-top:12px">El ZIP deja una carpeta completa lista para crear repo, subir a Vercel y entregar al cliente. No usa tokens, no publica solo y no genera gastos.</div>
         </section>
       </div>
 
@@ -323,6 +342,8 @@
       description: 'Pedi instalacion, reparacion o mantenimiento. Contanos que necesitas, marca el domicilio y envia todo por WhatsApp.',
       city: 'Cordoba y alrededores',
       whatsapp: '+5493513266650',
+      domain: 'https://24-climatizaciones.vercel.app',
+      email: '',
       primaryColor: '#1677ff',
       accentColor: '#ff7a1a',
       style: 'service',
@@ -341,6 +362,8 @@
         description: 'Recibimos el problema por WhatsApp, revisamos los datos importantes y coordinamos la visita segun zona y disponibilidad.',
         city: 'Cordoba Capital',
         whatsapp: '+5493510000000',
+        domain: '',
+        email: '',
         primaryColor: '#105bd8',
         accentColor: '#ff8a1f',
         style: 'urgent',
@@ -356,6 +379,8 @@
         description: 'Agenda una consulta, envia los detalles y recibis una propuesta clara para avanzar con confianza.',
         city: 'Argentina',
         whatsapp: '+5493510000000',
+        domain: '',
+        email: '',
         primaryColor: '#19324d',
         accentColor: '#2fbf71',
         style: 'premium',
@@ -371,6 +396,8 @@
         description: 'Mostramos lo que haces, tu zona de atencion y una forma simple para que nuevos clientes te contacten.',
         city: 'Tu ciudad',
         whatsapp: '+5493510000000',
+        domain: '',
+        email: '',
         primaryColor: '#0f8f68',
         accentColor: '#ffb020',
         style: 'local',
@@ -459,6 +486,155 @@
       return `https://wa.me/${phone || '5493510000000'}?text=${encodeURIComponent(message)}`;
     }
 
+    function normalizedUrl(value){
+      let raw = String(value || '').trim();
+      if(!raw) return '';
+      if(!/^https?:\/\//i.test(raw)) raw = `https://${raw}`;
+      try{
+        const url = new URL(raw);
+        url.hash = '';
+        return url.href.replace(/\/$/, '');
+      }catch(error){
+        return '';
+      }
+    }
+
+    function siteUrl(config){
+      return normalizedUrl(config.domain) || 'https://example.com';
+    }
+
+    function xmlEscape(value){
+      return String(value || '').replace(/[<>&'"]/g, char => ({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&apos;','"':'&quot;'}[char]));
+    }
+
+    function safeJson(value){
+      return JSON.stringify(value, null, 2).replace(/</g, '\\u003c');
+    }
+
+    function cleanConfigForPackage(config){
+      const copy = {...config};
+      copy.siteUrl = siteUrl(config);
+      copy.logo = config.logoDataUrl ? 'assets/logo.webp' : '';
+      delete copy.logoDataUrl;
+      return copy;
+    }
+
+    function localBusinessSchema(config){
+      const url = siteUrl(config);
+      const phone = String(config.whatsapp || '').trim();
+      const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: config.businessName,
+        description: config.description,
+        url,
+        areaServed: config.city,
+        telephone: phone || undefined,
+        email: config.email || undefined,
+        sameAs: [config.instagram, config.facebook].filter(Boolean),
+        makesOffer: config.servicesList.map(service => ({
+          '@type': 'Offer',
+          itemOffered: {'@type':'Service', name: service}
+        }))
+      };
+      Object.keys(schema).forEach(key => schema[key] === undefined && delete schema[key]);
+      return schema;
+    }
+
+    function breakText(value, max = 30, lines = 3){
+      const words = String(value || '').split(/\s+/).filter(Boolean);
+      const result = [];
+      let current = '';
+      words.forEach(word => {
+        const next = current ? `${current} ${word}` : word;
+        if(next.length > max && current){
+          result.push(current);
+          current = word;
+        }else{
+          current = next;
+        }
+      });
+      if(current) result.push(current);
+      return result.slice(0, lines);
+    }
+
+    function generatedIconSvg(config){
+      const initialsText = xmlEscape(initials(config.businessName));
+      const primary = xmlEscape(config.primaryColor || '#1677ff');
+      const accent = xmlEscape(config.accentColor || '#ff7a1a');
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs><linearGradient id="g" x1="60" x2="452" y1="60" y2="452"><stop stop-color="${primary}"/><stop offset=".62" stop-color="#071226"/><stop offset="1" stop-color="${accent}"/></linearGradient></defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <circle cx="382" cy="114" r="42" fill="#fff" opacity=".22"/>
+  <circle cx="118" cy="386" r="36" fill="#fff" opacity=".18"/>
+  <text x="256" y="298" text-anchor="middle" font-family="Arial, sans-serif" font-size="148" font-weight="900" fill="#fff">${initialsText}</text>
+  <path d="M148 196h216" stroke="#fff" stroke-width="20" stroke-linecap="round" opacity=".76"/>
+  <path d="M174 356h164" stroke="#fff" stroke-width="16" stroke-linecap="round" opacity=".62"/>
+</svg>`;
+    }
+
+    function generatedSocialSvg(config){
+      const primary = xmlEscape(config.primaryColor || '#1677ff');
+      const accent = xmlEscape(config.accentColor || '#ff7a1a');
+      const name = xmlEscape(config.businessName);
+      const headline = breakText(config.headline, 34, 3);
+      const category = xmlEscape(`${config.category} - ${config.city}`);
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="${primary}"/><stop offset=".58" stop-color="#071226"/><stop offset="1" stop-color="${accent}"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1030" cy="110" r="116" fill="#fff" opacity=".12"/>
+  <circle cx="100" cy="540" r="160" fill="#fff" opacity=".10"/>
+  <rect x="70" y="74" width="1060" height="482" rx="54" fill="#fff" opacity=".92"/>
+  <rect x="100" y="104" width="96" height="96" rx="26" fill="${primary}"/>
+  <text x="148" y="166" text-anchor="middle" font-family="Arial, sans-serif" font-size="44" font-weight="900" fill="#fff">${xmlEscape(initials(config.businessName))}</text>
+  <text x="226" y="142" font-family="Arial, sans-serif" font-size="35" font-weight="900" fill="#071226">${name}</text>
+  <text x="226" y="183" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#66758c">${category}</text>
+  ${headline.map((line, index) => `<text x="100" y="${298 + index * 68}" font-family="Arial, sans-serif" font-size="62" font-weight="900" fill="#071226">${xmlEscape(line)}</text>`).join('\n  ')}
+  <rect x="100" y="466" width="310" height="58" rx="29" fill="#25d66f"/>
+  <text x="255" y="504" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="#071226">Solicitar por WhatsApp</text>
+</svg>`;
+    }
+
+    function generatedRobots(config){
+      const url = siteUrl(config);
+      return `User-agent: *\nAllow: /\nSitemap: ${url}/sitemap.xml\n`;
+    }
+
+    function generatedSitemap(config){
+      const url = xmlEscape(siteUrl(config));
+      const date = new Date().toISOString().slice(0, 10);
+      return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${url}/</loc>\n    <lastmod>${date}</lastmod>\n    <priority>1.0</priority>\n  </url>\n</urlset>\n`;
+    }
+
+    function generatedManifest(config){
+      return safeJson({
+        name: config.businessName,
+        short_name: config.businessName,
+        description: config.description,
+        start_url: '/',
+        scope: '/',
+        display: 'standalone',
+        background_color: '#ffffff',
+        theme_color: config.primaryColor || '#1677ff',
+        icons: [
+          {src:'assets/icon.svg', sizes:'any', type:'image/svg+xml'}
+        ]
+      });
+    }
+
+    function generatedLlms(config){
+      return `# ${config.businessName}\n\n${config.description}\n\n## Rubro\n${config.category}\n\n## Zona\n${config.city}\n\n## Servicios\n${config.servicesList.map(service => `- ${service}`).join('\n')}\n\n## Contacto\n- Web: ${siteUrl(config)}\n- WhatsApp: ${config.whatsapp || 'a definir'}\n${config.email ? `- Email: ${config.email}\n` : ''}\n`;
+    }
+
+    function generatedReadme(config){
+      return `# ${config.businessName}\n\nWeb comercial generada desde 24 Climatizaciones Web Factory.\n\n## Incluye\n- Landing responsive en HTML estatico.\n- SEO basico, Open Graph y datos estructurados LocalBusiness.\n- sitemap.xml, robots.txt, manifest.webmanifest y llms.txt.\n- Assets en carpeta assets.\n\n## Editar rapido\n1. Abrir site-config.json para revisar datos del cliente.\n2. Modificar index.html si se necesita ajustar texto o secciones.\n3. Reemplazar assets/logo.webp si el cliente envia un logo nuevo.\n\n## Conversion principal\nWhatsApp: ${config.whatsapp || 'a definir'}\n\n## URL prevista\n${siteUrl(config)}\n`;
+    }
+
+    function generatedDeployGuide(config){
+      const slug = slugify(config.businessName);
+      return `# Guia de entrega y deploy\n\n## Opcion simple en Vercel\n1. Crear un repo nuevo en GitHub llamado \`${slug}\`.\n2. Subir todos los archivos de este ZIP al repo.\n3. En Vercel, importar el repo.\n4. Framework: Other.\n5. Build command: dejar vacio.\n6. Output directory: dejar vacio.\n7. Deploy.\n\n## CLI local\n\`\`\`powershell\ngit init\ngit add .\ngit commit -m "init: web ${slug}"\nnpx vercel deploy --prod --yes\n\`\`\`\n\n## Antes de publicar\n- Revisar WhatsApp: ${config.whatsapp || 'a definir'}\n- Revisar dominio: ${siteUrl(config)}\n- Subir logo real del cliente si corresponde.\n- Probar el boton principal desde celular.\n`;
+    }
+
     function renderPreview(){
       const config = getConfig();
       const services = config.servicesList.slice(0,4);
@@ -531,12 +707,18 @@
       renderPreview();
     }
 
-    function generatedHtml(config){
+    function generatedHtml(config, options = {}){
       const services = config.servicesList;
       const proofs = config.proofsList;
       const title = `${config.businessName} | ${config.category}`;
       const description = config.description || `${config.businessName} en ${config.city}`;
-      const logo = config.logoDataUrl ? `<img src="${config.logoDataUrl}" alt="">` : htmlEscape(initials(config.businessName));
+      const canonical = siteUrl(config);
+      const assetMode = Boolean(options.assetMode);
+      const logoSrc = assetMode && config.logoDataUrl ? 'assets/logo.webp' : config.logoDataUrl;
+      const logo = logoSrc ? `<img src="${htmlEscape(logoSrc)}" alt="${htmlEscape(config.businessName)}">` : htmlEscape(initials(config.businessName));
+      const socialImage = assetMode ? `${canonical}/assets/social-preview.svg` : '';
+      const favicon = assetMode ? '<link rel="icon" type="image/svg+xml" href="assets/icon.svg">' : '';
+      const manifest = assetMode ? '<link rel="manifest" href="manifest.webmanifest">' : '';
       return `<!DOCTYPE html>
 <html lang="es-AR">
 <head>
@@ -544,9 +726,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${htmlEscape(title)}</title>
   <meta name="description" content="${htmlEscape(description)}">
+  <link rel="canonical" href="${htmlEscape(canonical)}">
+  ${favicon}
+  ${manifest}
   <meta property="og:title" content="${htmlEscape(title)}">
   <meta property="og:description" content="${htmlEscape(description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${htmlEscape(canonical)}">
+  ${socialImage ? `<meta property="og:image" content="${htmlEscape(socialImage)}">` : ''}
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="${htmlEscape(config.primaryColor || '#1677ff')}">
+  <script type="application/ld+json">${safeJson(localBusinessSchema(config))}<\/script>
   <style>
     :root{--primary:${htmlEscape(config.primaryColor || '#1677ff')};--accent:${htmlEscape(config.accentColor || '#ff7a1a')};--ink:#071226;--muted:#657287;--line:#dfe8f4}
     *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#f1f6ff}a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 28px));margin:auto}.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.top-in{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}.brand{display:flex;align-items:center;gap:10px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--primary),var(--accent));display:grid;place-items:center;color:#fff;font-weight:950;overflow:hidden}.logo img{width:100%;height:100%;object-fit:cover}.brand b{display:block}.brand span{display:block;color:var(--muted);font-size:.82rem;font-weight:750}.wa{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;background:#25d66f;color:#071226;padding:0 16px;font-weight:950}.hero{padding:62px 0 44px;background:linear-gradient(135deg,rgba(22,119,255,.13),transparent),#fff}.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.48fr);gap:26px;align-items:center}.chip{display:inline-flex;border:1px solid #d5e6fb;background:#f8fbff;border-radius:999px;padding:7px 10px;color:var(--primary);font-size:.76rem;font-weight:950}.hero h1{font-size:clamp(2.4rem,6vw,5rem);line-height:.94;margin:16px 0 14px;letter-spacing:-.055em}.hero p{color:var(--muted);font-size:1.08rem;line-height:1.6;font-weight:720;margin:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.secondary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--primary);padding:0 16px;font-weight:950}.visual{min-height:310px;border-radius:28px;background:linear-gradient(135deg,var(--primary),var(--accent));box-shadow:0 30px 90px -48px rgba(7,18,38,.7);padding:22px;color:#fff;display:grid;align-content:end}.visual b{font-size:2.5rem}.visual span{font-weight:850;opacity:.9}.section{padding:34px 0}.section h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1;margin:0 0 16px;letter-spacing:-.045em}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 24px 64px -50px rgba(7,18,38,.45)}.card p{color:var(--muted);line-height:1.45;font-weight:720}.cta{background:#071226;color:#fff;border-radius:28px;padding:28px;display:grid;gap:14px}.cta p{color:#bfd0e8;line-height:1.5;font-weight:720}.footer{padding:28px 0;color:#607088;font-weight:750}@media(max-width:820px){.hero-grid{grid-template-columns:1fr}.visual{min-height:240px}.top-in{align-items:flex-start}.wa{min-height:40px;padding:0 12px}}
@@ -560,13 +750,165 @@
     <section class="section"><div class="wrap"><h2>Confianza</h2><div class="cards">${proofs.map(proof => `<article class="card"><h3>${htmlEscape(proof)}</h3><p>Trabajamos con informacion clara para que el cliente pueda decidir con tranquilidad.</p></article>`).join('')}</div></div></section>
     <section class="section"><div class="wrap"><div class="cta"><h2>Pedinos informacion por WhatsApp.</h2><p>Contanos que necesitas y coordinamos el siguiente paso.</p><a class="wa" href="${whatsappUrl(config)}">Enviar mensaje</a></div></div></section>
   </main>
-  <footer class="wrap footer">${htmlEscape(config.businessName)} - ${htmlEscape(config.city)}</footer>
+  <footer class="wrap footer">${htmlEscape(config.businessName)} - ${htmlEscape(config.city)}${config.email ? ` - ${htmlEscape(config.email)}` : ''}</footer>
 </body>
 </html>`;
     }
 
-    function downloadFile(filename, content, type){
-      const blob = new Blob([content], {type});
+    function generatedPackageJson(config){
+      const slug = slugify(config.businessName);
+      return safeJson({
+        name: slug,
+        version: '1.0.0',
+        private: true,
+        description: config.description,
+        scripts: {
+          start: 'npx serve .',
+          deploy: 'npx vercel deploy --prod --yes'
+        }
+      });
+    }
+
+    function generatedVercelJson(){
+      return safeJson({
+        cleanUrls: true,
+        trailingSlash: false,
+        headers: [
+          {
+            source: '/(.*)',
+            headers: [
+              {key:'X-Content-Type-Options', value:'nosniff'},
+              {key:'Referrer-Policy', value:'strict-origin-when-cross-origin'}
+            ]
+          }
+        ]
+      });
+    }
+
+    function stringToBytes(value){
+      return new TextEncoder().encode(String(value));
+    }
+
+    function dataUrlToBytes(dataUrl){
+      const parts = String(dataUrl || '').split(',');
+      if(parts.length < 2) return new Uint8Array();
+      const binary = atob(parts[1]);
+      const bytes = new Uint8Array(binary.length);
+      for(let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
+      return bytes;
+    }
+
+    function concatBytes(chunks){
+      const size = chunks.reduce((total, chunk) => total + chunk.length, 0);
+      const result = new Uint8Array(size);
+      let offset = 0;
+      chunks.forEach(chunk => {
+        result.set(chunk, offset);
+        offset += chunk.length;
+      });
+      return result;
+    }
+
+    function crc32(bytes){
+      if(!crc32.table){
+        crc32.table = new Uint32Array(256);
+        for(let n = 0; n < 256; n += 1){
+          let c = n;
+          for(let k = 0; k < 8; k += 1) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+          crc32.table[n] = c >>> 0;
+        }
+      }
+      let crc = 0xffffffff;
+      for(let index = 0; index < bytes.length; index += 1){
+        crc = crc32.table[(crc ^ bytes[index]) & 0xff] ^ (crc >>> 8);
+      }
+      return (crc ^ 0xffffffff) >>> 0;
+    }
+
+    function dosStamp(date = new Date()){
+      const year = Math.max(1980, date.getFullYear());
+      return {
+        time: (date.getHours() << 11) | (date.getMinutes() << 5) | Math.floor(date.getSeconds() / 2),
+        date: ((year - 1980) << 9) | ((date.getMonth() + 1) << 5) | date.getDate()
+      };
+    }
+
+    function makeZip(files){
+      const localParts = [];
+      const centralParts = [];
+      const stamp = dosStamp();
+      let offset = 0;
+
+      files.forEach(file => {
+        const nameBytes = stringToBytes(file.path.replace(/\\/g, '/'));
+        const dataBytes = file.data instanceof Uint8Array ? file.data : stringToBytes(file.data);
+        const crc = crc32(dataBytes);
+        const local = new Uint8Array(30 + nameBytes.length);
+        const localView = new DataView(local.buffer);
+        localView.setUint32(0, 0x04034b50, true);
+        localView.setUint16(4, 20, true);
+        localView.setUint16(6, 0x0800, true);
+        localView.setUint16(8, 0, true);
+        localView.setUint16(10, stamp.time, true);
+        localView.setUint16(12, stamp.date, true);
+        localView.setUint32(14, crc, true);
+        localView.setUint32(18, dataBytes.length, true);
+        localView.setUint32(22, dataBytes.length, true);
+        localView.setUint16(26, nameBytes.length, true);
+        local.set(nameBytes, 30);
+        localParts.push(local, dataBytes);
+
+        const central = new Uint8Array(46 + nameBytes.length);
+        const centralView = new DataView(central.buffer);
+        centralView.setUint32(0, 0x02014b50, true);
+        centralView.setUint16(4, 20, true);
+        centralView.setUint16(6, 20, true);
+        centralView.setUint16(8, 0x0800, true);
+        centralView.setUint16(10, 0, true);
+        centralView.setUint16(12, stamp.time, true);
+        centralView.setUint16(14, stamp.date, true);
+        centralView.setUint32(16, crc, true);
+        centralView.setUint32(20, dataBytes.length, true);
+        centralView.setUint32(24, dataBytes.length, true);
+        centralView.setUint16(28, nameBytes.length, true);
+        centralView.setUint32(42, offset, true);
+        central.set(nameBytes, 46);
+        centralParts.push(central);
+        offset += local.length + dataBytes.length;
+      });
+
+      const centralStart = offset;
+      const centralDirectory = concatBytes(centralParts);
+      const end = new Uint8Array(22);
+      const endView = new DataView(end.buffer);
+      endView.setUint32(0, 0x06054b50, true);
+      endView.setUint16(8, files.length, true);
+      endView.setUint16(10, files.length, true);
+      endView.setUint32(12, centralDirectory.length, true);
+      endView.setUint32(16, centralStart, true);
+      return new Blob([...localParts, centralDirectory, end], {type:'application/zip'});
+    }
+
+    function projectFiles(config){
+      const files = [
+        {path:'index.html', data: generatedHtml(config, {assetMode:true})},
+        {path:'site-config.json', data: safeJson(cleanConfigForPackage(config))},
+        {path:'robots.txt', data: generatedRobots(config)},
+        {path:'sitemap.xml', data: generatedSitemap(config)},
+        {path:'manifest.webmanifest', data: generatedManifest(config)},
+        {path:'llms.txt', data: generatedLlms(config)},
+        {path:'README.md', data: generatedReadme(config)},
+        {path:'DEPLOY.md', data: generatedDeployGuide(config)},
+        {path:'package.json', data: generatedPackageJson(config)},
+        {path:'vercel.json', data: generatedVercelJson()},
+        {path:'assets/icon.svg', data: generatedIconSvg(config)},
+        {path:'assets/social-preview.svg', data: generatedSocialSvg(config)}
+      ];
+      if(config.logoDataUrl) files.push({path:'assets/logo.webp', data:dataUrlToBytes(config.logoDataUrl)});
+      return files;
+    }
+
+    function downloadBlob(filename, blob){
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
@@ -575,6 +917,11 @@
       link.click();
       link.remove();
       URL.revokeObjectURL(url);
+    }
+
+    function downloadFile(filename, content, type){
+      const blob = new Blob([content], {type});
+      downloadBlob(filename, blob);
     }
 
     $('#loginForm').addEventListener('submit', async event => {
@@ -623,6 +970,14 @@
       showToast('HTML descargado');
     });
 
+    $('#downloadProject').addEventListener('click', () => {
+      const config = getConfig();
+      const blob = makeZip(projectFiles(config));
+      downloadBlob(`${slugify(config.businessName)}-proyecto-web.zip`, blob);
+      if(window.va) window.va('event', {name:'24_factory_download_project'});
+      showToast('Proyecto ZIP descargado');
+    });
+
     $('#downloadConfig').addEventListener('click', () => {
       const config = getConfig();
       downloadFile(`${slugify(config.businessName)}-site-config.json`, JSON.stringify(config, null, 2), 'application/json;charset=utf-8');
@@ -631,7 +986,7 @@
 
     $('#copyPrompt').addEventListener('click', async () => {
       const config = getConfig();
-      const brief = `Crear una web comercial usando esta configuracion:\n\n${JSON.stringify(config, null, 2)}\n\nObjetivo: landing rapida, responsive, SEO local, WhatsApp como conversion principal, sin gastos innecesarios.`;
+      const brief = `Crear una web comercial usando esta configuracion:\n\n${JSON.stringify(cleanConfigForPackage(config), null, 2)}\n\nObjetivo: landing rapida, responsive, SEO local, WhatsApp como conversion principal, paquete listo para repo/Vercel y sin gastos innecesarios.`;
       await navigator.clipboard.writeText(brief);
       showToast('Brief copiado');
     });
