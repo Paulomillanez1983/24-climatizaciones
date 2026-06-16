@@ -28,6 +28,9 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <meta name="analytics-ga4-id" content="" />
+  <meta name="analytics-clarity-id" content="" />
+  <script defer src="/_vercel/insights/script.js"></script>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -1220,6 +1223,55 @@
     const waLink = (msg) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg || 'Hola 24 Climatizaciones, quiero pedir un presupuesto de climatización.')}`;
     const GOOGLE_REVIEW_URL = 'https://g.page/r/CQbJALb3zyusEBM/review';
 
+    const ANALYTICS = {
+      ga4Id: document.querySelector('meta[name="analytics-ga4-id"]')?.content?.trim() || '',
+      clarityId: document.querySelector('meta[name="analytics-clarity-id"]')?.content?.trim() || ''
+    };
+
+    function normalizeEventName(name){
+      return `24_${String(name || 'event').replace(/[^a-z0-9_]+/gi, '_').replace(/^_+|_+$/g, '').toLowerCase()}`;
+    }
+
+    function cleanEventParams(params = {}){
+      return Object.fromEntries(Object.entries(params).filter(([, value]) => value !== undefined && value !== null && value !== ''));
+    }
+
+    function trackEvent(name, params = {}){
+      const event = normalizeEventName(name);
+      const cleanParams = cleanEventParams(params);
+      if(typeof window.gtag === 'function') window.gtag('event', event, cleanParams);
+      if(typeof window.clarity === 'function') window.clarity('event', event);
+      if(typeof window.va === 'function') window.va('event', event, cleanParams);
+    }
+
+    function loadGA4(id){
+      if(!/^G-[A-Z0-9]+$/i.test(id)) return;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', id, {anonymize_ip: true});
+      if(document.querySelector(`script[src*="${id}"]`)) return;
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+      document.head.appendChild(script);
+    }
+
+    function loadClarity(id){
+      if(!/^[a-z0-9]+$/i.test(id)) return;
+      (function(c,l,a,r,i,t,y){
+        c[a] = c[a] || function(){ (c[a].q = c[a].q || []).push(arguments); };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = `https://www.clarity.ms/tag/${i}`;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', id);
+    }
+
+    loadGA4(ANALYTICS.ga4Id);
+    loadClarity(ANALYTICS.clarityId);
+
 
     const MAPLIBRE_VERSION = '5.24.0';
     const MAPLIBRE_CSS = `https://unpkg.com/maplibre-gl@${MAPLIBRE_VERSION}/dist/maplibre-gl.css`;
@@ -1395,8 +1447,16 @@
       if(e.key === 'Escape') closePhotoLightbox();
     });
 
+    function getStartFlowSource(btn){
+      if(btn.classList.contains('wa-mini')) return 'top_bar';
+      if(btn.closest('.mobile-sticky')) return 'sticky_mobile';
+      if(btn.closest('.hero')) return 'hero';
+      return 'button';
+    }
+
     $$('[data-start-flow]').forEach(btn => btn.addEventListener('click', (e) => {
       e.preventDefault();
+      trackEvent('start_request_click', {source: getStartFlowSource(btn)});
       startFlow();
       document.querySelector('#smartflow').scrollIntoView({behavior:'smooth', block:'start'});
     }));
@@ -1410,7 +1470,28 @@
       }, {capture:true});
     }
 
-    $$('[data-wa-generic]').forEach(a => a.href = waLink('Hola 24 Climatizaciones, quiero pedir un presupuesto de climatización.'));
+    $$('[data-wa-generic]').forEach(a => {
+      a.href = waLink('Hola 24 Climatizaciones, quiero pedir un presupuesto de climatización.');
+      a.addEventListener('click', () => trackEvent('whatsapp_generic_click', {source: 'footer'}));
+    });
+    $('#sendWhatsApp')?.addEventListener('click', () => {
+      trackEvent('whatsapp_send_click', {
+        equipment: state.equipment || 'sin_dato',
+        service: state.service || 'sin_dato',
+        property: state.property || 'sin_dato',
+        urgency: state.urgency || 'sin_dato',
+        has_address: hasValidLocation() ? 'si' : 'no',
+        has_photos: Object.values(state.photos || {}).some(Boolean) ? 'si' : 'no'
+      });
+    });
+    $('#googleReviewsCta')?.addEventListener('click', () => trackEvent('google_review_click', {source: 'reviews'}));
+    $$('.social-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const label = (link.getAttribute('aria-label') || link.textContent || '').toLowerCase();
+        const network = label.includes('instagram') ? 'instagram' : label.includes('facebook') ? 'facebook' : 'otro';
+        trackEvent('social_click', {network});
+      });
+    });
     $('#year').textContent = `© ${new Date().getFullYear()} 24 Climatizaciones`;
 
     const steps = $$('.step');
@@ -2589,6 +2670,7 @@
 
     loadGoogleReviews();
     setupIconMotion();
+    trackEvent('page_ready', {page: 'home'});
     analyzeIntent();
   </script>
 </body>
