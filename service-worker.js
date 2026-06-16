@@ -1,8 +1,9 @@
-const CACHE = '24-climatizaciones-v35';
+const CACHE = '24-climatizaciones-v36';
 const ASSETS = [
   './',
   './index.html',
   './analytics.html',
+  './googleb079afa0a804acaa.html',
   './icon.svg',
   './manifest.webmanifest',
   './robots.txt',
