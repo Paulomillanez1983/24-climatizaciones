@@ -59,11 +59,24 @@
     .utm{display:grid;gap:8px;margin-top:10px}
     .utm a{display:block;border:1px solid var(--line);border-radius:14px;padding:11px;background:#f8fbff;color:#0a5bd8;font-size:.84rem;font-weight:850;overflow-wrap:anywhere}
     .notice{border-left:4px solid var(--warm);background:#fff8ef;border-radius:16px;padding:14px;color:#583515;font-weight:760;line-height:1.45;margin-top:18px}
+    .dashboard{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden}
+    .dashboard-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:22px;border-bottom:1px solid var(--line)}
+    .dashboard-head h2{font-size:clamp(1.45rem,3vw,2.2rem);line-height:1;margin:0 0 8px}
+    .dashboard-head p{color:var(--muted);font-size:.96rem;line-height:1.5;margin:0;font-weight:720;max-width:680px}
+    .dashboard-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .dashboard-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;border-radius:999px;padding:0 15px;font-size:.84rem;font-weight:950;border:1px solid var(--line);background:#fff;color:#0a5bd8}
+    .dashboard-actions a.primary{border-color:#0a5bd8;background:#0a5bd8;color:#fff}
+    .embed-shell{position:relative;aspect-ratio:16/9;background:#edf4ff}
+    .embed-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+    .embed-help{padding:12px 18px;border-top:1px solid var(--line);color:#657287;font-size:.84rem;font-weight:760;line-height:1.45;background:#f8fbff}
     @media (max-width:860px){
       .grid,.steps{grid-template-columns:1fr}
       .hero{padding:22px}
       .top{align-items:flex-start}
       .home{min-height:39px;padding:0 12px}
+      .dashboard-head{display:block;padding:18px}
+      .dashboard-actions{justify-content:flex-start;margin-top:14px}
+      .embed-shell{aspect-ratio:4/5}
     }
   </style>
 </head>
@@ -80,7 +93,7 @@
     <section class="hero">
       <span class="eyebrow"><i class="dot"></i> Panel gratis recomendado</span>
       <h1>Metricas para saber que funciona.</h1>
-      <p class="lead">La web ya tiene preparada la medicion de visitas, clics importantes y envios a WhatsApp. Vercel Analytics, GA4, Clarity y Search Console ya estan conectados.</p>
+      <p class="lead">La web ya mide visitas, clics importantes y envios a WhatsApp. Vercel Analytics, GA4, Clarity, Search Console y Looker Studio ya quedan reunidos desde este panel.</p>
 
       <div class="grid">
         <article class="card vercel">
@@ -108,6 +121,29 @@
       <div class="notice">Importante: Vercel Analytics, GA4, Clarity y Search Console ya quedaron conectados. La web no envia nombres, direcciones ni descripciones del problema como eventos.</div>
     </section>
 
+    <section class="dashboard" aria-labelledby="looker-title">
+      <div class="dashboard-head">
+        <div>
+          <span class="eyebrow"><i class="dot"></i> Vista unificada</span>
+          <h2 id="looker-title">Dashboard visual de 24 Climatizaciones</h2>
+          <p>Looker Studio concentra los graficos de GA4 y Search Console. Desde aca ves visitas, eventos, campanas, clics a WhatsApp y busquedas de Google en una sola vista.</p>
+        </div>
+        <div class="dashboard-actions">
+          <a class="primary" href="https://datastudio.google.com/reporting/d2c33270-4248-4188-a38f-d675871df82c" target="_blank" rel="noopener">Abrir dashboard</a>
+          <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener">Abrir GA4</a>
+        </div>
+      </div>
+      <div class="embed-shell">
+        <iframe
+          src="https://lookerstudio.google.com/embed/reporting/d2c33270-4248-4188-a38f-d675871df82c"
+          title="Dashboard visual de metricas de 24 Climatizaciones"
+          loading="lazy"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="embed-help">Si Google pide permiso o no muestra el informe embebido, usa el boton Abrir dashboard. El informe puede permanecer privado en tu cuenta.</div>
+    </section>
+
     <section class="steps">
       <article class="panel">
         <h2>Para activarlo completo</h2>
@@ -115,7 +151,8 @@
           <li>Vercel Analytics: conectado para visitas y paginas vistas.</li>
           <li>GA4: conectado con <code>G-06Y2FMEXCP</code> para trafico, campanas y eventos.</li>
           <li>Clarity: conectado con <code>x7pwdvi6ev</code> para mapas de calor, grabaciones y abandonos.</li>
-          <li>Search Console: propiedad verificada por archivo HTML. Siguiente paso recomendado: enviar <code>/sitemap.xml</code> dentro de Search Console.</li>
+          <li>Search Console: propiedad verificada por archivo HTML y sitemap enviado.</li>
+          <li>Looker Studio: dashboard visual enlazado desde este panel.</li>
         </ol>
       </article>
 
@@ -150,6 +187,7 @@
           <li><code>GA4</code>: activo.</li>
           <li><code>Clarity</code>: activo.</li>
           <li><code>Search Console</code>: verificado.</li>
+          <li><code>Looker Studio</code>: enlazado.</li>
         </ol>
       </article>
     </section>
