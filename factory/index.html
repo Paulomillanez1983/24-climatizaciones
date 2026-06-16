@@ -81,6 +81,16 @@
     .output-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
     .package-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
     .package-list span{border:1px solid #dbe8f8;background:#f8fbff;border-radius:13px;padding:9px 10px;color:#173258;font-size:.76rem;font-weight:900}
+    .publish-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .check-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#f8fbff;border-radius:999px;min-height:38px;padding:0 12px;color:#173258;font-size:.78rem;font-weight:920}
+    .check-pill input{width:16px;min-height:16px;padding:0;accent-color:var(--cold)}
+    .publish-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .publish-status{margin-top:12px;border:1px solid #d9e6f6;background:#f8fbff;border-radius:16px;padding:12px;color:#173258;font-size:.82rem;font-weight:820;line-height:1.42}
+    .publish-status.good{border-color:#bdeed1;background:#f1fff6;color:#0c5d30}
+    .publish-status.warn{border-color:#ffdcb7;background:#fff8ef;color:#68400f}
+    .publish-links{display:grid;gap:7px;margin-top:8px}
+    .publish-links a{display:block;border:1px solid #dbe8f8;background:#fff;border-radius:12px;padding:9px 10px;color:#075fcc;font-weight:920;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .note{border-left:4px solid var(--warm);background:#fff8ef;color:#593515;border-radius:15px;padding:12px;font-size:.82rem;line-height:1.45;font-weight:820}
     .preview-shell{position:sticky;top:14px;display:grid;gap:12px}
     .preview-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px}
@@ -123,7 +133,7 @@
       .hero,.panel,.block{border-radius:22px;padding:15px}
       .top{align-items:flex-start}
       .actions{justify-content:flex-start}
-      .two,.three,.output-actions,.package-list{grid-template-columns:1fr}
+      .two,.three,.output-actions,.package-list,.publish-grid,.publish-actions{grid-template-columns:1fr}
       .phone{padding:8px;border-radius:28px}
       .screen{border-radius:22px;min-height:680px}
     }
@@ -309,6 +319,38 @@
           </div>
           <div class="note" style="margin-top:12px">El ZIP deja una carpeta completa lista para crear repo, subir a Vercel y entregar al cliente. No usa tokens, no publica solo y no genera gastos.</div>
         </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <h2>Publicar cliente</h2>
+              <span>Fase 3: GitHub y Vercel desde el panel</span>
+            </div>
+          </div>
+          <div class="publish-grid">
+            <div class="field">
+              <label for="publishSlug">Nombre del repo/proyecto</label>
+              <input id="publishSlug" placeholder="cliente-web" />
+            </div>
+            <div class="field">
+              <label for="publishMode">Entrega</label>
+              <select id="publishMode">
+                <option value="both">Repo + deploy</option>
+                <option value="github">Solo repo GitHub</option>
+                <option value="vercel">Solo deploy Vercel</option>
+              </select>
+            </div>
+          </div>
+          <div class="checks">
+            <label class="check-pill"><input id="privateRepo" type="checkbox" checked /> Repo privado</label>
+            <label class="check-pill"><input id="publishConfirm" type="checkbox" /> Confirmo publicar</label>
+          </div>
+          <div class="publish-actions">
+            <button class="btn" id="checkAutomation" type="button">Ver conexion</button>
+            <button class="btn primary" id="publishProject" type="button">Crear y publicar</button>
+          </div>
+          <div class="publish-status warn" id="publishStatus">Verifica la conexion antes de publicar. Las claves quedan solo en Vercel, nunca en el navegador.</div>
+        </section>
       </div>
 
       <aside class="preview-shell">
@@ -331,9 +373,11 @@
 
   <script>
     const AUTH = '/api/admin-session';
+    const PUBLISH = '/api/factory-publish';
     const $ = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
     let logoDataUrl = '';
+    let publishSlugTouched = false;
 
     const defaults = {
       businessName: '24 Climatizaciones',
@@ -440,6 +484,8 @@
       $('#loginPanel').classList.add('hidden');
       $('#factoryApp').classList.remove('hidden');
       setStatus('Factory activo', 'Genera una web base, descarga archivos y prepara el repo del cliente.');
+      syncPublishSlug();
+      refreshAutomationStatus();
       renderPreview();
     }
 
@@ -462,6 +508,12 @@
       return String(value || 'web-cliente')
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'web-cliente';
+    }
+
+    function syncPublishSlug(force = false){
+      const field = $('#publishSlug');
+      if(!field) return;
+      if(force || !publishSlugTouched) field.value = slugify($('#businessName')?.value || defaults.businessName);
     }
 
     function getConfig(){
@@ -908,6 +960,100 @@
       return files;
     }
 
+    function bytesToBase64(bytes){
+      let binary = '';
+      const chunkSize = 0x8000;
+      for(let index = 0; index < bytes.length; index += chunkSize){
+        binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+      }
+      return btoa(binary);
+    }
+
+    function filesForApi(files){
+      return files.map(file => {
+        const data = file.data instanceof Uint8Array ? file.data : stringToBytes(file.data);
+        return {
+          path: file.path,
+          content: bytesToBase64(data)
+        };
+      });
+    }
+
+    function publishModeTargets(){
+      const mode = $('#publishMode')?.value || 'both';
+      return {
+        createGithub: mode === 'both' || mode === 'github',
+        deployVercel: mode === 'both' || mode === 'vercel'
+      };
+    }
+
+    function setPublishStatus(message, type = 'warn', links = []){
+      const box = $('#publishStatus');
+      if(!box) return;
+      box.className = `publish-status ${type}`;
+      box.innerHTML = `${htmlEscape(message)}${links.length ? `<div class="publish-links">${links.map(link => `<a href="${htmlEscape(link.href)}" target="_blank" rel="noopener">${htmlEscape(link.label)}: ${htmlEscape(link.href)}</a>`).join('')}</div>` : ''}`;
+    }
+
+    function renderAutomationStatus(data){
+      const missing = [
+        ...(data.github?.missing || []),
+        ...(data.vercel?.missing || [])
+      ];
+      if(!missing.length){
+        setPublishStatus(`Conexion lista. GitHub: ${data.github?.owner || 'ok'}. Vercel: ${data.vercel?.teamId || 'ok'}.`, 'good');
+        return;
+      }
+      setPublishStatus(`Faltan variables privadas en Vercel: ${missing.join(', ')}. El panel ya esta preparado, pero no va a publicar hasta conectarlas.`, 'warn');
+    }
+
+    async function refreshAutomationStatus(){
+      try{
+        const data = await requestJson(PUBLISH);
+        renderAutomationStatus(data);
+      }catch(error){
+        setPublishStatus('No se pudo verificar la automatizacion. Revisa que la sesion admin siga activa.', 'warn');
+      }
+    }
+
+    async function publishProject(){
+      if(!$('#publishConfirm').checked){
+        setPublishStatus('Marca "Confirmo publicar" antes de crear repo o deploy.', 'warn');
+        return;
+      }
+      const config = getConfig();
+      const repoName = slugify($('#publishSlug').value || config.businessName);
+      const targets = publishModeTargets();
+      const button = $('#publishProject');
+      button.disabled = true;
+      setPublishStatus('Publicando. Esto puede tardar unos segundos...', 'warn');
+      try{
+        const data = await requestJson(PUBLISH, {
+          method: 'POST',
+          body: JSON.stringify({
+            repoName,
+            projectName: repoName,
+            privateRepo: $('#privateRepo').checked,
+            ...targets,
+            config: cleanConfigForPackage(config),
+            files: filesForApi(projectFiles(config))
+          })
+        });
+        const links = [];
+        if(data.github?.url) links.push({label:'GitHub', href:data.github.url});
+        if(data.vercel?.url) links.push({label:'Vercel', href:data.vercel.url});
+        setPublishStatus('Publicado correctamente. Guarda estos enlaces para la entrega.', 'good', links);
+        if(window.va) window.va('event', {name:'24_factory_publish_success'});
+      }catch(error){
+        const message = error.message === 'automation_env_missing'
+          ? 'Faltan variables privadas en Vercel para publicar. Usa "Ver conexion" para ver cuales.'
+          : `No se pudo publicar: ${error.message || 'error desconocido'}.`;
+        setPublishStatus(message, 'warn');
+        if(window.va) window.va('event', {name:'24_factory_publish_failed'});
+      }finally{
+        button.disabled = false;
+      }
+    }
+
     function downloadBlob(filename, blob){
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -955,13 +1101,29 @@
       }
     });
 
-    $$('[data-field]').forEach(input => input.addEventListener('input', renderPreview));
+    $$('[data-field]').forEach(input => input.addEventListener('input', () => {
+      renderPreview();
+      if(input.dataset.field === 'businessName') syncPublishSlug();
+    }));
     $$('.template').forEach(button => {
       button.addEventListener('click', () => {
         fillForm(templates[button.dataset.template] || defaults);
+        publishSlugTouched = false;
+        syncPublishSlug(true);
         showToast('Plantilla cargada');
       });
     });
+
+    $('#publishSlug').addEventListener('input', () => {
+      publishSlugTouched = true;
+    });
+
+    $('#checkAutomation').addEventListener('click', () => {
+      refreshAutomationStatus();
+      showToast('Conexion revisada');
+    });
+
+    $('#publishProject').addEventListener('click', publishProject);
 
     $('#downloadHtml').addEventListener('click', () => {
       const config = getConfig();
@@ -995,7 +1157,11 @@
       logoDataUrl = '';
       $('#logoName').textContent = 'Sin logo cargado';
       $('#logoFile').value = '';
+      publishSlugTouched = false;
+      $('#publishConfirm').checked = false;
       fillForm(defaults);
+      syncPublishSlug(true);
+      refreshAutomationStatus();
       showToast('Datos restaurados');
     });
 
