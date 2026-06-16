@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#071226" />
+  <title>Portal de entrega | 24 Climatizaciones</title>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <script>
+    window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    :root{
+      --bg:#eef5ff;
+      --paper:#fff;
+      --ink:#071226;
+      --muted:#657287;
+      --line:#dce8f7;
+      --cold:#1677ff;
+      --ok:#25d66f;
+      --warm:#ff7a1a;
+      --shadow:0 30px 82px -52px rgba(7,18,38,.6);
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:
+      radial-gradient(circle at 14% 0,rgba(22,119,255,.14),transparent 31%),
+      radial-gradient(circle at 96% 8%,rgba(255,122,26,.11),transparent 28%),
+      linear-gradient(180deg,#f9fcff 0,#eef5ff 54%,#e8f1ff 100%);
+      color:var(--ink);font-family:var(--font);letter-spacing:0}
+    a{text-decoration:none;color:inherit}
+    button{font:inherit;cursor:pointer}
+    .wrap{width:min(1080px,calc(100% - 28px));margin:0 auto;padding:22px 0 54px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:48px;height:48px;border-radius:14px;box-shadow:0 16px 36px -22px rgba(7,18,38,.85)}
+    .brand strong{display:block;font-size:1rem;line-height:1}
+    .brand span span{display:block;color:var(--muted);font-size:.78rem;font-weight:850;margin-top:4px}
+    .pill,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:999px;padding:0 15px;border:1px solid var(--line);background:#fff;color:#0a5bd8;font-size:.84rem;font-weight:950}
+    .btn.primary{background:#25d66f;border-color:#25d66f;color:#071226}
+    .btn.dark{background:#071226;border-color:#071226;color:#fff}
+    .hero{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);padding:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.38fr);gap:22px;align-items:end}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;border:1px solid #cfe1ff;background:#f8fbff;color:#075fcc;border-radius:999px;padding:7px 10px;font-size:.72rem;font-weight:950;text-transform:uppercase}
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 6px rgba(37,214,111,.12)}
+    h1{font-size:clamp(2rem,6vw,4.4rem);line-height:.94;margin:14px 0 10px;letter-spacing:-.055em}
+    .lead{max-width:720px;color:var(--muted);font-size:1rem;line-height:1.58;font-weight:760;margin:0}
+    .status-card{border:1px solid var(--line);background:linear-gradient(135deg,#071226,#13243f);border-radius:24px;padding:18px;color:#fff;display:grid;gap:14px}
+    .status-card small{color:#c0d0e7;font-size:.76rem;font-weight:920;text-transform:uppercase}
+    .status-card b{font-size:1.35rem;line-height:1}
+    .progress{height:12px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden}
+    .progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#1677ff,#25d66f);border-radius:inherit}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.42fr);gap:16px;margin-top:16px}
+    .panel{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 64px -50px rgba(7,18,38,.5);padding:18px}
+    .panel h2{font-size:1.22rem;margin:0 0 12px;letter-spacing:-.03em}
+    .panel p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.5;font-weight:760}
+    .timeline{display:grid;gap:10px}
+    .step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;border:1px solid var(--line);background:#f8fbff;border-radius:18px;padding:12px}
+    .step i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#e6f0ff;color:#075fcc;font-style:normal;font-weight:950}
+    .step.done i{background:#dffbea;color:#0b6d38}
+    .step b{display:block;font-size:.92rem}
+    .step span{display:block;color:var(--muted);font-size:.78rem;font-weight:780;margin-top:3px}
+    .links{display:grid;gap:10px}
+    .links a{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:16px;background:#f8fbff;padding:13px 14px;font-weight:950;color:#0a5bd8}
+    .links a.primary{background:#25d66f;border-color:#25d66f;color:#071226}
+    .note{border-left:4px solid var(--warm);background:#fff8ef;color:#593515;border-radius:15px;padding:12px;font-size:.84rem;line-height:1.45;font-weight:820}
+    .error{background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:28px;text-align:center;margin-top:18px}
+    .error h1{font-size:clamp(1.9rem,5vw,3.4rem)}
+    .hidden{display:none!important}
+    @media(max-width:820px){.hero,.grid{grid-template-columns:1fr}.top{align-items:flex-start}.hero,.panel{border-radius:22px;padding:16px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <a class="brand" href="/">
+        <img src="/icon.svg" alt="" />
+        <span><strong>24 Climatizaciones</strong><span>Portal de entrega</span></span>
+      </a>
+      <a class="pill" href="/">Web principal</a>
+    </header>
+
+    <section id="loading" class="error">
+      <span class="eyebrow"><i class="dot"></i> Cargando</span>
+      <h1>Buscando tu proyecto.</h1>
+      <p class="lead" style="margin:auto">Estamos verificando el enlace de entrega.</p>
+    </section>
+
+    <section id="error" class="error hidden">
+      <span class="eyebrow"><i class="dot"></i> Enlace no disponible</span>
+      <h1>No pudimos abrir este portal.</h1>
+      <p class="lead" style="margin:auto">Pedile a quien te envio el link que vuelva a compartirlo. Puede estar incompleto o vencido.</p>
+    </section>
+
+    <section id="portal" class="hidden">
+      <section class="hero">
+        <div>
+          <span class="eyebrow"><i class="dot"></i> Entrega privada</span>
+          <h1 id="businessName">Proyecto web</h1>
+          <p class="lead" id="intro">Aca podes revisar el avance, abrir la web y ver los proximos pasos de entrega.</p>
+          <div class="actions" id="heroActions"></div>
+        </div>
+        <aside class="status-card">
+          <small>Estado actual</small>
+          <b id="statusLabel">En armado</b>
+          <div class="progress"><i id="progressBar"></i></div>
+          <small id="progressText">0% completado</small>
+        </aside>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Avance de la entrega</h2>
+          <div class="timeline" id="timeline"></div>
+        </article>
+        <aside class="panel">
+          <h2>Links utiles</h2>
+          <div class="links" id="links"></div>
+          <div class="note" style="margin-top:12px">Este enlace es privado. No lo compartas si no queres que otra persona vea el estado de tu proyecto.</div>
+          <div class="note" id="publicNote" style="margin-top:12px"></div>
+        </aside>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const API = '/api/factory-clients';
+    const $ = (sel, root = document) => root.querySelector(sel);
+
+    function escapeHtml(value){
+      return String(value || '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+    }
+
+    function whatsappUrl(phone, businessName){
+      const clean = String(phone || '').replace(/[^\d]/g, '') || '5493513266650';
+      const message = `Hola, estoy revisando el portal de ${businessName || 'mi proyecto'} y quiero hacer una consulta.`;
+      return `https://wa.me/${clean}?text=${encodeURIComponent(message)}`;
+    }
+
+    function showError(){
+      $('#loading').classList.add('hidden');
+      $('#portal').classList.add('hidden');
+      $('#error').classList.remove('hidden');
+    }
+
+    function render(client){
+      $('#businessName').textContent = client.businessName || 'Proyecto web';
+      $('#intro').textContent = `${client.plan || 'Landing comercial'} para ${client.clientName || client.businessName}.`;
+      $('#statusLabel').textContent = client.statusLabel || 'En proceso';
+      $('#progressBar').style.width = `${client.progress || 0}%`;
+      $('#progressText').textContent = `${client.completed || 0}/${client.total || 0} pasos completos`;
+      $('#timeline').innerHTML = (client.checklist || []).map(step => `
+        <div class="step ${step.done ? 'done' : ''}">
+          <i>${step.done ? 'OK' : '...'}</i>
+          <span><b>${escapeHtml(step.label)}</b><span>${step.done ? 'Completado' : 'Pendiente'}</span></span>
+        </div>
+      `).join('');
+      const links = [...(client.links || []), {label:'Consultar por WhatsApp', url:whatsappUrl(client.supportWhatsapp, client.businessName), primary:true}];
+      $('#links').innerHTML = links.map(link => `<a class="${link.primary ? 'primary' : ''}" href="${escapeHtml(link.url)}" target="_blank" rel="noopener"><span>${escapeHtml(link.label)}</span><span>&gt;</span></a>`).join('');
+      $('#heroActions').innerHTML = links.slice(0, 2).map(link => `<a class="btn ${link.primary ? 'primary' : 'dark'}" href="${escapeHtml(link.url)}" target="_blank" rel="noopener">${escapeHtml(link.label)}</a>`).join('');
+      if(client.publicNote){
+        $('#publicNote').textContent = client.publicNote;
+        $('#publicNote').classList.remove('hidden');
+      }else{
+        $('#publicNote').classList.add('hidden');
+      }
+      $('#loading').classList.add('hidden');
+      $('#portal').classList.remove('hidden');
+      if(window.va) window.va('event', {name:'24_client_portal_view'});
+    }
+
+    async function start(){
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      const key = params.get('key');
+      if(!id || !key){
+        showError();
+        return;
+      }
+      try{
+        const response = await fetch(`${API}?portal=1&id=${encodeURIComponent(id)}&key=${encodeURIComponent(key)}`, {headers:{'Accept':'application/json'}});
+        const data = await response.json();
+        if(!response.ok || !data.client) throw new Error('portal_not_found');
+        render(data.client);
+      }catch(error){
+        showError();
+      }
+    }
+    start();
+  </script>
+</body>
+</html>

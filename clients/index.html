@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#071226" />
+  <title>Clientes y entregas | 24 Climatizaciones</title>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <script>
+    window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    :root{
+      --bg:#eef5ff;
+      --paper:#fff;
+      --ink:#071226;
+      --muted:#637188;
+      --soft:#f7fbff;
+      --line:#dce8f7;
+      --cold:#1677ff;
+      --cold2:#0a5bd8;
+      --ok:#25d66f;
+      --warm:#ff7a1a;
+      --danger:#e5484d;
+      --shadow:0 30px 82px -52px rgba(7,18,38,.6);
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:
+      radial-gradient(circle at 10% 0,rgba(22,119,255,.14),transparent 30%),
+      radial-gradient(circle at 92% 4%,rgba(255,122,26,.12),transparent 30%),
+      linear-gradient(180deg,#f9fcff 0,#eef5ff 52%,#e8f1ff 100%);
+      color:var(--ink);font-family:var(--font);letter-spacing:0}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1320px,calc(100% - 28px));margin:0 auto;padding:22px 0 56px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:48px;height:48px;border-radius:14px;box-shadow:0 16px 36px -22px rgba(7,18,38,.85)}
+    .brand strong{display:block;font-size:1rem;line-height:1}
+    .brand span span{display:block;color:var(--muted);font-size:.78rem;font-weight:850;margin-top:4px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .pill,.btn,.mini{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--cold2);font-weight:950}
+    .pill,.btn{min-height:42px;padding:0 15px;font-size:.84rem}
+    .mini{min-height:34px;padding:0 11px;font-size:.76rem}
+    .btn.primary{background:var(--cold);border-color:var(--cold);color:#fff;box-shadow:0 16px 34px -24px rgba(22,119,255,.8)}
+    .btn.dark,.mini.dark{background:#071226;border-color:#071226;color:#fff}
+    .btn.green,.mini.green{background:var(--ok);border-color:var(--ok);color:#071226}
+    .mini.danger{color:#c32228;border-color:#ffd0d0;background:#fff}
+    .btn:disabled,.mini:disabled{opacity:.5;cursor:not-allowed}
+    .hero{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.35fr);gap:18px;align-items:end}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;border:1px solid #cfe1ff;background:#f8fbff;color:#075fcc;border-radius:999px;padding:7px 10px;font-size:.72rem;font-weight:950;text-transform:uppercase}
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 6px rgba(37,214,111,.12)}
+    h1{font-size:clamp(2rem,5vw,4.3rem);line-height:.94;margin:14px 0 10px;letter-spacing:-.055em}
+    .lead{max-width:820px;color:var(--muted);font-size:1rem;line-height:1.58;font-weight:760;margin:0}
+    .side-card{border:1px solid var(--line);background:linear-gradient(135deg,#f8fbff,#fff);border-radius:22px;padding:15px;display:grid;gap:10px}
+    .side-card b{font-size:.96rem}
+    .side-card span{color:var(--muted);font-size:.82rem;font-weight:780;line-height:1.35}
+    .login-panel{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.56fr);gap:14px}
+    .panel,.block{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 64px -48px rgba(7,18,38,.58);padding:18px}
+    .panel h2,.block h2{font-size:1.16rem;margin:0 0 8px;letter-spacing:-.03em}
+    .panel p,.block p{margin:0;color:var(--muted);font-size:.85rem;line-height:1.45;font-weight:760}
+    .login{display:grid;gap:12px;margin-top:14px}
+    .field{display:grid;gap:7px}
+    label{font-weight:920;font-size:.82rem;color:#18263d}
+    input,textarea,select{width:100%;border:1px solid var(--line);border-radius:15px;min-height:46px;padding:10px 12px;background:#fbfdff;color:var(--ink);font-weight:780;outline:none}
+    textarea{min-height:96px;resize:vertical;line-height:1.45}
+    input:focus,textarea:focus,select:focus{border-color:#9bc4ff;box-shadow:0 0 0 4px rgba(22,119,255,.11)}
+    .hint{color:var(--muted);font-size:.78rem;line-height:1.42;font-weight:770;margin:0}
+    .app{display:grid;grid-template-columns:minmax(340px,.72fr) minmax(0,1.28fr);gap:16px;margin-top:16px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:5px}
+    .stat small{color:var(--muted);font-size:.72rem;font-weight:920;text-transform:uppercase}
+    .stat b{font-size:1.55rem;letter-spacing:-.04em}
+    .stat span{color:var(--muted);font-size:.78rem;font-weight:780;line-height:1.35}
+    .form{display:grid;gap:12px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .check{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#f8fbff;border-radius:13px;padding:9px 10px;color:#273651;font-size:.78rem;font-weight:860}
+    .check input{width:16px;height:16px;min-height:0;padding:0;accent-color:var(--cold)}
+    .notice{border-left:4px solid var(--warm);background:#fff8ef;color:#593515;border-radius:15px;padding:12px;font-size:.82rem;line-height:1.45;font-weight:820}
+    .toolbar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+    .toolbar-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .search{max-width:280px;min-height:40px}
+    .pipeline{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .lane{background:#f8fbff;border:1px solid var(--line);border-radius:22px;padding:12px;min-height:210px}
+    .lane h3{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;font-size:.92rem}
+    .lane h3 span{color:var(--muted);font-size:.72rem;font-weight:950}
+    .cards{display:grid;gap:10px}
+    .client-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 18px 54px -46px rgba(7,18,38,.52);display:grid;gap:12px}
+    .client-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+    .client-title{min-width:0}
+    .client-title b{display:block;font-size:1rem;line-height:1.12;overflow-wrap:anywhere}
+    .client-title span{display:block;color:var(--muted);font-size:.78rem;font-weight:800;margin-top:4px;overflow-wrap:anywhere}
+    .status{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 9px;background:#f0f7ff;color:#075fcc;font-size:.68rem;font-weight:950;white-space:nowrap}
+    .status:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--cold)}
+    .status.published:before,.status.handoff:before{background:var(--ok)}
+    .status.paused:before{background:var(--warm)}
+    .progress{height:9px;border-radius:999px;background:#e9f1fb;overflow:hidden}
+    .progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cold),var(--ok));width:0}
+    .link-row{display:grid;gap:7px}
+    .link-row input{min-height:38px;border-radius:12px;font-size:.75rem;color:#173258}
+    .card-actions{display:flex;gap:7px;flex-wrap:wrap}
+    .empty{border:1px dashed #bed0e7;border-radius:20px;padding:24px;text-align:center;color:#657287;background:#f8fbff;font-weight:830;display:grid;gap:12px;justify-items:center}
+    .message-box{margin-top:12px;background:#071226;border-radius:18px;padding:14px;color:#fff;display:grid;gap:8px}
+    .message-box b{font-size:.92rem}
+    .message-box p{color:#c3d0e5;font-size:.82rem;line-height:1.45;margin:0;font-weight:760}
+    .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(18px);opacity:0;pointer-events:none;background:#071226;color:#fff;border-radius:999px;padding:12px 16px;font-weight:900;font-size:.84rem;box-shadow:0 20px 50px -28px rgba(7,18,38,.8);transition:.2s ease;z-index:20}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .hidden{display:none!important}
+    @media(max-width:1080px){.hero,.login-panel,.app{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}
+    @media(max-width:680px){
+      .wrap{width:min(100% - 20px,1320px)}
+      .top{align-items:flex-start}
+      .actions{justify-content:flex-start}
+      .hero,.panel,.block{border-radius:22px;padding:15px}
+      .two,.check-grid,.pipeline,.stats{grid-template-columns:1fr}
+      .client-head{display:grid}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <a class="brand" href="/admin/">
+        <img src="/icon.svg" alt="" />
+        <span><strong>24 Climatizaciones</strong><span>Clientes y entregas</span></span>
+      </a>
+      <div class="actions">
+        <a class="pill" href="/admin/">Admin</a>
+        <a class="pill" href="/factory/">Factory</a>
+        <a class="pill" href="/analytics.html">Metricas</a>
+        <a class="pill" href="/">Abrir web</a>
+        <button class="pill hidden" id="logoutBtn" type="button">Salir</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow"><i class="dot"></i> Fase 4 y 5</span>
+        <h1>Clientes, entregas y portal.</h1>
+        <p class="lead">Organiza cada web generada, guarda links importantes, controla el avance y entrega un portal simple al cliente sin crear contrasenas externas.</p>
+      </div>
+      <aside class="side-card">
+        <b id="statusTitle">Esperando acceso</b>
+        <span id="statusText">Usa la clave privada del admin para abrir el panel.</span>
+        <span class="eyebrow"><i class="dot"></i> Sin gasto fijo</span>
+      </aside>
+    </section>
+
+    <section class="login-panel" id="loginPanel">
+      <div class="panel">
+        <h2>Entrar al panel de clientes</h2>
+        <p>La misma sesion segura del administrador protege esta pantalla.</p>
+        <form class="login" id="loginForm">
+          <div class="field">
+            <label for="adminPassword">Clave privada</label>
+            <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Escribi la clave del admin" required />
+          </div>
+          <button class="btn primary" id="loginBtn" type="submit">Entrar</button>
+        </form>
+      </div>
+      <aside class="panel">
+        <h2>Como funciona</h2>
+        <p>Creas una entrega, pegas los links del proyecto y compartis un portal firmado. El cliente no necesita usuario ni clave.</p>
+      </aside>
+    </section>
+
+    <section id="clientApp" class="hidden">
+      <div class="stats">
+        <div class="stat"><small>Total</small><b id="statTotal">0</b><span>Clientes cargados.</span></div>
+        <div class="stat"><small>En curso</small><b id="statActive">0</b><span>Trabajos abiertos.</span></div>
+        <div class="stat"><small>Publicadas</small><b id="statPublished">0</b><span>Con web online.</span></div>
+        <div class="stat"><small>Entregadas</small><b id="statDone">0</b><span>Cierre completo.</span></div>
+      </div>
+
+      <section class="app">
+        <aside class="block">
+          <h2 id="formTitle">Nueva entrega</h2>
+          <p>Guarda lo minimo necesario para controlar avance y entregar el portal.</p>
+          <form class="form" id="clientForm">
+            <input id="clientId" type="hidden" />
+            <div class="two">
+              <div class="field">
+                <label for="businessName">Negocio</label>
+                <input id="businessName" placeholder="Ej: Restaurante Centro" required />
+              </div>
+              <div class="field">
+                <label for="clientName">Cliente</label>
+                <input id="clientName" placeholder="Nombre del cliente" />
+              </div>
+            </div>
+            <div class="two">
+              <div class="field">
+                <label for="status">Estado</label>
+                <select id="status">
+                  <option value="lead">Nuevo contacto</option>
+                  <option value="brief">Datos recibidos</option>
+                  <option value="design">Web en armado</option>
+                  <option value="review">Lista para revisar</option>
+                  <option value="published">Publicada</option>
+                  <option value="handoff">Entregada</option>
+                  <option value="paused">Pausada</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="plan">Tipo de web</label>
+                <input id="plan" placeholder="Landing comercial" />
+              </div>
+            </div>
+            <div class="two">
+              <div class="field">
+                <label for="whatsapp">WhatsApp</label>
+                <input id="whatsapp" placeholder="+5493510000000" />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" placeholder="cliente@email.com" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="projectUrl">Web publicada</label>
+              <input id="projectUrl" placeholder="https://cliente.vercel.app" />
+            </div>
+            <div class="two">
+              <div class="field">
+                <label for="repoUrl">GitHub</label>
+                <input id="repoUrl" placeholder="https://github.com/..." />
+              </div>
+              <div class="field">
+                <label for="vercelUrl">Vercel</label>
+                <input id="vercelUrl" placeholder="https://vercel.com/..." />
+              </div>
+            </div>
+            <div class="two">
+              <div class="field">
+                <label for="dashboardUrl">Dashboard</label>
+                <input id="dashboardUrl" placeholder="https://lookerstudio.google.com/..." />
+              </div>
+              <div class="field">
+                <label for="clarityUrl">Clarity</label>
+                <input id="clarityUrl" placeholder="https://clarity.microsoft.com/..." />
+              </div>
+            </div>
+            <div class="field">
+              <label for="publicNote">Mensaje visible para el cliente</label>
+              <input id="publicNote" maxlength="240" placeholder="Ej: Estamos revisando los ultimos detalles antes de publicar." />
+            </div>
+            <div class="field">
+              <label for="notes">Notas internas</label>
+              <textarea id="notes" placeholder="Pendientes, decisiones y proximos pasos internos."></textarea>
+            </div>
+            <div class="field">
+              <label>Checklist</label>
+              <div class="check-grid" id="checklistFields"></div>
+            </div>
+            <button class="btn primary" id="saveBtn" type="submit">Crear entrega</button>
+            <button class="btn" id="resetForm" type="button">Limpiar formulario</button>
+            <div class="notice">No guardes contrasenas de clientes. Para cuentas externas, invita o transfiere desde GitHub, Vercel, Google o el proveedor correspondiente.</div>
+          </form>
+        </aside>
+
+        <section class="block">
+          <div class="toolbar">
+            <div>
+              <h2>Pipeline de entregas</h2>
+              <p>Filtra, copia portales y abre los links principales.</p>
+            </div>
+            <div class="toolbar-actions">
+              <input class="search" id="search" placeholder="Buscar cliente" />
+              <button class="mini" id="refreshBtn" type="button">Actualizar</button>
+            </div>
+          </div>
+          <div class="pipeline" id="pipeline"></div>
+          <div class="message-box">
+            <b>Mensaje de entrega sugerido</b>
+            <p id="handoffMessage">Crea o selecciona un cliente para copiar un mensaje listo con su portal.</p>
+            <button class="mini green" id="copyMessageBtn" type="button" disabled>Copiar mensaje</button>
+          </div>
+        </section>
+      </section>
+    </section>
+  </main>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const AUTH = '/api/admin-session';
+    const API = '/api/factory-clients';
+    const CHECKS = {
+      brief: 'Datos del negocio',
+      assets: 'Logo e imagenes',
+      copy: 'Textos principales',
+      prototype: 'Vista previa',
+      publish: 'Web publicada',
+      analytics: 'Metricas conectadas',
+      handoff: 'Entrega final'
+    };
+    const STATUS = {
+      lead: 'Nuevo contacto',
+      brief: 'Datos recibidos',
+      design: 'Web en armado',
+      review: 'Lista para revisar',
+      published: 'Publicada',
+      handoff: 'Entregada',
+      paused: 'Pausada'
+    };
+    const LANES = [
+      {id:'active', title:'En curso', statuses:['lead','brief','design']},
+      {id:'review', title:'Revision y publicacion', statuses:['review','published']},
+      {id:'done', title:'Entregadas', statuses:['handoff','paused']}
+    ];
+    const $ = (sel, root = document) => root.querySelector(sel);
+    let clients = [];
+    let selectedMessage = '';
+    let localMode = false;
+
+    function showToast(message){
+      const toast = $('#toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove('show'), 2300);
+    }
+
+    function setStatus(title, text){
+      $('#statusTitle').textContent = title;
+      $('#statusText').textContent = text;
+    }
+
+    function escapeHtml(value){
+      return String(value || '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+    }
+
+    function slugify(value){
+      return String(value || 'cliente-web')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'cliente-web';
+    }
+
+    async function requestJson(url, options = {}){
+      const response = await fetch(url, {
+        ...options,
+        credentials:'same-origin',
+        headers:{
+          'Accept':'application/json',
+          ...(options.body ? {'Content-Type':'application/json'} : {}),
+          ...(options.headers || {})
+        }
+      });
+      const data = await response.json().catch(() => ({}));
+      if(!response.ok) throw new Error(data.error || 'request_failed');
+      return data;
+    }
+
+    function renderChecks(){
+      $('#checklistFields').innerHTML = Object.entries(CHECKS).map(([key, label]) => `
+        <label class="check"><input type="checkbox" data-check="${key}"> ${escapeHtml(label)}</label>
+      `).join('');
+    }
+
+    function showApp(){
+      $('#loginPanel').classList.add('hidden');
+      $('#clientApp').classList.remove('hidden');
+      $('#logoutBtn').classList.remove('hidden');
+    }
+
+    function showLogin(message){
+      $('#loginPanel').classList.remove('hidden');
+      $('#clientApp').classList.add('hidden');
+      $('#logoutBtn').classList.add('hidden');
+      setStatus('Esperando acceso', message || 'Usa la clave privada del admin para abrir el panel.');
+    }
+
+    function localPortalUrl(client){
+      return `${location.origin}/portal/?id=${encodeURIComponent(client.id)}&key=local-preview`;
+    }
+
+    function loadLocalClients(){
+      clients = JSON.parse(localStorage.getItem('factoryClients') || '[]');
+      clients = clients.map(client => ({...client, portalUrl: client.portalUrl || localPortalUrl(client)}));
+      localMode = true;
+    }
+
+    function saveLocalClients(){
+      localStorage.setItem('factoryClients', JSON.stringify(clients));
+    }
+
+    async function loadClients(){
+      setStatus('Cargando clientes', 'Consultando entregas guardadas.');
+      try{
+        const data = await requestJson(API);
+        if(data.configured === false){
+          loadLocalClients();
+          setStatus('Modo local', 'Falta almacenamiento en Vercel. Podes usar el panel en este navegador, pero el portal publico requiere Blob.');
+        }else{
+          clients = data.clients || [];
+          localMode = false;
+          setStatus('Clientes activos', `${clients.length} entregas cargadas.`);
+        }
+      }catch(error){
+        loadLocalClients();
+        setStatus('Modo local', 'No se pudo conectar la API. Los cambios quedan solo en este navegador.');
+      }
+      showApp();
+      render();
+    }
+
+    function readForm(){
+      const checklist = {};
+      document.querySelectorAll('[data-check]').forEach(input => checklist[input.dataset.check] = input.checked);
+      const businessName = $('#businessName').value.trim();
+      return {
+        id: $('#clientId').value,
+        businessName,
+        clientName: $('#clientName').value.trim() || businessName,
+        slug: slugify(businessName),
+        status: $('#status').value,
+        plan: $('#plan').value.trim() || 'Landing comercial',
+        whatsapp: $('#whatsapp').value.trim(),
+        email: $('#email').value.trim(),
+        projectUrl: $('#projectUrl').value.trim(),
+        repoUrl: $('#repoUrl').value.trim(),
+        vercelUrl: $('#vercelUrl').value.trim(),
+        dashboardUrl: $('#dashboardUrl').value.trim(),
+        clarityUrl: $('#clarityUrl').value.trim(),
+        publicNote: $('#publicNote').value.trim(),
+        notes: $('#notes').value.trim(),
+        checklist
+      };
+    }
+
+    function fillForm(client){
+      $('#formTitle').textContent = client ? 'Editar entrega' : 'Nueva entrega';
+      $('#saveBtn').textContent = client ? 'Guardar cambios' : 'Crear entrega';
+      $('#clientId').value = client?.id || '';
+      $('#businessName').value = client?.businessName || '';
+      $('#clientName').value = client?.clientName || '';
+      $('#status').value = client?.status || 'brief';
+      $('#plan').value = client?.plan || 'Landing comercial';
+      $('#whatsapp').value = client?.whatsapp || '';
+      $('#email').value = client?.email || '';
+      $('#projectUrl').value = client?.projectUrl || '';
+      $('#repoUrl').value = client?.repoUrl || '';
+      $('#vercelUrl').value = client?.vercelUrl || '';
+      $('#dashboardUrl').value = client?.dashboardUrl || '';
+      $('#clarityUrl').value = client?.clarityUrl || '';
+      $('#publicNote').value = client?.publicNote || '';
+      $('#notes').value = client?.notes || '';
+      document.querySelectorAll('[data-check]').forEach(input => input.checked = Boolean(client?.checklist?.[input.dataset.check]));
+    }
+
+    function progress(client){
+      const values = Object.keys(CHECKS).map(key => Boolean(client.checklist?.[key]));
+      return Math.round((values.filter(Boolean).length / values.length) * 100);
+    }
+
+    function updateStats(){
+      $('#statTotal').textContent = clients.length;
+      $('#statActive').textContent = clients.filter(client => !['handoff','paused'].includes(client.status)).length;
+      $('#statPublished').textContent = clients.filter(client => ['published','handoff'].includes(client.status)).length;
+      $('#statDone').textContent = clients.filter(client => client.status === 'handoff').length;
+    }
+
+    function clientMessage(client){
+      return `Hola ${client.clientName || client.businessName}, te comparto el portal de tu proyecto web:\n${client.portalUrl || ''}\n\nAhi vas a ver el estado, links importantes y el avance de la entrega.`;
+    }
+
+    function render(){
+      updateStats();
+      const filter = $('#search').value.trim().toLowerCase();
+      const visible = clients.filter(client => {
+        const haystack = `${client.businessName} ${client.clientName} ${client.plan} ${client.status}`.toLowerCase();
+        return !filter || haystack.includes(filter);
+      });
+      $('#pipeline').innerHTML = LANES.map(lane => {
+        const laneClients = visible.filter(client => lane.statuses.includes(client.status));
+        return `
+          <section class="lane">
+            <h3>${escapeHtml(lane.title)} <span>${laneClients.length}</span></h3>
+            <div class="cards">
+              ${laneClients.length ? laneClients.map(renderClientCard).join('') : '<div class="empty">Sin entregas en esta columna.</div>'}
+            </div>
+          </section>`;
+      }).join('');
+      if(!clients.length){
+        $('#handoffMessage').textContent = 'Crea una entrega para copiar un mensaje listo con portal.';
+        $('#copyMessageBtn').disabled = true;
+      }
+    }
+
+    function renderClientCard(client){
+      const percent = progress(client);
+      return `
+        <article class="client-card" data-id="${escapeHtml(client.id)}">
+          <div class="client-head">
+            <span class="client-title">
+              <b>${escapeHtml(client.businessName)}</b>
+              <span>${escapeHtml(client.clientName)} - ${escapeHtml(client.plan || 'Landing comercial')}</span>
+            </span>
+            <span class="status ${escapeHtml(client.status)}">${escapeHtml(STATUS[client.status] || client.status)}</span>
+          </div>
+          <div class="progress" aria-label="Avance ${percent}%"><i style="width:${percent}%"></i></div>
+          <div class="link-row">
+            <input readonly value="${escapeHtml(client.portalUrl || '')}" aria-label="Portal cliente">
+          </div>
+          <div class="card-actions">
+            <button class="mini dark" data-edit type="button">Editar</button>
+            <button class="mini green" data-copy type="button">Copiar portal</button>
+            <a class="mini" href="${escapeHtml(client.portalUrl || '#')}" target="_blank" rel="noopener">Portal</a>
+            ${client.projectUrl ? `<a class="mini" href="${escapeHtml(client.projectUrl)}" target="_blank" rel="noopener">Web</a>` : ''}
+            <button class="mini" data-message type="button">Mensaje</button>
+            <button class="mini danger" data-delete type="button">Eliminar</button>
+          </div>
+        </article>`;
+    }
+
+    async function saveClient(payload){
+      if(localMode){
+        if(payload.id){
+          clients = clients.map(client => client.id === payload.id ? {...client, ...payload, updatedAt:new Date().toISOString(), portalUrl:client.portalUrl || localPortalUrl(client)} : client);
+        }else{
+          const item = {...payload, id: crypto.randomUUID(), createdAt:new Date().toISOString(), updatedAt:new Date().toISOString()};
+          item.portalUrl = localPortalUrl(item);
+          clients.unshift(item);
+        }
+        saveLocalClients();
+        render();
+        return;
+      }
+      const method = payload.id ? 'PATCH' : 'POST';
+      const data = await requestJson(API, {method, body:JSON.stringify(payload)});
+      clients = data.clients || clients;
+      render();
+      if(data.client?.portalUrl) await navigator.clipboard.writeText(data.client.portalUrl).catch(() => null);
+    }
+
+    $('#loginForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      $('#loginBtn').disabled = true;
+      try{
+        await requestJson(AUTH, {method:'POST', body:JSON.stringify({password: $('#adminPassword').value})});
+        $('#adminPassword').value = '';
+        await loadClients();
+        showToast('Panel activo');
+      }catch(error){
+        setStatus('Acceso rechazado', 'La clave privada no coincide.');
+        showToast('No se pudo entrar');
+      }finally{
+        $('#loginBtn').disabled = false;
+      }
+    });
+
+    $('#logoutBtn').addEventListener('click', async () => {
+      await requestJson(AUTH, {method:'DELETE'}).catch(() => null);
+      showLogin('Sesion cerrada. Ingresa la clave para volver.');
+    });
+
+    $('#clientForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const payload = readForm();
+      if(!payload.businessName){
+        showToast('Falta el nombre del negocio');
+        return;
+      }
+      $('#saveBtn').disabled = true;
+      try{
+        await saveClient(payload);
+        fillForm(null);
+        showToast(payload.id ? 'Entrega actualizada' : 'Entrega creada');
+        if(window.va) window.va('event', {name:'24_clients_save'});
+      }catch(error){
+        showToast(error.message === 'blob_token_missing' ? 'Falta almacenamiento en Vercel' : 'No se pudo guardar');
+      }finally{
+        $('#saveBtn').disabled = false;
+      }
+    });
+
+    $('#resetForm').addEventListener('click', () => fillForm(null));
+    $('#refreshBtn').addEventListener('click', () => loadClients().then(() => showToast('Actualizado')));
+    $('#search').addEventListener('input', render);
+
+    $('#pipeline').addEventListener('click', async event => {
+      const card = event.target.closest('.client-card');
+      if(!card) return;
+      const client = clients.find(item => item.id === card.dataset.id);
+      if(!client) return;
+      if(event.target.matches('[data-edit]')){
+        fillForm(client);
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+      if(event.target.matches('[data-copy]')){
+        await navigator.clipboard.writeText(client.portalUrl || '');
+        showToast('Portal copiado');
+      }
+      if(event.target.matches('[data-message]')){
+        selectedMessage = clientMessage(client);
+        $('#handoffMessage').textContent = selectedMessage;
+        $('#copyMessageBtn').disabled = false;
+        showToast('Mensaje preparado');
+      }
+      if(event.target.matches('[data-delete]')){
+        if(!confirm('Eliminar esta entrega?')) return;
+        if(localMode){
+          clients = clients.filter(item => item.id !== client.id);
+          saveLocalClients();
+        }else{
+          const data = await requestJson(API, {method:'DELETE', body:JSON.stringify({id: client.id})});
+          clients = data.clients || [];
+        }
+        render();
+        showToast('Entrega eliminada');
+      }
+    });
+
+    $('#copyMessageBtn').addEventListener('click', async () => {
+      await navigator.clipboard.writeText(selectedMessage);
+      showToast('Mensaje copiado');
+    });
+
+    renderChecks();
+    requestJson(AUTH)
+      .then(data => data.authenticated ? loadClients() : showLogin())
+      .catch(() => showLogin('Falta configurar el login seguro o la sesion vencio.'));
+  </script>
+</body>
+</html>

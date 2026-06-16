@@ -51,6 +51,7 @@
     .card.clarity a{background:#5f3dc4}
     .card.admin a{background:#071226}
     .card.factory a{background:#1677ff}
+    .card.clients a{background:#ff7a1a;color:#071226}
     .steps{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
     .panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px}
     .panel h2{font-size:1.18rem;margin:0 0 12px}
@@ -89,7 +90,10 @@
         <img src="icon.svg" alt="" />
         <span><strong>24 Climatizaciones</strong><span>Control de metricas</span></span>
       </a>
-      <a class="home" href="/">Abrir web</a>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+        <a class="home" href="/clients/">Clientes</a>
+        <a class="home" href="/">Abrir web</a>
+      </div>
     </header>
 
     <section class="hero">
@@ -127,6 +131,11 @@
           <h2>Web Factory</h2>
           <p>Generador de plantillas para nuevos clientes.</p>
           <a href="/factory/">Abrir Factory</a>
+        </article>
+        <article class="card clients">
+          <h2>Clientes y entregas</h2>
+          <p>Pipeline, portales privados y control de entrega.</p>
+          <a href="/clients/">Abrir clientes</a>
         </article>
       </div>
 

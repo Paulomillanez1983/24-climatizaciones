@@ -78,7 +78,7 @@
     .file-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .file-row input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
     .file-name{color:var(--muted);font-size:.8rem;font-weight:850}
-    .output-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .output-actions{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
     .package-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
     .package-list span{border:1px solid #dbe8f8;background:#f8fbff;border-radius:13px;padding:9px 10px;color:#173258;font-size:.76rem;font-weight:900}
     .publish-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -148,6 +148,7 @@
       </a>
       <div class="actions">
         <a class="pill" href="/admin/">Admin</a>
+        <a class="pill" href="/clients/">Clientes</a>
         <a class="pill" href="/analytics.html">Metricas</a>
         <a class="pill" href="/">Abrir web</a>
       </div>
@@ -310,6 +311,7 @@
             <button class="btn dark" id="downloadProject" type="button">Proyecto ZIP</button>
             <button class="btn dark" id="downloadConfig" type="button">Descargar JSON</button>
             <button class="btn green" id="copyPrompt" type="button">Copiar brief</button>
+            <button class="btn" id="registerClient" type="button">Registrar entrega</button>
           </div>
           <div class="package-list" aria-label="Contenido del paquete">
             <span>SEO local y Open Graph</span>
@@ -374,6 +376,7 @@
   <script>
     const AUTH = '/api/admin-session';
     const PUBLISH = '/api/factory-publish';
+    const CLIENTS = '/api/factory-clients';
     const $ = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
     let logoDataUrl = '';
@@ -994,6 +997,39 @@
       box.innerHTML = `${htmlEscape(message)}${links.length ? `<div class="publish-links">${links.map(link => `<a href="${htmlEscape(link.href)}" target="_blank" rel="noopener">${htmlEscape(link.label)}: ${htmlEscape(link.href)}</a>`).join('')}</div>` : ''}`;
     }
 
+    async function registerClientFromFactory(extra = {}){
+      const config = getConfig();
+      const projectUrl = extra.projectUrl || extra.vercelUrl || normalizedUrl(config.domain);
+      const payload = {
+        businessName: config.businessName,
+        clientName: config.businessName,
+        status: extra.status || (projectUrl ? 'published' : 'brief'),
+        plan: config.category || 'Landing comercial',
+        whatsapp: config.whatsapp,
+        email: config.email,
+        domain: normalizedUrl(config.domain),
+        projectUrl,
+        repoUrl: extra.repoUrl || '',
+        vercelUrl: extra.vercelUrl || '',
+        dashboardUrl: '',
+        publicNote: projectUrl ? 'La web ya esta publicada para revision.' : 'La web esta registrada y lista para avanzar.',
+        notes: 'Entrega creada desde Web Factory. Revisar links finales, metricas y transferencia antes de cerrar.',
+        checklist: {
+          brief: true,
+          assets: Boolean(config.logoDataUrl),
+          copy: true,
+          prototype: true,
+          publish: Boolean(projectUrl),
+          analytics: false,
+          handoff: false
+        }
+      };
+      const data = await requestJson(CLIENTS, {method:'POST', body:JSON.stringify(payload)});
+      const portalUrl = data.client?.portalUrl || '';
+      if(portalUrl) await navigator.clipboard.writeText(portalUrl).catch(() => null);
+      return {portalUrl, client: data.client};
+    }
+
     function renderAutomationStatus(data){
       const missing = [
         ...(data.github?.missing || []),
@@ -1041,6 +1077,17 @@
         const links = [];
         if(data.github?.url) links.push({label:'GitHub', href:data.github.url});
         if(data.vercel?.url) links.push({label:'Vercel', href:data.vercel.url});
+        try{
+          const delivery = await registerClientFromFactory({
+            status: 'published',
+            repoUrl: data.github?.url || '',
+            vercelUrl: data.vercel?.url || '',
+            projectUrl: data.vercel?.url || ''
+          });
+          if(delivery.portalUrl) links.push({label:'Portal cliente', href:delivery.portalUrl});
+        }catch(error){
+          links.push({label:'Registrar entrega manual', href:'/clients/'});
+        }
         setPublishStatus('Publicado correctamente. Guarda estos enlaces para la entrega.', 'good', links);
         if(window.va) window.va('event', {name:'24_factory_publish_success'});
       }catch(error){
@@ -1124,6 +1171,23 @@
     });
 
     $('#publishProject').addEventListener('click', publishProject);
+
+    $('#registerClient').addEventListener('click', async () => {
+      const button = $('#registerClient');
+      button.disabled = true;
+      try{
+        const data = await registerClientFromFactory();
+        const links = data.portalUrl ? [{label:'Portal cliente', href:data.portalUrl}, {label:'Panel clientes', href:'/clients/'}] : [{label:'Panel clientes', href:'/clients/'}];
+        setPublishStatus(data.portalUrl ? 'Entrega registrada. El portal del cliente se copio al portapapeles.' : 'Entrega registrada.', 'good', links);
+        showToast('Entrega registrada');
+        if(window.va) window.va('event', {name:'24_factory_register_client'});
+      }catch(error){
+        setPublishStatus(error.message === 'blob_token_missing' ? 'Falta almacenamiento en Vercel para guardar entregas. Podes abrir Clientes y usar modo local.' : 'No se pudo registrar la entrega.', 'warn', [{label:'Abrir Clientes', href:'/clients/'}]);
+        showToast('No se pudo registrar');
+      }finally{
+        button.disabled = false;
+      }
+    });
 
     $('#downloadHtml').addEventListener('click', () => {
       const config = getConfig();
