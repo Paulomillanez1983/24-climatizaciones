@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { put, list, del } = require('@vercel/blob');
+const { hasAuthConfig, verifySession } = require('../lib/admin-auth');
 
 const META_PATH = 'admin/gallery.json';
 const IMAGE_PREFIX = 'admin/gallery/';
@@ -17,20 +18,12 @@ function hasStorage() {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 }
 
-function isAdmin(request) {
-  const token = process.env.ADMIN_TOKEN;
-  const header = request.headers['x-admin-token'] || request.headers['authorization'] || '';
-  const value = String(header).replace(/^Bearer\s+/i, '').trim();
-  if (!token || !value || value.length !== token.length) return false;
-  return crypto.timingSafeEqual(Buffer.from(value), Buffer.from(token));
-}
-
 function requireAdmin(request, response) {
-  if (!process.env.ADMIN_TOKEN) {
-    sendJson(response, 503, { error: 'admin_token_missing' });
+  if (!hasAuthConfig()) {
+    sendJson(response, 503, { error: 'admin_auth_missing' });
     return false;
   }
-  if (!isAdmin(request)) {
+  if (!verifySession(request)) {
     sendJson(response, 401, { error: 'unauthorized' });
     return false;
   }

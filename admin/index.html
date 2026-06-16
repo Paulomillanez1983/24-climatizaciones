@@ -13,85 +13,130 @@
   <script defer src="/_vercel/insights/script.js"></script>
   <style>
     :root{
-      --bg:#eef5ff;
+      --bg:#edf5ff;
       --paper:#fff;
       --ink:#071226;
-      --muted:#647188;
-      --line:#dce8f6;
+      --muted:#637188;
+      --soft:#f6faff;
+      --line:#dce8f7;
       --cold:#1677ff;
+      --cold-2:#0a5bd8;
       --ok:#25d66f;
       --danger:#e5484d;
       --warm:#ff7a1a;
-      --shadow:0 28px 80px -48px rgba(7,18,38,.55);
-      --font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+      --shadow:0 30px 82px -50px rgba(7,18,38,.58);
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#f8fbff 0,#eef5ff 48%,#e8f1ff 100%);color:var(--ink);font-family:var(--font);letter-spacing:0}
+    html{background:var(--bg)}
+    body{margin:0;background:
+      radial-gradient(circle at 12% 0,rgba(22,119,255,.12),transparent 30%),
+      radial-gradient(circle at 100% 10%,rgba(255,122,26,.10),transparent 28%),
+      linear-gradient(180deg,#f9fcff 0,#eef5ff 48%,#e8f1ff 100%);
+      color:var(--ink);font-family:var(--font);letter-spacing:0}
     button,input,textarea,select{font:inherit}
     button{cursor:pointer}
     a{color:inherit;text-decoration:none}
-    .wrap{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:22px 0 52px}
-    .top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:20px}
+    .wrap{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:22px 0 54px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:48px;height:48px;border-radius:14px;box-shadow:0 16px 34px -22px rgba(7,18,38,.8)}
-    .brand strong{display:block;font-size:1rem}
-    .brand span{display:block;color:var(--muted);font-size:.78rem;font-weight:800;margin-top:2px}
+    .brand img{width:48px;height:48px;border-radius:14px;box-shadow:0 16px 36px -22px rgba(7,18,38,.85)}
+    .brand strong{display:block;font-size:1rem;line-height:1}
+    .brand span span{display:block;color:var(--muted);font-size:.78rem;font-weight:850;margin-top:4px}
     .top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    .pill,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:999px;padding:0 14px;border:1px solid var(--line);background:#fff;color:#0a5bd8;font-size:.84rem;font-weight:950}
-    .btn.primary{background:var(--cold);border-color:var(--cold);color:#fff}
+    .pill,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:999px;padding:0 15px;border:1px solid var(--line);background:#fff;color:var(--cold-2);font-size:.84rem;font-weight:950}
+    .btn.primary{background:var(--cold);border-color:var(--cold);color:#fff;box-shadow:0 16px 34px -24px rgba(22,119,255,.8)}
     .btn.dark{background:#071226;border-color:#071226;color:#fff}
+    .btn.ghost{background:#f8fbff;color:#071226}
     .btn.danger{background:#fff;border-color:#ffd3d3;color:#c32228}
-    .btn:disabled{opacity:.48;cursor:not-allowed}
-    .hero{background:var(--paper);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:24px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:end}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;width:max-content;border:1px solid #cfe1ff;background:#f8fbff;color:#075fcc;border-radius:999px;padding:7px 10px;font-size:.72rem;font-weight:950;text-transform:uppercase}
+    .btn:disabled,.mini:disabled{opacity:.48;cursor:not-allowed}
+    .hero{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.34fr);gap:18px;align-items:end;backdrop-filter:blur(14px)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;border:1px solid #cfe1ff;background:#f8fbff;color:#075fcc;border-radius:999px;padding:7px 10px;font-size:.72rem;font-weight:950;text-transform:uppercase}
     .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 6px rgba(37,214,111,.12)}
-    h1{font-size:clamp(2rem,5vw,4rem);line-height:.95;margin:14px 0 10px;letter-spacing:-.055em}
-    .lead{max-width:760px;color:var(--muted);font-size:1rem;line-height:1.55;font-weight:750;margin:0}
-    .status{border:1px solid var(--line);background:#f8fbff;border-radius:18px;padding:12px;min-width:220px}
+    h1{font-size:clamp(2rem,5vw,4.1rem);line-height:.95;margin:14px 0 10px;letter-spacing:-.055em}
+    .lead{max-width:760px;color:var(--muted);font-size:1rem;line-height:1.55;font-weight:760;margin:0}
+    .session-card{border:1px solid var(--line);background:linear-gradient(135deg,#f8fbff,#fff);border-radius:22px;padding:14px;display:grid;gap:10px}
+    .session-card b{display:block;font-size:.92rem}
+    .session-card span{display:block;color:var(--muted);font-size:.82rem;font-weight:760;line-height:1.35}
+    .security-line{display:flex;align-items:center;gap:8px;color:#0a6f36;font-size:.78rem;font-weight:950}
+    .security-line i{width:9px;height:9px;background:var(--ok);border-radius:50%;box-shadow:0 0 0 6px rgba(37,214,111,.12)}
+    .status{margin-top:10px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:12px}
     .status b{display:block;font-size:.86rem;margin-bottom:5px}
     .status span{display:block;color:var(--muted);font-size:.8rem;font-weight:760;line-height:1.35}
-    .grid{display:grid;grid-template-columns:minmax(300px,.92fr) minmax(0,1.08fr);gap:16px;margin-top:16px}
-    .panel{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 64px -48px rgba(7,18,38,.58);padding:18px}
-    .panel h2{font-size:1.14rem;margin:0 0 12px;letter-spacing:-.03em}
-    .login{display:grid;gap:12px;max-width:520px}
+    .panel{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 64px -48px rgba(7,18,38,.58);padding:18px}
+    .panel-title{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+    .panel h2{font-size:1.16rem;margin:0;letter-spacing:-.03em}
+    .panel-title p{margin:5px 0 0;color:var(--muted);font-size:.84rem;line-height:1.42;font-weight:760}
+    .login-panel{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.62fr);gap:14px;align-items:stretch}
+    .login{display:grid;gap:12px}
+    .secure-box{border:1px solid #d9eadf;background:#f3fff7;border-radius:20px;padding:16px;display:grid;align-content:center;gap:12px;color:#123d24}
+    .secure-box b{font-size:1rem}
+    .secure-list{display:grid;gap:9px;margin:0;padding:0;list-style:none}
+    .secure-list li{display:flex;gap:8px;font-size:.83rem;font-weight:820;line-height:1.38;color:#24523a}
+    .secure-list li:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok);margin-top:.42em;flex:0 0 auto}
     .field{display:grid;gap:7px}
-    label{font-weight:900;font-size:.83rem;color:#18263d}
-    input,textarea,select{width:100%;border:1px solid var(--line);border-radius:14px;min-height:44px;padding:10px 12px;background:#fbfdff;color:var(--ink);font-weight:750;outline:none}
-    textarea{min-height:88px;resize:vertical;line-height:1.45}
+    label{font-weight:920;font-size:.83rem;color:#18263d}
+    input,textarea,select{width:100%;border:1px solid var(--line);border-radius:15px;min-height:46px;padding:10px 12px;background:#fbfdff;color:var(--ink);font-weight:780;outline:none}
+    textarea{min-height:96px;resize:vertical;line-height:1.45}
     input:focus,textarea:focus,select:focus{border-color:#9bc4ff;box-shadow:0 0 0 4px rgba(22,119,255,.11)}
+    .hint{color:var(--muted);font-size:.78rem;line-height:1.42;font-weight:770;margin:0}
+    .admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:5px}
+    .stat small{color:var(--muted);font-size:.74rem;font-weight:920;text-transform:uppercase}
+    .stat b{font-size:1.45rem;letter-spacing:-.04em}
+    .stat span{color:var(--muted);font-size:.78rem;font-weight:780;line-height:1.35}
+    .quick-links{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+    .quick-links a{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:5px;min-height:88px}
+    .quick-links b{font-size:.9rem}
+    .quick-links span{color:#657287;font-size:.78rem;font-weight:780;line-height:1.35}
+    .grid{display:grid;grid-template-columns:minmax(320px,.92fr) minmax(0,1.08fr);gap:16px;margin-top:16px}
     .form{display:grid;gap:12px}
     .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .checks{display:flex;gap:8px;flex-wrap:wrap}
     .check{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:#fbfdff;color:#24324a;font-size:.82rem;font-weight:850}
     .check input{width:16px;height:16px;min-height:0;padding:0}
-    .drop{border:1px dashed #b8cee9;background:linear-gradient(135deg,#f8fbff,#fff);border-radius:20px;padding:14px;display:grid;gap:10px}
-    .drop input{padding:11px;background:#fff}
-    .preview{min-height:178px;border-radius:18px;background:#071226;display:grid;place-items:center;overflow:hidden;color:#b8c9ed;font-weight:900;text-align:center}
+    .drop{border:1px dashed #b8cee9;background:linear-gradient(135deg,#f8fbff,#fff);border-radius:22px;padding:14px;display:grid;gap:10px}
+    .file-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .file-row input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+    .file-name{color:var(--muted);font-size:.8rem;font-weight:850}
+    .preview{min-height:204px;border-radius:20px;background:
+      linear-gradient(135deg,rgba(22,119,255,.18),transparent),
+      #071226;display:grid;place-items:center;overflow:hidden;color:#c7d7f5;font-weight:930;text-align:center;padding:18px}
     .preview img{width:100%;height:100%;object-fit:cover;display:block}
-    .hint{color:var(--muted);font-size:.78rem;line-height:1.42;font-weight:760}
-    .notice{border-left:4px solid var(--warm);background:#fff8ef;color:#583515;border-radius:15px;padding:12px;font-size:.82rem;line-height:1.45;font-weight:800}
+    .notice{border-left:4px solid var(--warm);background:#fff8ef;color:#593515;border-radius:15px;padding:12px;font-size:.82rem;line-height:1.45;font-weight:820}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{display:inline-flex;align-items:center;gap:7px;width:max-content;border:1px solid #d8e8ff;border-radius:999px;background:#f8fbff;color:#0a5bd8;padding:7px 10px;font-size:.73rem;font-weight:950}
     .items{display:grid;gap:10px}
-    .item{display:grid;grid-template-columns:118px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:20px;padding:10px;background:#fbfdff}
-    .item img{width:118px;height:96px;border-radius:15px;object-fit:cover;background:#071226}
+    .item{display:grid;grid-template-columns:126px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:20px;padding:10px;background:#fbfdff}
+    .item img{width:126px;height:104px;border-radius:16px;object-fit:cover;background:#071226}
     .item-body{display:grid;gap:8px}
     .item-head{display:flex;justify-content:space-between;gap:8px;align-items:start}
-    .item-title{display:grid;gap:2px;min-width:0}
-    .item-title b{font-size:.94rem;line-height:1.1}
-    .item-title small{color:#657287;font-weight:850}
+    .item-title{display:grid;gap:3px;min-width:0}
+    .item-title b{font-size:.96rem;line-height:1.12}
+    .item-title small{color:#657287;font-weight:860}
     .item-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-    .mini{border:1px solid var(--line);background:#fff;border-radius:12px;min-height:34px;padding:0 10px;color:#0a5bd8;font-size:.76rem;font-weight:950}
+    .mini{border:1px solid var(--line);background:#fff;border-radius:12px;min-height:34px;padding:0 10px;color:var(--cold-2);font-size:.76rem;font-weight:950}
     .mini.danger{color:#c32228;border-color:#ffd1d1}
+    .mini.dark{background:#071226;border-color:#071226;color:#fff}
     .edit-grid{display:grid;grid-template-columns:1fr 150px;gap:8px}
-    .empty{border:1px dashed #bed0e7;border-radius:20px;padding:20px;text-align:center;color:#657287;background:#f8fbff;font-weight:820}
-    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
-    .metric{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
-    .metric b{display:block;font-size:.88rem;margin-bottom:6px}
-    .metric span{color:#657287;font-size:.78rem;font-weight:780;line-height:1.35}
+    .empty{border:1px dashed #bed0e7;border-radius:20px;padding:24px;text-align:center;color:#657287;background:#f8fbff;font-weight:830;display:grid;gap:12px;justify-items:center}
     .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(18px);opacity:0;pointer-events:none;background:#071226;color:#fff;border-radius:999px;padding:12px 16px;font-weight:900;font-size:.84rem;box-shadow:0 20px 50px -28px rgba(7,18,38,.8);transition:.2s ease;z-index:20}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     .hidden{display:none!important}
-    @media(max-width:880px){.hero,.grid{grid-template-columns:1fr}.status{min-width:0}.metrics{grid-template-columns:1fr 1fr}.top{align-items:flex-start}.item{grid-template-columns:92px 1fr}.item img{width:92px;height:88px}.edit-grid{grid-template-columns:1fr}}
-    @media(max-width:560px){.wrap{width:min(100% - 20px,1180px)}.hero,.panel{border-radius:22px;padding:15px}.top-actions{justify-content:flex-start}.two,.metrics{grid-template-columns:1fr}.item{grid-template-columns:1fr}.item img{width:100%;height:184px}.item-head{display:grid}.item-actions{justify-content:flex-start}}
+    @media(max-width:940px){.hero,.login-panel,.grid{grid-template-columns:1fr}.admin-stats,.quick-links{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){
+      .wrap{width:min(100% - 20px,1180px)}
+      .hero,.panel{border-radius:22px;padding:15px}
+      .top{align-items:flex-start}
+      .top-actions{justify-content:flex-start}
+      .two,.admin-stats,.quick-links{grid-template-columns:1fr}
+      .item{grid-template-columns:1fr}
+      .item img{width:100%;height:190px}
+      .item-head{display:grid}
+      .item-actions{justify-content:flex-start}
+      .edit-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -111,46 +156,79 @@
     <section class="hero">
       <div>
         <span class="eyebrow"><i class="dot"></i> Panel privado</span>
-        <h1>Galeria, metricas y mantenimiento.</h1>
-        <p class="lead">Subi trabajos reales, ordena lo que se muestra en la web y entra al panel de metricas desde un solo lugar.</p>
+        <h1>Administracion de la web.</h1>
+        <p class="lead">Carga trabajos reales, ordena lo que se muestra en la pagina y entra a las metricas desde un solo lugar.</p>
       </div>
-      <div class="status">
+      <aside class="session-card">
+        <div class="security-line"><i></i> Acceso protegido</div>
         <b id="statusTitle">Esperando acceso</b>
-        <span id="statusText">Ingresá la clave admin para cargar el panel.</span>
-      </div>
+        <span id="statusText">Ingresa tu clave privada para abrir el panel.</span>
+        <div class="status">
+          <b>Sin base de datos</b>
+          <span>La sesion se valida en Vercel con cookie segura y variables privadas.</span>
+        </div>
+      </aside>
     </section>
 
-    <section class="panel" id="loginPanel" style="margin-top:16px">
-      <h2>Acceso administrador</h2>
-      <form class="login" id="loginForm">
-        <div class="field">
-          <label for="adminToken">Clave admin</label>
-          <input id="adminToken" name="adminToken" type="password" autocomplete="current-password" placeholder="Pegá la clave privada" required />
+    <section class="login-panel" id="loginPanel">
+      <div class="panel">
+        <div class="panel-title">
+          <div>
+            <h2>Entrar al administrador</h2>
+            <p>Usa la clave privada. Si alguien no la conoce, no puede modificar la galeria.</p>
+          </div>
         </div>
-        <button class="btn primary" type="submit">Entrar</button>
-        <p class="hint">La clave queda guardada solo en esta pestaña del navegador. No se publica en la web.</p>
-      </form>
+        <form class="login" id="loginForm">
+          <div class="field">
+            <label for="adminPassword">Clave privada</label>
+            <input id="adminPassword" name="adminPassword" type="password" autocomplete="current-password" placeholder="Escribi la clave del admin" required />
+          </div>
+          <button class="btn primary" id="loginBtn" type="submit">Entrar al panel</button>
+          <p class="hint">La clave no se guarda en el navegador. Al entrar se crea una sesion privada por 7 dias.</p>
+        </form>
+      </div>
+      <aside class="secure-box">
+        <b>Como queda protegido</b>
+        <ul class="secure-list">
+          <li>La web guarda solo un hash de la clave en Vercel.</li>
+          <li>El navegador recibe una cookie HttpOnly firmada.</li>
+          <li>Los cambios de galeria se aceptan solo con sesion activa.</li>
+        </ul>
+      </aside>
     </section>
 
     <section id="adminPanel" class="hidden">
-      <div class="metrics">
-        <a class="metric" href="/analytics.html"><b>Panel interno</b><span>Vista central con Looker Studio y accesos.</span></a>
-        <a class="metric" href="https://datastudio.google.com/reporting/d2c33270-4248-4188-a38f-d675871df82c" target="_blank" rel="noopener"><b>Looker Studio</b><span>Graficos de visitas, eventos y busquedas.</span></a>
-        <a class="metric" href="https://clarity.microsoft.com/projects" target="_blank" rel="noopener"><b>Clarity</b><span>Mapas de calor y grabaciones anonimas.</span></a>
-        <a class="metric" href="https://vercel.com/paulomillanez1983s-projects/24-climatizaciones/analytics" target="_blank" rel="noopener"><b>Vercel</b><span>Visitas y rendimiento de producción.</span></a>
+      <div class="admin-stats">
+        <div class="stat"><small>Total</small><b id="countAll">0</b><span>Fotos guardadas.</span></div>
+        <div class="stat"><small>Visibles</small><b id="countVisible">0</b><span>Se muestran en la web.</span></div>
+        <div class="stat"><small>Principal</small><b id="countFeatured">0</b><span>Imagen destacada.</span></div>
+        <div class="stat"><small>Estado</small><b id="storageState">OK</b><span>Galeria conectada.</span></div>
+      </div>
+
+      <div class="quick-links">
+        <a href="/analytics.html"><b>Panel interno</b><span>Vista central con metricas y accesos.</span></a>
+        <a href="https://datastudio.google.com/reporting/d2c33270-4248-4188-a38f-d675871df82c" target="_blank" rel="noopener"><b>Looker Studio</b><span>Graficos de visitas y eventos.</span></a>
+        <a href="https://clarity.microsoft.com/projects" target="_blank" rel="noopener"><b>Clarity</b><span>Mapas de calor y grabaciones anonimas.</span></a>
+        <a href="https://vercel.com/paulomillanez1983s-projects/24-climatizaciones/analytics" target="_blank" rel="noopener"><b>Vercel</b><span>Visitas y rendimiento.</span></a>
       </div>
 
       <div class="grid">
         <section class="panel">
-          <h2>Nuevo trabajo</h2>
+          <div class="panel-title">
+            <div>
+              <h2>Nuevo trabajo</h2>
+              <p>Subi una foto propia. Se optimiza a WebP antes de guardarla.</p>
+            </div>
+          </div>
           <form class="form" id="uploadForm">
             <div class="drop">
-              <div class="field">
-                <label for="imageFile">Imagen</label>
+              <div class="file-row">
                 <input id="imageFile" name="imageFile" type="file" accept="image/*" required />
+                <label class="btn dark" for="imageFile">Elegir foto</label>
+                <span class="file-name" id="fileName">Ninguna foto elegida</span>
               </div>
-              <div class="preview" id="previewBox">Vista previa WebP</div>
-              <p class="hint" id="imageMeta">La imagen se convierte en WebP antes de subirla.</p>
+              <div class="preview" id="previewBox">La vista previa aparece aca</div>
+              <p class="hint" id="imageMeta">Recomendado: foto clara, sin direcciones visibles ni datos privados.</p>
             </div>
             <div class="two">
               <div class="field">
@@ -172,19 +250,28 @@
             </div>
             <div class="field">
               <label for="description">Descripcion corta</label>
-              <textarea id="description" name="description" maxlength="180" placeholder="Revision, diagnostico o detalle del trabajo mostrado."></textarea>
+              <textarea id="description" name="description" maxlength="180" placeholder="Ej: Instalacion, diagnostico, mantenimiento o capacitacion mostrada."></textarea>
             </div>
             <div class="checks">
               <label class="check"><input id="active" type="checkbox" checked /> Visible en la web</label>
               <label class="check"><input id="featured" type="checkbox" /> Imagen principal</label>
             </div>
-            <button class="btn primary" id="uploadBtn" type="submit">Subir a galeria</button>
-            <div class="notice">Usá fotos propias y evitá datos sensibles del cliente: direcciones, rostros innecesarios o información privada.</div>
+            <button class="btn primary" id="uploadBtn" type="submit">Guardar en la web</button>
+            <div class="notice">Usa fotos propias y evita datos sensibles del cliente: direcciones, rostros innecesarios, patentes o informacion privada.</div>
           </form>
         </section>
 
         <section class="panel">
-          <h2>Galeria publicada</h2>
+          <div class="toolbar">
+            <div>
+              <h2>Trabajos visibles en la web</h2>
+              <p class="hint">Edita texto, orden y visibilidad. Los cambios se guardan al modificar.</p>
+            </div>
+            <div class="toolbar-actions">
+              <span class="badge" id="galleryBadge">Galeria lista</span>
+              <button class="mini" type="button" id="refreshBtn">Actualizar</button>
+            </div>
+          </div>
           <div class="items" id="items"></div>
         </section>
       </div>
@@ -194,9 +281,8 @@
 
   <script>
     const API = '/api/admin-gallery';
-    const SESSION_KEY = 'adminToken24Climatizaciones';
+    const AUTH = '/api/admin-session';
     const $ = (sel, root = document) => root.querySelector(sel);
-    let adminToken = sessionStorage.getItem(SESSION_KEY) || '';
     let items = [];
     let webpDataUrl = '';
     let webpBytes = 0;
@@ -218,16 +304,46 @@
       return String(value || '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
     }
 
-    async function api(path = '', options = {}){
-      const headers = {
-        'Accept': 'application/json',
-        'X-Admin-Token': adminToken,
-        ...(options.body ? {'Content-Type':'application/json'} : {})
-      };
-      const response = await fetch(API + path, {...options, headers});
+    async function requestJson(url, options = {}){
+      const response = await fetch(url, {
+        ...options,
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json',
+          ...(options.body ? {'Content-Type':'application/json'} : {}),
+          ...(options.headers || {})
+        }
+      });
       const data = await response.json().catch(() => ({}));
       if(!response.ok) throw new Error(data.error || 'request_failed');
       return data;
+    }
+
+    function api(path = '', options = {}){
+      return requestJson(API + path, options);
+    }
+
+    function updateSummary(){
+      const visible = items.filter(item => item.active).length;
+      const featured = items.filter(item => item.featured).length;
+      $('#countAll').textContent = String(items.length);
+      $('#countVisible').textContent = String(visible);
+      $('#countFeatured').textContent = featured ? 'SI' : 'NO';
+      $('#storageState').textContent = 'OK';
+      $('#galleryBadge').textContent = items.length ? `${visible} visibles` : 'Sin fotos admin';
+    }
+
+    function showAdmin(){
+      $('#loginPanel').classList.add('hidden');
+      $('#adminPanel').classList.remove('hidden');
+      $('#logoutBtn').classList.remove('hidden');
+    }
+
+    function showLogin(message){
+      $('#adminPanel').classList.add('hidden');
+      $('#loginPanel').classList.remove('hidden');
+      $('#logoutBtn').classList.add('hidden');
+      setStatus('Esperando acceso', message || 'Ingresa tu clave privada para abrir el panel.');
     }
 
     async function loadItems(){
@@ -235,16 +351,20 @@
       const data = await api('?admin=1');
       items = Array.isArray(data.items) ? data.items : [];
       renderItems();
-      $('#loginPanel').classList.add('hidden');
-      $('#adminPanel').classList.remove('hidden');
-      $('#logoutBtn').classList.remove('hidden');
-      setStatus('Admin activo', `${items.length} imagenes guardadas en la galeria.`);
+      showAdmin();
+      updateSummary();
+      setStatus('Admin activo', `${items.length} fotos guardadas. ${items.filter(item => item.active).length} visibles en la web.`);
     }
 
     function renderItems(){
       const root = $('#items');
       if(!items.length){
-        root.innerHTML = '<div class="empty">Todavia no hay imagenes cargadas desde el admin. La web mantiene la galeria actual como respaldo.</div>';
+        root.innerHTML = `
+          <div class="empty">
+            <b>Subi el primer trabajo real</b>
+            <span>La web conserva la galeria actual como respaldo hasta que cargues fotos desde este panel.</span>
+            <button class="btn primary" type="button" id="emptyAction">Elegir primera foto</button>
+          </div>`;
         return;
       }
       root.innerHTML = items.map((item, index) => `
@@ -254,7 +374,7 @@
             <div class="item-head">
               <span class="item-title">
                 <b>${escapeHtml(item.title)}</b>
-                <small>${escapeHtml(item.category)} ${item.active ? '· visible' : '· oculto'} ${item.featured ? '· principal' : ''}</small>
+                <small>${escapeHtml(item.category)} ${item.active ? '- visible' : '- oculto'} ${item.featured ? '- principal' : ''}</small>
               </span>
               <div class="item-actions">
                 <button class="mini" type="button" data-move="-1" ${index === 0 ? 'disabled' : ''}>Subir</button>
@@ -272,7 +392,7 @@
             <div class="checks">
               <label class="check"><input data-field="active" type="checkbox" ${item.active ? 'checked' : ''}> Visible</label>
               <label class="check"><input data-field="featured" type="checkbox" ${item.featured ? 'checked' : ''}> Principal</label>
-              <a class="mini" href="${escapeHtml(item.imageUrl)}" target="_blank" rel="noopener">Abrir foto</a>
+              <a class="mini dark" href="${escapeHtml(item.imageUrl)}" target="_blank" rel="noopener">Abrir foto</a>
             </div>
           </div>
         </article>
@@ -304,8 +424,9 @@
       const data = await api('', {method:'PATCH', body:JSON.stringify({items})});
       items = data.items || items;
       renderItems();
+      updateSummary();
       showToast(message);
-      setStatus('Admin activo', `${items.length} imagenes guardadas en la galeria.`);
+      setStatus('Admin activo', `${items.length} fotos guardadas. ${items.filter(item => item.active).length} visibles en la web.`);
     }
 
     async function imageToWebp(file){
@@ -332,55 +453,63 @@
 
     $('#loginForm').addEventListener('submit', async event => {
       event.preventDefault();
-      adminToken = $('#adminToken').value.trim();
-      sessionStorage.setItem(SESSION_KEY, adminToken);
+      const password = $('#adminPassword').value;
+      if(!password.trim()) return;
+      $('#loginBtn').disabled = true;
+      setStatus('Validando acceso', 'Abriendo sesion segura.');
       try{
+        await requestJson(AUTH, {method:'POST', body:JSON.stringify({password})});
+        $('#adminPassword').value = '';
         await loadItems();
+        showToast('Sesion iniciada');
       }catch(error){
-        sessionStorage.removeItem(SESSION_KEY);
-        setStatus('Acceso rechazado', 'La clave no coincide o falta configurar ADMIN_TOKEN.');
+        setStatus('Acceso rechazado', error.message === 'admin_auth_missing' ? 'Falta configurar el login seguro.' : 'La clave privada no coincide.');
         showToast('No se pudo entrar');
+      }finally{
+        $('#loginBtn').disabled = false;
       }
     });
 
-    $('#logoutBtn').addEventListener('click', () => {
-      sessionStorage.removeItem(SESSION_KEY);
-      adminToken = '';
-      $('#adminPanel').classList.add('hidden');
-      $('#loginPanel').classList.remove('hidden');
-      $('#logoutBtn').classList.add('hidden');
-      setStatus('Sesion cerrada', 'Ingresá la clave admin para volver a entrar.');
+    $('#logoutBtn').addEventListener('click', async () => {
+      await requestJson(AUTH, {method:'DELETE'}).catch(() => null);
+      items = [];
+      showLogin('Sesion cerrada. Ingresa la clave privada para volver a entrar.');
+      showToast('Sesion cerrada');
     });
+
+    $('#refreshBtn').addEventListener('click', () => loadItems().then(() => showToast('Galeria actualizada')).catch(() => showToast('No se pudo actualizar')));
 
     $('#imageFile').addEventListener('change', async event => {
       const file = event.target.files && event.target.files[0];
       if(!file) return;
-      setStatus('Optimizando imagen', 'Convirtiendo a WebP antes de subir.');
+      $('#fileName').textContent = file.name;
+      setStatus('Optimizando foto', 'Convirtiendo a WebP antes de subir.');
       try{
         const result = await imageToWebp(file);
         webpDataUrl = result.dataUrl;
         webpBytes = result.bytes;
         $('#previewBox').innerHTML = `<img src="${webpDataUrl}" alt="">`;
         $('#imageMeta').textContent = `WebP listo: ${result.width}x${result.height}, ${(webpBytes / 1024).toFixed(0)} KB.`;
-        setStatus('Imagen lista', 'Ya podés completar los datos y subirla.');
+        setStatus('Foto lista', 'Completa los datos y guardala en la web.');
       }catch(error){
         webpDataUrl = '';
-        setStatus('No se pudo convertir', 'Probá con otra foto o una imagen de menor peso.');
+        $('#previewBox').textContent = 'No se pudo preparar la foto';
+        setStatus('No se pudo convertir', 'Proba con otra foto o una imagen de menor peso.');
       }
     });
 
     $('#uploadForm').addEventListener('submit', async event => {
       event.preventDefault();
       if(!webpDataUrl){
-        showToast('Falta elegir imagen');
+        showToast('Falta elegir una foto');
         return;
       }
       if(webpBytes > 1400 * 1024){
-        showToast('La imagen sigue muy pesada');
+        showToast('La foto sigue muy pesada');
         return;
       }
       $('#uploadBtn').disabled = true;
-      setStatus('Subiendo trabajo', 'Guardando imagen y metadata.');
+      setStatus('Guardando trabajo', 'Subiendo foto y datos.');
       try{
         const payload = {
           title: $('#title').value,
@@ -393,16 +522,19 @@
         const data = await api('', {method:'POST', body:JSON.stringify(payload)});
         items = data.items || items;
         renderItems();
+        updateSummary();
         $('#uploadForm').reset();
         $('#active').checked = true;
         webpDataUrl = '';
         webpBytes = 0;
-        $('#previewBox').textContent = 'Vista previa WebP';
-        $('#imageMeta').textContent = 'La imagen se convierte en WebP antes de subirla.';
-        showToast('Trabajo publicado');
-        setStatus('Admin activo', `${items.length} imagenes guardadas en la galeria.`);
+        $('#fileName').textContent = 'Ninguna foto elegida';
+        $('#previewBox').textContent = 'La vista previa aparece aca';
+        $('#imageMeta').textContent = 'Recomendado: foto clara, sin direcciones visibles ni datos privados.';
+        showToast('Trabajo guardado');
+        setStatus('Admin activo', `${items.length} fotos guardadas. ${items.filter(item => item.active).length} visibles en la web.`);
+        if(window.va) window.va('event', {name:'24_admin_upload'});
       }catch(error){
-        setStatus('No se pudo subir', error.message === 'blob_token_missing' ? 'Falta configurar Blob.' : 'Revisá la clave o intentá de nuevo.');
+        setStatus('No se pudo subir', error.message === 'blob_token_missing' ? 'Falta conectar el almacenamiento.' : 'Revisa la sesion e intenta de nuevo.');
         showToast('Error al subir');
       }finally{
         $('#uploadBtn').disabled = false;
@@ -412,10 +544,16 @@
     $('#items').addEventListener('change', event => {
       if(event.target.matches('[data-field]')) saveAll();
     });
+
     $('#items').addEventListener('blur', event => {
       if(event.target.matches('input[data-field],textarea[data-field]')) saveAll();
     }, true);
+
     $('#items').addEventListener('click', async event => {
+      if(event.target.id === 'emptyAction'){
+        $('#imageFile').click();
+        return;
+      }
       const node = event.target.closest('.item');
       if(!node) return;
       if(event.target.matches('[data-move]')){
@@ -432,22 +570,19 @@
         }
       }
       if(event.target.matches('[data-delete]')){
-        if(!confirm('Eliminar esta imagen de la galeria?')) return;
+        if(!confirm('Eliminar esta foto de la galeria?')) return;
         const data = await api('', {method:'DELETE', body:JSON.stringify({id: node.dataset.id})});
         items = data.items || [];
         renderItems();
-        showToast('Imagen eliminada');
-        setStatus('Admin activo', `${items.length} imagenes guardadas en la galeria.`);
+        updateSummary();
+        showToast('Foto eliminada');
+        setStatus('Admin activo', `${items.length} fotos guardadas. ${items.filter(item => item.active).length} visibles en la web.`);
       }
     });
 
-    if(adminToken){
-      $('#adminToken').value = adminToken;
-      loadItems().catch(() => {
-        sessionStorage.removeItem(SESSION_KEY);
-        adminToken = '';
-      });
-    }
+    requestJson(AUTH)
+      .then(data => data.authenticated ? loadItems() : showLogin())
+      .catch(() => showLogin('Falta configurar el login seguro o la sesion vencio.'));
   </script>
 </body>
 </html>
