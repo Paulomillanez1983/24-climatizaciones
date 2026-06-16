@@ -85,7 +85,7 @@
     .stat small{color:var(--muted);font-size:.74rem;font-weight:920;text-transform:uppercase}
     .stat b{font-size:1.45rem;letter-spacing:-.04em}
     .stat span{color:var(--muted);font-size:.78rem;font-weight:780;line-height:1.35}
-    .quick-links{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+    .quick-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
     .quick-links a{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:5px;min-height:88px}
     .quick-links b{font-size:.9rem}
     .quick-links span{color:#657287;font-size:.78rem;font-weight:780;line-height:1.35}
@@ -148,6 +148,7 @@
       </a>
       <div class="top-actions">
         <a class="pill" href="/analytics.html">Metricas</a>
+        <a class="pill" href="/factory/">Factory</a>
         <a class="pill" href="/">Abrir web</a>
         <button class="pill hidden" id="logoutBtn" type="button">Salir</button>
       </div>
@@ -207,6 +208,7 @@
 
       <div class="quick-links">
         <a href="/analytics.html"><b>Panel interno</b><span>Vista central con metricas y accesos.</span></a>
+        <a href="/factory/"><b>Web Factory</b><span>Crear plantillas para nuevos clientes.</span></a>
         <a href="https://datastudio.google.com/reporting/d2c33270-4248-4188-a38f-d675871df82c" target="_blank" rel="noopener"><b>Looker Studio</b><span>Graficos de visitas y eventos.</span></a>
         <a href="https://clarity.microsoft.com/projects" target="_blank" rel="noopener"><b>Clarity</b><span>Mapas de calor y grabaciones anonimas.</span></a>
         <a href="https://vercel.com/paulomillanez1983s-projects/24-climatizaciones/analytics" target="_blank" rel="noopener"><b>Vercel</b><span>Visitas y rendimiento.</span></a>

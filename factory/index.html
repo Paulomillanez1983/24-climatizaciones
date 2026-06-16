@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#071226" />
+  <title>Factory | 24 Climatizaciones</title>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <script>
+    window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    :root{
+      --bg:#eef5ff;
+      --paper:#fff;
+      --ink:#071226;
+      --muted:#66758c;
+      --line:#dce8f7;
+      --cold:#1677ff;
+      --cold-2:#0a5bd8;
+      --ok:#25d66f;
+      --warm:#ff7a1a;
+      --shadow:0 30px 82px -52px rgba(7,18,38,.6);
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:
+      radial-gradient(circle at 12% 0,rgba(22,119,255,.14),transparent 31%),
+      radial-gradient(circle at 96% 4%,rgba(255,122,26,.11),transparent 28%),
+      linear-gradient(180deg,#f9fcff 0,#eef5ff 50%,#e8f1ff 100%);
+      color:var(--ink);font-family:var(--font);letter-spacing:0}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1320px,calc(100% - 28px));margin:0 auto;padding:22px 0 54px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:48px;height:48px;border-radius:14px;box-shadow:0 16px 36px -22px rgba(7,18,38,.85)}
+    .brand strong{display:block;font-size:1rem;line-height:1}
+    .brand span span{display:block;color:var(--muted);font-size:.78rem;font-weight:850;margin-top:4px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .pill,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:999px;padding:0 15px;border:1px solid var(--line);background:#fff;color:var(--cold-2);font-size:.84rem;font-weight:950}
+    .btn.primary{background:var(--cold);border-color:var(--cold);color:#fff;box-shadow:0 16px 34px -24px rgba(22,119,255,.8)}
+    .btn.dark{background:#071226;border-color:#071226;color:#fff}
+    .btn.green{background:#25d66f;border-color:#25d66f;color:#071226}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+    .hero{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.34fr);gap:18px;align-items:end}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;border:1px solid #cfe1ff;background:#f8fbff;color:#075fcc;border-radius:999px;padding:7px 10px;font-size:.72rem;font-weight:950;text-transform:uppercase}
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 6px rgba(37,214,111,.12)}
+    h1{font-size:clamp(2rem,5vw,4.4rem);line-height:.94;margin:14px 0 10px;letter-spacing:-.055em}
+    .lead{max-width:820px;color:var(--muted);font-size:1rem;line-height:1.58;font-weight:760;margin:0}
+    .status{border:1px solid var(--line);background:linear-gradient(135deg,#f8fbff,#fff);border-radius:22px;padding:15px;display:grid;gap:8px}
+    .status b{font-size:.94rem}
+    .status span{color:var(--muted);font-size:.82rem;font-weight:780;line-height:1.35}
+    .login-panel{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.56fr);gap:14px}
+    .panel{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 64px -48px rgba(7,18,38,.58);padding:18px}
+    .panel h2{font-size:1.16rem;margin:0 0 8px;letter-spacing:-.03em}
+    .panel p{margin:0;color:var(--muted);font-size:.85rem;line-height:1.45;font-weight:760}
+    .login{display:grid;gap:12px;margin-top:14px}
+    .field{display:grid;gap:7px}
+    label{font-weight:920;font-size:.82rem;color:#18263d}
+    input,textarea,select{width:100%;border:1px solid var(--line);border-radius:15px;min-height:46px;padding:10px 12px;background:#fbfdff;color:var(--ink);font-weight:780;outline:none}
+    textarea{min-height:98px;resize:vertical;line-height:1.45}
+    input[type=color]{height:46px;padding:4px}
+    input:focus,textarea:focus,select:focus{border-color:#9bc4ff;box-shadow:0 0 0 4px rgba(22,119,255,.11)}
+    .app{display:grid;grid-template-columns:minmax(360px,.88fr) minmax(0,1.12fr);gap:16px;margin-top:16px}
+    .sections{display:grid;gap:14px}
+    .block{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px}
+    .block-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+    .block-head h2{font-size:1.06rem;margin:0}
+    .block-head span{color:var(--muted);font-size:.76rem;font-weight:850}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .templates{display:flex;gap:8px;flex-wrap:wrap}
+    .template{border:1px solid var(--line);background:#f8fbff;color:#0a5bd8;border-radius:999px;min-height:38px;padding:0 12px;font-size:.78rem;font-weight:950}
+    .file-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .file-row input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+    .file-name{color:var(--muted);font-size:.8rem;font-weight:850}
+    .output-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .note{border-left:4px solid var(--warm);background:#fff8ef;color:#593515;border-radius:15px;padding:12px;font-size:.82rem;line-height:1.45;font-weight:820}
+    .preview-shell{position:sticky;top:14px;display:grid;gap:12px}
+    .preview-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px}
+    .preview-toolbar b{font-size:.92rem}
+    .preview-toolbar span{color:var(--muted);font-size:.78rem;font-weight:780}
+    .phone{background:#071226;border-radius:34px;padding:12px;border:1px solid rgba(255,255,255,.12);box-shadow:0 28px 80px -48px rgba(7,18,38,.9);max-width:430px;margin:0 auto;width:100%}
+    .screen{background:#fff;border-radius:25px;overflow:hidden;min-height:760px}
+    .site-preview{--primary:#1677ff;--accent:#ff7a1a;--dark:#071226;--soft:#f1f6ff;font-family:var(--font);color:var(--dark)}
+    .pv-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border-bottom:1px solid #e4edf8;background:#fff}
+    .pv-brand{display:flex;align-items:center;gap:10px;min-width:0}
+    .pv-logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--accent));display:grid;place-items:center;color:#fff;font-weight:950;overflow:hidden;flex:0 0 auto}
+    .pv-logo img{width:100%;height:100%;object-fit:cover;display:block}
+    .pv-brand b{display:block;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pv-brand span{display:block;color:#69778d;font-size:.72rem;font-weight:780;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pv-whatsapp{width:44px;height:44px;border-radius:50%;border:0;background:#25d66f;color:#071226;font-weight:950}
+    .pv-hero{padding:24px 18px 18px;background:
+      linear-gradient(135deg,rgba(22,119,255,.10),transparent),
+      linear-gradient(180deg,#f8fbff,#fff)}
+    .pv-chip{display:inline-flex;border:1px solid #d7e6fb;background:#fff;border-radius:999px;padding:7px 10px;color:var(--primary);font-size:.7rem;font-weight:950}
+    .pv-hero h3{font-size:2.25rem;line-height:1;margin:14px 0 12px;letter-spacing:-.055em}
+    .pv-hero p{color:#647188;line-height:1.52;margin:0;font-weight:760}
+    .pv-cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    .pv-cta a{display:inline-flex;min-height:46px;border-radius:999px;align-items:center;justify-content:center;padding:0 16px;font-weight:950;font-size:.84rem}
+    .pv-cta .primary{background:#25d66f;color:#071226}
+    .pv-cta .secondary{background:#fff;border:1px solid #dce8f7;color:var(--primary)}
+    .pv-section{padding:18px;border-top:1px solid #e8f0fa}
+    .pv-section h4{font-size:1.25rem;margin:0 0 12px;letter-spacing:-.035em}
+    .pv-grid{display:grid;grid-template-columns:1fr;gap:10px}
+    .pv-card{background:#f8fbff;border:1px solid #e1ebf8;border-radius:16px;padding:13px}
+    .pv-card b{display:block;margin-bottom:5px}
+    .pv-card span{color:#647188;font-size:.84rem;line-height:1.4;font-weight:740}
+    .pv-footer{background:#071226;color:#fff;padding:18px}
+    .pv-footer p{margin:7px 0 0;color:#b8c6dc;font-size:.82rem;line-height:1.42;font-weight:760}
+    .hidden{display:none!important}
+    .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(18px);opacity:0;pointer-events:none;background:#071226;color:#fff;border-radius:999px;padding:12px 16px;font-weight:900;font-size:.84rem;box-shadow:0 20px 50px -28px rgba(7,18,38,.8);transition:.2s ease;z-index:20}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:1040px){.hero,.login-panel,.app{grid-template-columns:1fr}.preview-shell{position:static}.output-actions{grid-template-columns:1fr 1fr}.three{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){
+      .wrap{width:min(100% - 20px,1320px)}
+      .hero,.panel,.block{border-radius:22px;padding:15px}
+      .top{align-items:flex-start}
+      .actions{justify-content:flex-start}
+      .two,.three,.output-actions{grid-template-columns:1fr}
+      .phone{padding:8px;border-radius:28px}
+      .screen{border-radius:22px;min-height:680px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <a class="brand" href="/admin/">
+        <img src="/icon.svg" alt="" />
+        <span><strong>24 Climatizaciones</strong><span>Web Factory</span></span>
+      </a>
+      <div class="actions">
+        <a class="pill" href="/admin/">Admin</a>
+        <a class="pill" href="/analytics.html">Metricas</a>
+        <a class="pill" href="/">Abrir web</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow"><i class="dot"></i> Plantilla comercial</span>
+        <h1>Creador rapido de webs.</h1>
+        <p class="lead">Carga los datos de un cliente, mira una vista previa y descarga una web base lista para entregar o convertir en repo. Primera version: simple, rapida y sin costos extra.</p>
+      </div>
+      <aside class="status">
+        <b id="statusTitle">Esperando acceso</b>
+        <span id="statusText">Usa la misma clave privada del admin para abrir Factory.</span>
+      </aside>
+    </section>
+
+    <section class="login-panel" id="loginPanel">
+      <div class="panel">
+        <h2>Entrar a Web Factory</h2>
+        <p>Esta herramienta queda privada para que solo vos generes webs y paquetes para clientes.</p>
+        <form class="login" id="loginForm">
+          <div class="field">
+            <label for="adminPassword">Clave privada</label>
+            <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Escribi la clave del admin" required />
+          </div>
+          <button class="btn primary" id="loginBtn" type="submit">Entrar a Factory</button>
+        </form>
+      </div>
+      <aside class="panel">
+        <h2>Primer alcance</h2>
+        <p>Genera una landing profesional en un archivo HTML, mas configuracion JSON para seguir trabajando. Nada se publica hasta que vos lo decidas.</p>
+      </aside>
+    </section>
+
+    <section class="app hidden" id="factoryApp">
+      <div class="sections">
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <h2>Datos del cliente</h2>
+              <span>Base comercial de la web</span>
+            </div>
+          </div>
+          <div class="templates" aria-label="Plantillas rapidas">
+            <button class="template" type="button" data-template="clima">Climatizacion</button>
+            <button class="template" type="button" data-template="tecnico">Servicio tecnico</button>
+            <button class="template" type="button" data-template="pro">Profesional</button>
+            <button class="template" type="button" data-template="local">Local comercial</button>
+          </div>
+          <div class="two" style="margin-top:12px">
+            <div class="field">
+              <label for="businessName">Nombre</label>
+              <input id="businessName" data-field="businessName" placeholder="Ej: 24 Climatizaciones" />
+            </div>
+            <div class="field">
+              <label for="category">Rubro</label>
+              <input id="category" data-field="category" placeholder="Ej: Climatizacion por WhatsApp" />
+            </div>
+          </div>
+          <div class="field" style="margin-top:10px">
+            <label for="headline">Titulo principal</label>
+            <input id="headline" data-field="headline" placeholder="Ej: Tu casa en 24, sin vueltas." />
+          </div>
+          <div class="field" style="margin-top:10px">
+            <label for="description">Descripcion corta</label>
+            <textarea id="description" data-field="description" placeholder="Contanos el servicio, zona y diferencial del negocio."></textarea>
+          </div>
+          <div class="two" style="margin-top:10px">
+            <div class="field">
+              <label for="city">Zona</label>
+              <input id="city" data-field="city" placeholder="Cordoba y alrededores" />
+            </div>
+            <div class="field">
+              <label for="whatsapp">WhatsApp</label>
+              <input id="whatsapp" data-field="whatsapp" placeholder="+5493513266650" />
+            </div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <h2>Identidad visual</h2>
+              <span>Logo, colores y tono</span>
+            </div>
+          </div>
+          <div class="file-row">
+            <input id="logoFile" type="file" accept="image/*" />
+            <label class="btn dark" for="logoFile">Cargar logo</label>
+            <span class="file-name" id="logoName">Sin logo cargado</span>
+          </div>
+          <div class="three" style="margin-top:12px">
+            <div class="field">
+              <label for="primaryColor">Color principal</label>
+              <input id="primaryColor" data-field="primaryColor" type="color" value="#1677ff" />
+            </div>
+            <div class="field">
+              <label for="accentColor">Color apoyo</label>
+              <input id="accentColor" data-field="accentColor" type="color" value="#ff7a1a" />
+            </div>
+            <div class="field">
+              <label for="style">Estilo</label>
+              <select id="style" data-field="style">
+                <option value="service">Servicio claro</option>
+                <option value="premium">Premium sobrio</option>
+                <option value="urgent">Respuesta rapida</option>
+                <option value="local">Cercano y local</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <h2>Servicios y confianza</h2>
+              <span>Una linea por item</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="services">Servicios</label>
+            <textarea id="services" data-field="services" placeholder="Instalacion&#10;Reparacion&#10;Mantenimiento"></textarea>
+          </div>
+          <div class="field" style="margin-top:10px">
+            <label for="proofs">Respaldo / confianza</label>
+            <textarea id="proofs" data-field="proofs" placeholder="Mas de 18 anos de experiencia&#10;Presupuesto por WhatsApp&#10;Atencion en Cordoba"></textarea>
+          </div>
+          <div class="two" style="margin-top:10px">
+            <div class="field">
+              <label for="instagram">Instagram</label>
+              <input id="instagram" data-field="instagram" placeholder="https://instagram.com/..." />
+            </div>
+            <div class="field">
+              <label for="facebook">Facebook</label>
+              <input id="facebook" data-field="facebook" placeholder="https://facebook.com/..." />
+            </div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <h2>Salida</h2>
+              <span>Archivos para entregar</span>
+            </div>
+          </div>
+          <div class="output-actions">
+            <button class="btn primary" id="downloadHtml" type="button">Descargar HTML</button>
+            <button class="btn dark" id="downloadConfig" type="button">Descargar JSON</button>
+            <button class="btn green" id="copyPrompt" type="button">Copiar brief</button>
+          </div>
+          <div class="note" style="margin-top:12px">Esta primera version no publica sola ni compra dominios. Genera el paquete base para que despues creemos el repo, dominio y deploy cuando el cliente confirme.</div>
+        </section>
+      </div>
+
+      <aside class="preview-shell">
+        <div class="preview-toolbar">
+          <div>
+            <b>Vista previa</b>
+            <span id="previewMeta">Landing mobile first</span>
+          </div>
+          <button class="btn" id="resetBtn" type="button">Limpiar</button>
+        </div>
+        <div class="phone">
+          <div class="screen">
+            <div class="site-preview" id="preview"></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const AUTH = '/api/admin-session';
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+    let logoDataUrl = '';
+
+    const defaults = {
+      businessName: '24 Climatizaciones',
+      category: 'Climatizacion por WhatsApp',
+      headline: 'Tu casa en 24, sin vueltas.',
+      description: 'Pedi instalacion, reparacion o mantenimiento. Contanos que necesitas, marca el domicilio y envia todo por WhatsApp.',
+      city: 'Cordoba y alrededores',
+      whatsapp: '+5493513266650',
+      primaryColor: '#1677ff',
+      accentColor: '#ff7a1a',
+      style: 'service',
+      services: 'Instalacion de aire acondicionado\nReparacion de calderas\nMantenimiento preventivo\nDiagnostico por WhatsApp',
+      proofs: 'Mas de 18 anos de experiencia\nPresupuesto por WhatsApp\nTrabajo residencial y comercial',
+      instagram: 'https://instagram.com/24climatizaciones',
+      facebook: 'https://facebook.com/profile.php?id=61590720329652'
+    };
+
+    const templates = {
+      clima: defaults,
+      tecnico: {
+        businessName: 'Servicio Tecnico Express',
+        category: 'Reparaciones a domicilio',
+        headline: 'Diagnostico claro, visita coordinada.',
+        description: 'Recibimos el problema por WhatsApp, revisamos los datos importantes y coordinamos la visita segun zona y disponibilidad.',
+        city: 'Cordoba Capital',
+        whatsapp: '+5493510000000',
+        primaryColor: '#105bd8',
+        accentColor: '#ff8a1f',
+        style: 'urgent',
+        services: 'Reparacion a domicilio\nInstalacion\nMantenimiento\nUrgencias programadas',
+        proofs: 'Atencion rapida\nPresupuesto claro\nSeguimiento por WhatsApp',
+        instagram: '',
+        facebook: ''
+      },
+      pro: {
+        businessName: 'Estudio Profesional',
+        category: 'Asesoramiento y servicios',
+        headline: 'Soluciones profesionales, simples de coordinar.',
+        description: 'Agenda una consulta, envia los detalles y recibis una propuesta clara para avanzar con confianza.',
+        city: 'Argentina',
+        whatsapp: '+5493510000000',
+        primaryColor: '#19324d',
+        accentColor: '#2fbf71',
+        style: 'premium',
+        services: 'Consultoria\nGestion integral\nSeguimiento\nAtencion personalizada',
+        proofs: 'Atencion profesional\nProcesos claros\nRespuesta ordenada',
+        instagram: '',
+        facebook: ''
+      },
+      local: {
+        businessName: 'Negocio Local',
+        category: 'Productos y servicios',
+        headline: 'Compra o consulta directo por WhatsApp.',
+        description: 'Mostramos lo que haces, tu zona de atencion y una forma simple para que nuevos clientes te contacten.',
+        city: 'Tu ciudad',
+        whatsapp: '+5493510000000',
+        primaryColor: '#0f8f68',
+        accentColor: '#ffb020',
+        style: 'local',
+        services: 'Atencion personalizada\nPedidos por WhatsApp\nEntrega o retiro\nPromociones',
+        proofs: 'Negocio local\nRespuesta directa\nClientes de la zona',
+        instagram: '',
+        facebook: ''
+      }
+    };
+
+    function showToast(message){
+      const toast = $('#toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove('show'), 2300);
+    }
+
+    function setStatus(title, text){
+      $('#statusTitle').textContent = title;
+      $('#statusText').textContent = text;
+    }
+
+    async function requestJson(url, options = {}){
+      const response = await fetch(url, {
+        ...options,
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json',
+          ...(options.body ? {'Content-Type':'application/json'} : {}),
+          ...(options.headers || {})
+        }
+      });
+      const data = await response.json().catch(() => ({}));
+      if(!response.ok) throw new Error(data.error || 'request_failed');
+      return data;
+    }
+
+    function showFactory(){
+      $('#loginPanel').classList.add('hidden');
+      $('#factoryApp').classList.remove('hidden');
+      setStatus('Factory activo', 'Genera una web base, descarga archivos y prepara el repo del cliente.');
+      renderPreview();
+    }
+
+    function showLogin(){
+      $('#loginPanel').classList.remove('hidden');
+      $('#factoryApp').classList.add('hidden');
+      setStatus('Esperando acceso', 'Usa la misma clave privada del admin para abrir Factory.');
+    }
+
+    function htmlEscape(value){
+      return String(value || '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+    }
+
+    function textLines(value, fallback){
+      const lines = String(value || '').split(/\n+/).map(line => line.trim()).filter(Boolean);
+      return lines.length ? lines : fallback;
+    }
+
+    function slugify(value){
+      return String(value || 'web-cliente')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'web-cliente';
+    }
+
+    function getConfig(){
+      const config = {};
+      $$('[data-field]').forEach(input => {
+        config[input.dataset.field] = input.value;
+      });
+      config.servicesList = textLines(config.services, ['Servicio principal','Atencion por WhatsApp','Presupuesto claro']);
+      config.proofsList = textLines(config.proofs, ['Respuesta directa','Trabajo ordenado','Atencion local']);
+      config.logoDataUrl = logoDataUrl;
+      config.generatedAt = new Date().toISOString();
+      return config;
+    }
+
+    function initials(name){
+      return String(name || 'WEB').split(/\s+/).filter(Boolean).slice(0,2).map(word => word[0]).join('').toUpperCase() || 'W';
+    }
+
+    function whatsappUrl(config){
+      const phone = String(config.whatsapp || '').replace(/[^\d]/g, '');
+      const message = `Hola ${config.businessName || ''}, quiero solicitar informacion.`;
+      return `https://wa.me/${phone || '5493510000000'}?text=${encodeURIComponent(message)}`;
+    }
+
+    function renderPreview(){
+      const config = getConfig();
+      const services = config.servicesList.slice(0,4);
+      const proofs = config.proofsList.slice(0,3);
+      $('#preview').style.setProperty('--primary', config.primaryColor || '#1677ff');
+      $('#preview').style.setProperty('--accent', config.accentColor || '#ff7a1a');
+      $('#previewMeta').textContent = `${config.style || 'service'} - ${services.length} servicios`;
+      $('#preview').innerHTML = `
+        <header class="pv-header">
+          <div class="pv-brand">
+            <div class="pv-logo">${config.logoDataUrl ? `<img src="${config.logoDataUrl}" alt="">` : htmlEscape(initials(config.businessName))}</div>
+            <span><b>${htmlEscape(config.businessName)}</b><span>${htmlEscape(config.category)} - ${htmlEscape(config.city)}</span></span>
+          </div>
+          <button class="pv-whatsapp" type="button">WA</button>
+        </header>
+        <section class="pv-hero">
+          <span class="pv-chip">Presupuesto claro</span>
+          <h3>${htmlEscape(config.headline)}</h3>
+          <p>${htmlEscape(config.description)}</p>
+          <div class="pv-cta">
+            <a class="primary" href="${whatsappUrl(config)}">Solicitar por WhatsApp</a>
+            <a class="secondary" href="#servicios">Ver servicios</a>
+          </div>
+        </section>
+        <section class="pv-section" id="servicios">
+          <h4>Servicios</h4>
+          <div class="pv-grid">
+            ${services.map(service => `<article class="pv-card"><b>${htmlEscape(service)}</b><span>Coordinacion simple, datos claros y respuesta por WhatsApp.</span></article>`).join('')}
+          </div>
+        </section>
+        <section class="pv-section">
+          <h4>Por que elegirnos</h4>
+          <div class="pv-grid">
+            ${proofs.map(proof => `<article class="pv-card"><b>${htmlEscape(proof)}</b><span>Informacion clara para decidir y avanzar sin vueltas.</span></article>`).join('')}
+          </div>
+        </section>
+        <footer class="pv-footer">
+          <b>${htmlEscape(config.businessName)}</b>
+          <p>${htmlEscape(config.category)}. Atencion en ${htmlEscape(config.city)}.</p>
+        </footer>
+      `;
+    }
+
+    async function imageToWebp(file){
+      const bitmap = await createImageBitmap(file, {imageOrientation:'from-image'});
+      const max = 420;
+      const scale = Math.min(1, max / Math.max(bitmap.width, bitmap.height));
+      const width = Math.max(1, Math.round(bitmap.width * scale));
+      const height = Math.max(1, Math.round(bitmap.height * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d', {alpha:true});
+      ctx.drawImage(bitmap, 0, 0, width, height);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/webp', .86));
+      if(!blob) throw new Error('webp_failed');
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    function fillForm(config){
+      Object.entries({...defaults, ...config}).forEach(([key, value]) => {
+        const field = $(`[data-field="${key}"]`);
+        if(field) field.value = value;
+      });
+      renderPreview();
+    }
+
+    function generatedHtml(config){
+      const services = config.servicesList;
+      const proofs = config.proofsList;
+      const title = `${config.businessName} | ${config.category}`;
+      const description = config.description || `${config.businessName} en ${config.city}`;
+      const logo = config.logoDataUrl ? `<img src="${config.logoDataUrl}" alt="">` : htmlEscape(initials(config.businessName));
+      return `<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${htmlEscape(title)}</title>
+  <meta name="description" content="${htmlEscape(description)}">
+  <meta property="og:title" content="${htmlEscape(title)}">
+  <meta property="og:description" content="${htmlEscape(description)}">
+  <meta name="theme-color" content="${htmlEscape(config.primaryColor || '#1677ff')}">
+  <style>
+    :root{--primary:${htmlEscape(config.primaryColor || '#1677ff')};--accent:${htmlEscape(config.accentColor || '#ff7a1a')};--ink:#071226;--muted:#657287;--line:#dfe8f4}
+    *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#f1f6ff}a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 28px));margin:auto}.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.top-in{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}.brand{display:flex;align-items:center;gap:10px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--primary),var(--accent));display:grid;place-items:center;color:#fff;font-weight:950;overflow:hidden}.logo img{width:100%;height:100%;object-fit:cover}.brand b{display:block}.brand span{display:block;color:var(--muted);font-size:.82rem;font-weight:750}.wa{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;background:#25d66f;color:#071226;padding:0 16px;font-weight:950}.hero{padding:62px 0 44px;background:linear-gradient(135deg,rgba(22,119,255,.13),transparent),#fff}.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.48fr);gap:26px;align-items:center}.chip{display:inline-flex;border:1px solid #d5e6fb;background:#f8fbff;border-radius:999px;padding:7px 10px;color:var(--primary);font-size:.76rem;font-weight:950}.hero h1{font-size:clamp(2.4rem,6vw,5rem);line-height:.94;margin:16px 0 14px;letter-spacing:-.055em}.hero p{color:var(--muted);font-size:1.08rem;line-height:1.6;font-weight:720;margin:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.secondary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--primary);padding:0 16px;font-weight:950}.visual{min-height:310px;border-radius:28px;background:linear-gradient(135deg,var(--primary),var(--accent));box-shadow:0 30px 90px -48px rgba(7,18,38,.7);padding:22px;color:#fff;display:grid;align-content:end}.visual b{font-size:2.5rem}.visual span{font-weight:850;opacity:.9}.section{padding:34px 0}.section h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1;margin:0 0 16px;letter-spacing:-.045em}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 24px 64px -50px rgba(7,18,38,.45)}.card p{color:var(--muted);line-height:1.45;font-weight:720}.cta{background:#071226;color:#fff;border-radius:28px;padding:28px;display:grid;gap:14px}.cta p{color:#bfd0e8;line-height:1.5;font-weight:720}.footer{padding:28px 0;color:#607088;font-weight:750}@media(max-width:820px){.hero-grid{grid-template-columns:1fr}.visual{min-height:240px}.top-in{align-items:flex-start}.wa{min-height:40px;padding:0 12px}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="wrap top-in"><a class="brand" href="#"><span class="logo">${logo}</span><span><b>${htmlEscape(config.businessName)}</b><span>${htmlEscape(config.category)}</span></span></a><a class="wa" href="${whatsappUrl(config)}">WhatsApp</a></div></header>
+  <main>
+    <section class="hero"><div class="wrap hero-grid"><div><span class="chip">${htmlEscape(config.city)}</span><h1>${htmlEscape(config.headline)}</h1><p>${htmlEscape(description)}</p><div class="hero-actions"><a class="wa" href="${whatsappUrl(config)}">Solicitar por WhatsApp</a><a class="secondary" href="#servicios">Ver servicios</a></div></div><div class="visual"><span>${htmlEscape(config.category)}</span><b>${htmlEscape(initials(config.businessName))}</b></div></div></section>
+    <section class="section" id="servicios"><div class="wrap"><h2>Servicios</h2><div class="cards">${services.map(service => `<article class="card"><h3>${htmlEscape(service)}</h3><p>Coordinacion clara, respuesta por WhatsApp y datos importantes desde el primer contacto.</p></article>`).join('')}</div></div></section>
+    <section class="section"><div class="wrap"><h2>Confianza</h2><div class="cards">${proofs.map(proof => `<article class="card"><h3>${htmlEscape(proof)}</h3><p>Trabajamos con informacion clara para que el cliente pueda decidir con tranquilidad.</p></article>`).join('')}</div></div></section>
+    <section class="section"><div class="wrap"><div class="cta"><h2>Pedinos informacion por WhatsApp.</h2><p>Contanos que necesitas y coordinamos el siguiente paso.</p><a class="wa" href="${whatsappUrl(config)}">Enviar mensaje</a></div></div></section>
+  </main>
+  <footer class="wrap footer">${htmlEscape(config.businessName)} - ${htmlEscape(config.city)}</footer>
+</body>
+</html>`;
+    }
+
+    function downloadFile(filename, content, type){
+      const blob = new Blob([content], {type});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    $('#loginForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      $('#loginBtn').disabled = true;
+      try{
+        await requestJson(AUTH, {method:'POST', body:JSON.stringify({password: $('#adminPassword').value})});
+        $('#adminPassword').value = '';
+        showFactory();
+        showToast('Factory activo');
+      }catch(error){
+        setStatus('Acceso rechazado', 'La clave privada no coincide.');
+        showToast('No se pudo entrar');
+      }finally{
+        $('#loginBtn').disabled = false;
+      }
+    });
+
+    $('#logoFile').addEventListener('change', async event => {
+      const file = event.target.files && event.target.files[0];
+      if(!file) return;
+      $('#logoName').textContent = file.name;
+      try{
+        logoDataUrl = await imageToWebp(file);
+        renderPreview();
+        showToast('Logo cargado');
+      }catch(error){
+        logoDataUrl = '';
+        $('#logoName').textContent = 'No se pudo cargar';
+        showToast('Logo no valido');
+      }
+    });
+
+    $$('[data-field]').forEach(input => input.addEventListener('input', renderPreview));
+    $$('.template').forEach(button => {
+      button.addEventListener('click', () => {
+        fillForm(templates[button.dataset.template] || defaults);
+        showToast('Plantilla cargada');
+      });
+    });
+
+    $('#downloadHtml').addEventListener('click', () => {
+      const config = getConfig();
+      downloadFile(`${slugify(config.businessName)}-index.html`, generatedHtml(config), 'text/html;charset=utf-8');
+      if(window.va) window.va('event', {name:'24_factory_download_html'});
+      showToast('HTML descargado');
+    });
+
+    $('#downloadConfig').addEventListener('click', () => {
+      const config = getConfig();
+      downloadFile(`${slugify(config.businessName)}-site-config.json`, JSON.stringify(config, null, 2), 'application/json;charset=utf-8');
+      showToast('JSON descargado');
+    });
+
+    $('#copyPrompt').addEventListener('click', async () => {
+      const config = getConfig();
+      const brief = `Crear una web comercial usando esta configuracion:\n\n${JSON.stringify(config, null, 2)}\n\nObjetivo: landing rapida, responsive, SEO local, WhatsApp como conversion principal, sin gastos innecesarios.`;
+      await navigator.clipboard.writeText(brief);
+      showToast('Brief copiado');
+    });
+
+    $('#resetBtn').addEventListener('click', () => {
+      logoDataUrl = '';
+      $('#logoName').textContent = 'Sin logo cargado';
+      $('#logoFile').value = '';
+      fillForm(defaults);
+      showToast('Datos restaurados');
+    });
+
+    fillForm(defaults);
+    requestJson(AUTH)
+      .then(data => data.authenticated ? showFactory() : showLogin())
+      .catch(showLogin);
+  </script>
+</body>
+</html>
