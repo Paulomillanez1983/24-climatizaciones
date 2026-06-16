@@ -7,6 +7,9 @@
   <meta name="theme-color" content="#071226" />
   <title>Panel gratis de metricas | 24 Climatizaciones</title>
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <script>
+    window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+  </script>
   <script defer src="/_vercel/insights/script.js"></script>
   <style>
     :root{
@@ -102,17 +105,17 @@
         </article>
       </div>
 
-      <div class="notice">Importante: Vercel mide visitas con su propio panel. Para clics y conversiones gratis conviene usar GA4 y Clarity. La web no envia nombres, direcciones ni descripciones del problema como eventos.</div>
+      <div class="notice">Importante: Vercel Analytics ya quedo activado para medir visitas. Para clics y conversiones gratis conviene usar GA4 y Clarity. La web no envia nombres, direcciones ni descripciones del problema como eventos.</div>
     </section>
 
     <section class="steps">
       <article class="panel">
         <h2>Para activarlo completo</h2>
         <ol>
-          <li>En Vercel, entra al proyecto <code>24-climatizaciones</code> y activa <code>Web Analytics</code> si todavia no aparece con datos.</li>
-          <li>En GA4 crea una propiedad web para <code>https://24-climatizaciones.vercel.app/</code> y copia el ID que empieza con <code>G-</code>.</li>
-          <li>En Clarity crea un proyecto para la misma URL, copia el ID del script y activa el enmascarado de texto en configuracion.</li>
-          <li>En Search Console agrega la propiedad como <code>Prefijo de URL</code>, verifica con etiqueta HTML y envia el sitemap <code>/sitemap.xml</code>.</li>
+          <li>Vercel Analytics: ya esta activado. Entra al panel y visita la web una vez para que empiece a contar.</li>
+          <li>GA4: entra en <code>Flujos de datos</code>, abre el flujo web y copia el <code>ID de medicion</code> que empieza con <code>G-</code>.</li>
+          <li>Clarity: crea el proyecto, copia el codigo que aparece despues de <code>clarity.ms/tag/</code> y activa el enmascarado de texto.</li>
+          <li>Search Console: usa <code>Prefijo de URL</code> con <code>https://24-climatizaciones.vercel.app/</code>, verifica con etiqueta HTML y envia <code>/sitemap.xml</code>.</li>
         </ol>
       </article>
 
