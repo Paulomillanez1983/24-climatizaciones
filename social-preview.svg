@@ -1,77 +1,68 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">24 Climatizaciones</title>
-  <desc id="desc">Imagen de vista previa social de 24 Climatizaciones con una casa a 24 grados y climatización frío calor.</desc>
+  <desc id="desc">Vista previa social para solicitar presupuesto de climatizacion por WhatsApp en Cordoba.</desc>
   <defs>
-    <linearGradient id="bg" x1="88" y1="52" x2="1112" y2="578" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#eef8ff"/>
-      <stop offset=".42" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#fff1e5"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e8f8ff"/>
+      <stop offset=".52" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#ffeedf"/>
     </linearGradient>
-    <linearGradient id="logoBg" x1="248" y1="108" x2="515" y2="386" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#1cc8ff"/>
-      <stop offset=".34" stop-color="#1677ff"/>
-      <stop offset=".58" stop-color="#071226"/>
-      <stop offset="1" stop-color="#ff7a1a"/>
+    <linearGradient id="logoBg" x1="78" y1="98" x2="398" y2="418" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1bc7ff"/>
+      <stop offset=".38" stop-color="#1875ff"/>
+      <stop offset=".68" stop-color="#081330"/>
+      <stop offset="1" stop-color="#f8741a"/>
     </linearGradient>
-    <linearGradient id="house" x1="333" y1="185" x2="430" y2="340" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#dff4ff"/>
-    </linearGradient>
-    <radialGradient id="coldGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(196 104) rotate(45) scale(410)">
-      <stop stop-color="#1cc8ff" stop-opacity=".34"/>
+    <radialGradient id="coldGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(158 95) scale(410)">
+      <stop stop-color="#1cc8ff" stop-opacity=".35"/>
       <stop offset="1" stop-color="#1cc8ff" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="warmGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1022 540) rotate(135) scale(410)">
-      <stop stop-color="#ff7a1a" stop-opacity=".27"/>
+    <radialGradient id="warmGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1108 560) scale(430)">
+      <stop stop-color="#ff7a1a" stop-opacity=".30"/>
       <stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/>
     </radialGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#071226" flood-opacity=".22"/>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="26" stdDeviation="24" flood-color="#020812" flood-opacity=".36"/>
     </filter>
   </defs>
-
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="184" cy="112" r="380" fill="url(#coldGlow)"/>
-  <circle cx="1028" cy="542" r="410" fill="url(#warmGlow)"/>
-  <path d="M0 580C194 512 327 604 508 548c197-61 318-212 532-157 84 22 132 63 160 92v147H0Z" fill="#071226" opacity=".045"/>
+  <circle cx="158" cy="95" r="410" fill="url(#coldGlow)"/>
+  <circle cx="1108" cy="560" r="430" fill="url(#warmGlow)"/>
+  <rect x="34" y="28" width="1132" height="574" rx="34" fill="none" stroke="#dbe8f7" stroke-width="2"/>
+  <path d="M34 31h486" stroke="#1875ff" stroke-width="7"/>
+  <path d="M520 31h300" stroke="#24d66f" stroke-width="7"/>
+  <path d="M820 31h346" stroke="#ff8225" stroke-width="7"/>
 
-  <g transform="translate(110 92)" filter="url(#shadow)">
-    <rect width="338" height="338" rx="88" fill="url(#logoBg)"/>
-    <rect x="24" y="24" width="290" height="290" rx="74" fill="none" stroke="#ffffff" stroke-opacity=".24" stroke-width="8"/>
-    <circle cx="88" cy="92" r="106" fill="#1cc8ff" opacity=".20"/>
-    <circle cx="272" cy="274" r="116" fill="#ffbd59" opacity=".24"/>
-    <g opacity=".94" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <g transform="translate(72 94)" stroke="#eafcff" stroke-width="10">
-        <path d="M0-31v62"/>
-        <path d="M-27-16 27 16"/>
-        <path d="M27-16-27 16"/>
-        <circle r="7" fill="#eafcff" stroke="none"/>
-      </g>
-      <path d="M275 98c-9 18 3 28 12 39 11 15 7 36-13 46-29 15-65-7-62-41 1-15 10-27 20-36-2 20 18 29 28 15 5-8 2-15 15-23z" fill="#ffd28d" stroke="#fff6e8" stroke-width="6"/>
+  <g filter="url(#shadow)">
+    <rect x="78" y="98" width="320" height="320" rx="82" fill="url(#logoBg)"/>
+    <rect x="104" y="124" width="268" height="268" rx="70" fill="none" stroke="#ffffff" stroke-opacity=".24" stroke-width="7"/>
+    <g stroke="#e8fcff" stroke-width="8" stroke-linecap="round">
+      <path d="M154 138v72"/>
+      <path d="M123 156l62 36"/>
+      <path d="M185 156l-62 36"/>
     </g>
-    <path d="M169 84 258 166h-26v112H106V166H80l89-82z" fill="url(#house)"/>
-    <path d="M106 166 169 84l63 82v112H106Z" fill="none" stroke="#ffffff" stroke-width="9" stroke-linejoin="round" stroke-opacity=".96"/>
-    <text x="166" y="224" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="900" fill="#071226" letter-spacing="-7">24</text>
-    <text x="219" y="183" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#071226">°</text>
-    <path d="M135 250h68" stroke="#1677ff" stroke-width="8" stroke-linecap="round"/>
-    <path d="M135 269h68" stroke="#ff7a1a" stroke-width="8" stroke-linecap="round"/>
+    <path d="M238 160l88 82h-24v106H174V242h-24l88-82z" fill="#f5fdff" stroke="#ffffff" stroke-width="7" stroke-linejoin="round"/>
+    <text x="236" y="301" text-anchor="middle" font-family="Arial, sans-serif" font-size="78" font-weight="900" fill="#071226" letter-spacing="-5">24</text>
+    <text x="283" y="238" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="900" fill="#071226">o</text>
+    <path d="M204 320h67" stroke="#1875ff" stroke-width="8" stroke-linecap="round"/>
+    <path d="M204 340h67" stroke="#ff8225" stroke-width="8" stroke-linecap="round"/>
+    <path d="M328 132c-20 25-5 51 23 60-24 24-70 10-66-28 1-16 11-29 22-38-1 21 11 26 21 6z" fill="#ff9a32"/>
+    <path d="M304 145c-18 20-8 47 14 59-24 18-58 2-55-31 1-13 9-24 18-32 1 19 14 20 23 4z" fill="#ffd88d"/>
   </g>
 
-  <g transform="translate(504 118)">
-    <text x="0" y="46" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="900" fill="#071226" letter-spacing="-2">24 Climatizaciones</text>
-    <text x="0" y="99" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="800" fill="#0b5bd7" letter-spacing="1.6">CASA TEMPLADA TODO EL AÑO</text>
-    <text x="0" y="167" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="850" fill="#10203d">Instalación, reparación</text>
-    <text x="0" y="213" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="850" fill="#10203d">y mantenimiento</text>
-    <text x="0" y="270" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="700" fill="#64748b">Presupuesto por WhatsApp con</text>
-    <text x="0" y="306" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="700" fill="#64748b">diagnóstico guiado y ubicación precisa.</text>
-    <g transform="translate(0 352)">
-      <rect width="252" height="54" rx="27" fill="#25d66f"/>
-      <text x="126" y="36" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#052711">Abrir solicitud</text>
-      <rect x="276" width="236" height="54" rx="27" fill="#ffffff" stroke="#dfe8f4"/>
-      <text x="394" y="36" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#10203d">WhatsApp rápido</text>
-    </g>
+  <g font-family="Arial, sans-serif">
+    <text x="456" y="168" font-size="58" font-weight="900" fill="#071226">24 Climatizaciones</text>
+    <rect x="456" y="184" width="292" height="38" rx="19" fill="#e7f3ff" stroke="#1875ff" stroke-opacity=".45"/>
+    <text x="476" y="212" font-size="21" font-weight="900" fill="#0b5bd7">CORDOBA Y ALREDEDORES</text>
+    <text x="456" y="312" font-size="52" font-weight="900" fill="#071226">Presupuesto claro</text>
+    <text x="456" y="370" font-size="52" font-weight="900" fill="#071226">por WhatsApp</text>
+    <text x="456" y="423" font-size="28" font-weight="800" fill="#142644">Instalacion, reparacion y mantenimiento</text>
+    <text x="456" y="458" font-size="24" font-weight="800" fill="#546580">Aires acondicionados - Calderas - Calefaccion</text>
+    <rect x="456" y="476" width="226" height="52" rx="26" fill="#24d66f"/>
+    <text x="569" y="512" text-anchor="middle" font-size="21" font-weight="900" fill="#042712">Solicitar presupuesto</text>
+    <rect x="714" y="476" width="206" height="52" rx="26" fill="#ffffff" stroke="#d9e5f4" stroke-width="2"/>
+    <text x="817" y="512" text-anchor="middle" font-size="21" font-weight="900" fill="#142644">Ubicacion precisa</text>
+    <text x="92" y="584" font-size="28" font-weight="900" fill="#0b2041">24-climatizaciones.vercel.app</text>
+    <text x="1106" y="584" text-anchor="end" font-size="23" font-weight="900" fill="#24d66f">Respuesta rapida</text>
   </g>
-
-  <text x="110" y="550" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800" fill="#10203d">24-climatizaciones.vercel.app</text>
-  <text x="1090" y="550" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#64748b">Córdoba</text>
 </svg>
