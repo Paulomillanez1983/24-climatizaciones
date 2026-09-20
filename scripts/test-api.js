@@ -143,8 +143,11 @@ function expect(label, condition, detail) {
   expect('POST pedido -> 201', res.statusCode === 201, res.payload);
   expect('devuelve id PED-', res.payload && /^PED-/.test(res.payload.lead.id), res.payload);
   expect('devuelve key de seguimiento', res.payload && typeof res.payload.lead.key === 'string' && res.payload.lead.key.length > 10, res.payload);
-  expect('presupuesto calculado en el servidor', res.payload && res.payload.lead.quote && res.payload.lead.quote.min > 0, res.payload);
+  expect('precio calculado en el servidor', res.payload && res.payload.lead.quote && res.payload.lead.quote.estimate > 0, res.payload);
+  expect('margen calculado', res.payload && res.payload.lead.quote.low < res.payload.lead.quote.estimate && res.payload.lead.quote.high > res.payload.lead.quote.estimate, res.payload);
   expect('desglose presente', res.payload && res.payload.lead.quote.lines.length >= 5, res.payload);
+  expect('las lineas del desglose suman el precio', res.payload && res.payload.lead.quote.lines.reduce((a, l) => a + l.value, 0) === res.payload.lead.quote.estimate, res.payload && res.payload.lead.quote.lines);
+  expect('queda registrado el indice de inflacion usado', res.payload && res.payload.lead.quote.inflation && res.payload.lead.quote.inflation.date, res.payload && res.payload.lead.quote.inflation);
   const leadId = res.payload.lead.id;
   const leadKey = res.payload.lead.key;
   const serverQuote = res.payload.lead.quote;
@@ -174,7 +177,7 @@ function expect(label, condition, detail) {
 
   res = await call(leads, 'PATCH', HOST + '/api/leads', {
     id: leadId,
-    quoteOverride: { min: 200000, max: 260000, lines: [{ label: 'Mano de obra', detail: '3.000 a 3.500 frigorias', min: 150000, max: 195000 }] },
+    quoteOverride: { estimate: 230000, half: 20000, lines: [{ label: 'Mano de obra', detail: '3.000 a 3.500 frigorias', value: 180000 }, { label: 'Kit de materiales', detail: '', value: 50000 }] },
     finalPrice: 240000,
     assignedTo: techId,
     assignedToName: 'Juan Perez',
@@ -183,8 +186,10 @@ function expect(label, condition, detail) {
     internalNotes: 'Cliente confirmo por telefono'
   }, { auth: true });
   expect('PATCH presupuesto ajustado -> ok', res.statusCode === 200, res.payload);
-  expect('total ajustado guardado', res.payload && res.payload.lead.quote.min === 200000 && res.payload.lead.quote.max === 260000, res.payload && res.payload.lead.quote);
-  expect('desglose ajustado guardado', res.payload && res.payload.lead.quote.lines.length === 1, res.payload && res.payload.lead.quote);
+  expect('precio ajustado guardado', res.payload && res.payload.lead.quote.estimate === 230000, res.payload && res.payload.lead.quote);
+  expect('margen del ajuste recalculado', res.payload && res.payload.lead.quote.low === 210000 && res.payload.lead.quote.high === 250000, res.payload && res.payload.lead.quote);
+  expect('desglose ajustado guardado', res.payload && res.payload.lead.quote.lines.length === 2, res.payload && res.payload.lead.quote);
+  expect('el desglose ajustado suma el precio', res.payload && res.payload.lead.quote.lines.reduce((a, l) => a + l.value, 0) === 230000, res.payload && res.payload.lead.quote.lines);
   expect('marca adjusted', res.payload && res.payload.lead.quote.adjusted === true, res.payload && res.payload.lead.quote);
   expect('precio final guardado', res.payload && res.payload.lead.finalPrice === 240000, res.payload);
   expect('origen del presupuesto preservado', res.payload && res.payload.lead.quote.moduleLabel === serverQuote.moduleLabel, res.payload && res.payload.lead.quote);
@@ -204,6 +209,76 @@ function expect(label, condition, detail) {
 
   res = await call(leads, 'DELETE', HOST + '/api/leads', null, { auth: true });
   expect('metodo no permitido -> 405', res.statusCode === 405, res.payload);
+
+  console.log('\n[MOTOR DE PRECIOS]');
+  const P = require('../lib/pricing');
+
+  const simple = P.quote({ mod: 'air-install', fg: '3000', qty: 1, pipe: 0, height: 'ground', elec: 'ok', drain: 'ok', wall: 'dry', zone: 'cap10', pre: 'no' });
+  const completo = P.quote({ mod: 'air-install', fg: '3000', qty: 1, pipe: 6, height: 'low', elec: 'new', drain: 'ok', wall: 'brick', zone: 'cap10', pre: 'no' });
+
+  expect('devuelve un precio central, no un rango', Number.isFinite(simple.estimate) && simple.estimate > 0, simple.estimate);
+  expect('el margen es chico cuando se respondio todo (menos del 15%)', simple.precision.percent < 15, simple.precision.percent);
+  expect('contestando mas, el margen se achica',
+    completo.precision.percent <= simple.precision.percent + 6 && !completo.precision.missing.length,
+    { simple: simple.precision.percent, completo: completo.precision.percent });
+
+  const sinDatos = P.quote({ mod: 'air-install' });
+  expect('sin respuestas, el margen se abre y se avisa que falta', sinDatos.precision.percent > 15 && sinDatos.precision.missing.length > 0, sinDatos.precision);
+  expect('sin respuestas, el nivel es accionable', sinDatos.precision.label === 'Responde y lo afinamos', sinDatos.precision.label);
+
+  const soloEstimado = P.quote({ mod: 'boiler', job: 'service', qty: 1, zone: 'cap10' });
+  expect('un caso intrinsecamente incierto no dice "faltan datos"', soloEstimado.precision.label === 'Valor orientativo', soloEstimado.precision.label);
+
+  let cuadran = true;
+  for (const input of [{ mod: 'air-install', fg: '2200', qty: 3, pipe: 12, height: 'rappel', elec: 'far', drain: 'new', wall: 'concrete', zone: 'far', pre: 'yes' },
+    { mod: 'air-service', qty: 4, height: 'low', zone: 'cap20' },
+    { mod: 'air-repair', symptom: 'error', qty: 2, height: 'high', zone: 'near30' }]) {
+    const r = P.quote(input);
+    const suma = r.lines.reduce((a, l) => a + l.value, 0);
+    if (suma !== r.estimate) cuadran = false;
+  }
+  expect('el desglose siempre suma exactamente el precio', cuadran);
+
+  expect('la reparacion informa el trabajo probable aparte', P.quote({ mod: 'air-repair', symptom: 'nofrio', qty: 1, zone: 'cap10' }).repairEstimate !== null);
+
+  const base = P.quote({ mod: 'air-service', qty: 1, zone: 'cap10' }).estimate;
+  P.setInflation({ index: 13000, date: '2026-12-01' });
+  const conInflacion = P.quote({ mod: 'air-service', qty: 1, zone: 'cap10' }).estimate;
+  expect('la inflacion sube el precio', conInflacion > base, { base, conInflacion });
+  expect('el factor de inflacion queda registrado', P.getInflation().factor > 1 && P.getInflation().source === 'live', P.getInflation());
+  P.setInflation({ index: 999999999 });
+  expect('un indice absurdo queda topado por seguridad', P.getInflation().factor === P.CONFIG.inflation.maxFactor, P.getInflation().factor);
+  P.resetInflation();
+  expect('volver al valor de respaldo restaura el precio', P.quote({ mod: 'air-service', qty: 1, zone: 'cap10' }).estimate === base);
+
+  console.log('\n[INFLACION - API]');
+  const pricingIndex = require('../api/pricing-index.js');
+  const realFetchForPrices = global.fetch;
+
+  // Fuente que responde bien.
+  global.fetch = async (url) => {
+    if (String(url).includes('datos.gob.ar')) {
+      return { ok: true, json: async () => ({ data: [['2026-07-01', 12076.3937], ['2026-08-01', 12276.766]] }) };
+    }
+    return realFetchForPrices(url);
+  };
+  res = await call(pricingIndex, 'GET', HOST + '/api/pricing-index', null, {});
+  expect('GET indice -> ok', res.statusCode === 200 && res.payload.ok === true, res.payload);
+  expect('devuelve el ultimo valor y su fecha', res.payload.index === 12276.766 && res.payload.date === '2026-08-01', res.payload);
+  expect('calcula la variacion mensual', Math.abs(res.payload.monthly - 1.66) < 0.01, res.payload.monthly);
+  expect('se cachea en el borde', /s-maxage=/.test(res.headers['cache-control'] || ''), res.headers['cache-control']);
+
+  // Fuente que falla: la API no rompe, avisa.
+  global.fetch = async (url) => {
+    if (String(url).includes('datos.gob.ar')) return { ok: false, status: 503, json: async () => ({}) };
+    return realFetchForPrices(url);
+  };
+  res = await call(pricingIndex, 'GET', HOST + '/api/pricing-index', null, {});
+  expect('si la fuente falla, responde ok:false sin romper', res.statusCode === 200 && res.payload.ok === false, res.payload);
+
+  global.fetch = realFetchForPrices;
+  res = await call(pricingIndex, 'POST', HOST + '/api/pricing-index', null, {});
+  expect('POST -> 405', res.statusCode === 405, res.payload);
 
   console.log('\n[ALMACENAMIENTO]');
   expect('se escribieron las dos colecciones', Object.keys(store).sort().join(',') === 'admin/leads.json,admin/technicians.json', Object.keys(store));

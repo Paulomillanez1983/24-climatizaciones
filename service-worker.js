@@ -1,7 +1,7 @@
 // Subir esta version es OBLIGATORIO cada vez que cambia el HTML o el CSS:
 // el service worker sirve primero desde cache, asi que sin bumpear la version
 // los visitantes que ya entraron antes seguirian viendo la pagina vieja.
-const CACHE = '24-climatizaciones-v46';
+const CACHE = '24-climatizaciones-v47';
 const ASSETS = [
   './',
   './index.html',

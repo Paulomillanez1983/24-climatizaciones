@@ -182,7 +182,7 @@ const server = http.createServer((req, res) => {
   console.log('\n[6] Rutas servidas');
   const routes = [
     ['/', 'Solicitar presupuesto'],
-    ['/presupuesto/', 'Cuanto sale tu'],
+    ['/presupuesto/', 'Precio concreto y desglose'],
     ['/tecnicos/', 'Trabajos derivados'],
     ['/pedidos/', 'Pedidos y despacho'],
     ['/lib/pricing.js', 'PRICING_24'],
@@ -213,9 +213,12 @@ const server = http.createServer((req, res) => {
   expect('no depende de module.exports en el navegador', sandbox.module === undefined);
   if (P) {
     const result = P.quote({ mod: 'air-install', fg: '4500', qty: 2, pipe: 8, height: 'high', elec: 'new', drain: 'new', wall: 'concrete', zone: 'near30', pre: 'no' });
-    expect('cotiza correctamente', result.total.min > 0 && result.total.max > result.total.min, JSON.stringify(result.total));
+    expect('devuelve un precio con margen acotado',
+      result.estimate > 0 && result.margin.low < result.estimate && result.margin.high > result.estimate && result.precision.percent < 25,
+      JSON.stringify({ estimate: result.estimate, margen: result.precision.percent }));
     expect('devuelve desglose', result.lines.length >= 6, String(result.lines.length));
-    expect('formatea en pesos argentinos', /^\$\s?[\d.]+/.test(result.totalLabel), result.totalLabel);
+    expect('las lineas suman el precio', result.lines.reduce((a, l) => a + l.value, 0) === result.estimate, 'no cuadra');
+    expect('formatea en pesos argentinos', /^\$\s?[\d.]+/.test(result.estimateLabel), result.estimateLabel);
     const link = P.encodeInput({ mod: 'air-install', fg: '3000', qty: 2 });
     expect('codifica link compartible', link === 'mod=air-install&fg=3000&qty=2', link);
     expect('decodifica link compartible', P.decodeInput(link).fg === '3000');

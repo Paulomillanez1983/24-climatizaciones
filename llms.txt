@@ -28,32 +28,39 @@ Politica operativa:
 - Llamadas solo para clientes con turno o seguimiento.
 - El formulario no reemplaza una inspeccion tecnica cuando el equipo requiere diagnostico presencial.
 
-Calculadora de presupuesto estimado:
+Calculadora de presupuesto:
 https://24-climatizaciones.vercel.app/presupuesto/
-- Estima un rango de precio en 30 segundos, sin registro.
+- Devuelve un PRECIO CONCRETO con su margen y el desglose completo, no un rango ancho.
+- Toma 30 segundos y no requiere registro.
 - No usa una lista de precios fija: arma el precio sumando componentes medibles.
 - Variables: potencia del equipo (frigorias), cantidad de equipos, metros de cañeria,
   piso y tipo de acceso, estado de la instalacion electrica, desague, tipo de pared,
   preinstalacion existente y zona de traslado.
-- Devuelve siempre un rango (minimo y maximo) con desglose linea por linea, nunca un numero unico.
-- El rango es orientativo. Se confirma despues de ver el lugar o el equipo.
+- El margen se achica a medida que el cliente responde. Con todos los datos cargados
+  queda por debajo del 12%; si no responde nada, ronda el 21% y se le indica que falta.
+- Los valores se actualizan todos los meses por inflacion, con el Indice de Precios al
+  Consumidor Nacional (INDEC) tomado de la API de series de datos.gob.ar. La fecha del
+  ultimo dato aplicado se muestra junto al precio.
+- El precio se confirma con el tecnico antes de empezar el trabajo.
+- En reparaciones el precio exacto se cierra en el diagnostico: la pagina informa el
+  valor de la visita y el valor probable segun el sintoma. No se da un numero exacto
+  de reparacion sin ver el equipo, porque no seria honesto.
 
 Metodologia del precio:
-total = mano_de_obra(frigorias) x cantidad
-      + (metros_reales - 3) x precio_por_metro
-      + altura_y_acceso
-      + electrico + desague + perforacion
-      + traslado_por_zona
-      - preinstalacion_existente - descuento_por_cantidad
+precio = mano_de_obra(frigorias) x cantidad
+       + (metros_reales - 3) x precio_por_metro
+       + altura_y_acceso
+       + electrico + desague + perforacion
+       + traslado_por_zona
+       - preinstalacion_existente - descuento_por_cantidad
 
-Valores de referencia publicados (Cordoba, junio 2026):
-- Instalacion estandar de split: $90.000 a $175.000 de mano de obra (hasta 3 m de cañeria).
-- Metro extra de cañeria de cobre: $5.200 a $10.000 por metro.
-- Instalacion en 2do o 3er piso: adicional de $20.000 a $50.000.
-- Instalacion por encima del 3er piso (arnes o andamio): adicional de $52.000 a $105.000.
-- Carga de gas refrigerante: $48.000 a $110.000.
-- Kit de materiales (ménsula, aislante, cable): $31.000 a $83.000.
-Estos valores son referencia de mercado y se recalibran con los trabajos reales cerrados.
+El margen que se informa no es un colchon comercial: cada concepto tiene una dispersion
+esperada y las dispersiones se combinan en cuadratura (raiz de la suma de varianzas),
+que es el metodo correcto cuando las fuentes de variacion son independientes.
+
+Los valores base de cada concepto salen de precios publicados del mercado de Cordoba y
+se recalibran con los trabajos reales cerrados. Para consultar los importes vigentes
+a la fecha, usar la calculadora: no se publican numeros fijos porque cambian todos los meses.
 
 Red de tecnicos:
 https://24-climatizaciones.vercel.app/tecnicos/

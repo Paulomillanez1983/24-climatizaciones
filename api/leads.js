@@ -77,12 +77,20 @@ function computeQuote(answers) {
       module: result.module,
       moduleLabel: result.moduleLabel,
       qty: result.qty,
-      min: result.total.min,
-      max: result.total.max,
-      label: result.totalLabel,
-      confidence: result.confidence.level,
-      missing: result.confidence.missing.slice(0, 6),
-      lines: result.lines.map((line) => ({ label: line.label, detail: line.detail, min: line.min, max: line.max })),
+      // Precio central estimado y su margen.
+      estimate: result.estimate,
+      low: result.margin.low,
+      high: result.margin.high,
+      label: result.estimateLabel,
+      marginLabel: result.margin.shortLabel,
+      marginPercent: result.precision.percent,
+      precision: result.precision.level,
+      missing: result.precision.missing.slice(0, 6),
+      lines: result.lines.map((line) => ({ label: line.label, detail: line.detail, value: line.value })),
+      // En reparaciones el precio del trabajo se cierra en el diagnostico.
+      repairEstimate: result.repairEstimate || null,
+      // Queda registrado con que valor del indice se calculo.
+      inflation: { date: result.inflation.date, factor: result.inflation.factor },
       pricingVersion: result.version
     };
   } catch (error) {
@@ -103,7 +111,16 @@ function publicLead(lead) {
     technician: lead.assignedToName || '',
     finalPrice: lead.finalPrice || null,
     quote: lead.quote
-      ? { label: lead.quote.label, min: lead.quote.min, max: lead.quote.max, lines: lead.quote.lines, confidence: lead.quote.confidence }
+      ? {
+          label: lead.quote.label,
+          estimate: lead.quote.estimate,
+          low: lead.quote.low,
+          high: lead.quote.high,
+          marginLabel: lead.quote.marginLabel,
+          precision: lead.quote.precision,
+          lines: lead.quote.lines,
+          repairEstimate: lead.quote.repairEstimate || null
+        }
       : null,
     scheduledFor: lead.scheduledFor || ''
   };
@@ -268,13 +285,19 @@ module.exports = async function leads(request, response) {
       if (body.scheduledFor !== undefined) updated.scheduledFor = sanitizeText(body.scheduledFor, 40);
       if (body.internalNotes !== undefined) updated.internalNotes = sanitizeText(body.internalNotes, 600);
       if (body.quoteOverride !== undefined && body.quoteOverride) {
-        const min = Number(body.quoteOverride.min);
-        const max = Number(body.quoteOverride.max);
-        if (updated.quote && Number.isFinite(min) && Number.isFinite(max) && min >= 0 && max >= min) {
+        // El operador reemplaza el precio estimado por el precio real de su
+        // trabajo. A partir de ahi el margen deja de tener sentido: el numero
+        // pasa a ser el precio que se le envio al cliente.
+        const estimate = Number(body.quoteOverride.estimate);
+        const half = Number(body.quoteOverride.half);
+        if (updated.quote && Number.isFinite(estimate) && estimate >= 0) {
+          const safeHalf = Number.isFinite(half) && half >= 0 ? Math.round(half) : 0;
           updated.quote = Object.assign({}, updated.quote, {
-            min: Math.round(min),
-            max: Math.round(max),
-            label: `${pricing.formatMoney(min)} a ${pricing.formatMoney(max)}`,
+            estimate: Math.round(estimate),
+            low: Math.max(0, Math.round(estimate - safeHalf)),
+            high: Math.round(estimate + safeHalf),
+            label: pricing.formatMoney(estimate),
+            marginLabel: safeHalf ? '+/- ' + pricing.formatMoney(safeHalf) : '',
             adjusted: true
           });
           // El desglose ajustado a mano se guarda tal cual: es el presupuesto
@@ -283,8 +306,7 @@ module.exports = async function leads(request, response) {
             const lines = body.quoteOverride.lines.slice(0, 20).map((line) => ({
               label: sanitizeText(line && line.label, 80),
               detail: sanitizeText(line && line.detail, 120),
-              min: Math.round(Number(line && line.min) || 0),
-              max: Math.round(Number(line && line.max) || 0)
+              value: Math.round(Number(line && line.value) || 0)
             })).filter((line) => line.label);
             if (lines.length) updated.quote = Object.assign({}, updated.quote, { lines });
           }

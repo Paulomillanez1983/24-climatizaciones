@@ -52,14 +52,22 @@ El cliente **no elige al técnico**: entra el pedido, se presupuesta de forma ce
 | `GET /api/technicians?count=1` | pública | Sólo el conteo, sin datos personales. |
 | `GET /api/technicians` | admin | Listado de la red. |
 | `PATCH /api/technicians` | admin | Estado, rating y notas internas. |
+| `GET /api/pricing-index` | pública | Último índice del IPC Nacional (INDEC) para actualizar los precios por inflación. Cacheado 6 h. |
 
 ## Motor de precios
 
 Está en **`lib/pricing.js`** y se usa igual en el navegador y en el servidor (módulo UMD, sin dependencias ni build step).
 
-El precio se **arma sumando componentes medibles** en vez de salir de una lista fija. La lógica completa, las variables, las fuentes de los valores actuales y cómo calibrarlo están en **[METODOLOGIA-PRECIOS.md](METODOLOGIA-PRECIOS.md)**.
+El precio se **arma sumando componentes medibles** en vez de salir de una lista fija. El resultado es **un precio concreto con un margen chico y explícito**, no un rango ancho: las dispersiones de cada concepto se combinan como varianzas en lugar de sumar mínimos por un lado y máximos por el otro.
 
-Los precios se editan en un solo lugar: el objeto `CONFIG` de `lib/pricing.js`. El cuerpo de la calculadora genera sus textos desde ahí, así que no queda desactualizado. Sólo el JSON-LD (datos estructurados para Google) tiene los números escritos, y para eso hay un chequeo automático.
+Dos propiedades que importan:
+
+- **El margen se achica a medida que el cliente responde.** Cada dato que falta amplía el margen y se informa cuál es. Con todo respondido queda por debajo del 12%.
+- **Los precios se actualizan solos por inflación**, con el IPC Nacional del INDEC vía `/api/pricing-index`. Si la fuente falla, el motor usa su último valor conocido y el sitio nunca se queda sin precios.
+
+La lógica completa, las variables, las fuentes, los resguardos de la inflación y cómo calibrarlo están en **[METODOLOGIA-PRECIOS.md](METODOLOGIA-PRECIOS.md)**.
+
+Los precios se editan en un solo lugar: el objeto `CONFIG` de `lib/pricing.js` (cada ítem declara `value` y `spread`). Ningún importe está escrito a mano en el HTML — un precio fijo en el texto SEO queda viejo al mes siguiente —, y `check:prices` lo verifica.
 
 ## Uso local
 
@@ -76,11 +84,11 @@ npm install
 npm run verify
 ```
 
-- `npm run check:site` — sintaxis de todos los JS y de cada `<script>` inline, JSON-LD, enlaces internos, recursos del service worker, rutas servidas y el motor corriendo por la rama del navegador.
-- `npm run check:prices` — verifica que el texto SEO coincida con el motor de precios.
-- `npm test` — pruebas funcionales de las APIs con almacenamiento en memoria (sin red ni credenciales): alta, deduplicación de teléfonos, seguimiento con clave, ajuste del presupuesto y derivación.
+- `npm run check:site` — sintaxis de todos los JS y de cada `<script>` inline, datos estructurados, enlaces internos, recursos del service worker, rutas servidas y el motor corriendo por la rama del navegador.
+- `npm run check:prices` — coherencia de la configuración de precios y que ningún importe quede escrito a mano en el HTML. Informa los valores vigentes ya ajustados por inflación.
+- `npm test` — pruebas funcionales de las APIs y del motor con almacenamiento en memoria (sin red ni credenciales): alta, deduplicación de teléfonos, seguimiento con clave, ajuste del presupuesto, derivación, combinación de márgenes, topes de inflación y el endpoint del IPC con fuente simulada.
 
-Son 70 verificaciones.
+Son 95 verificaciones.
 
 ## Variables de entorno
 

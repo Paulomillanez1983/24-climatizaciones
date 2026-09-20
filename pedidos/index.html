@@ -469,17 +469,17 @@
 
       function draftedLines(quote) {
         return (quote && Array.isArray(quote.lines) ? quote.lines : []).map(function (line) {
-          return { label: line.label, detail: line.detail || '', min: Number(line.min) || 0, max: Number(line.max) || 0 };
+          return { label: line.label, detail: line.detail || '', value: Number(line.value) || 0 };
         });
       }
 
+      // El motor entrega un precio central con un margen. Aca el operador lo
+      // reemplaza por el precio real de su trabajo, concepto por concepto.
       function draftTotal() {
-        var min = 0, max = 0;
-        state.draft.lines.forEach(function (l) { min += Number(l.min) || 0; max += Number(l.max) || 0; });
-        if (max < min) max = min;
-        state.draft.min = min;
-        state.draft.max = max;
-        return { min: min, max: max };
+        var value = 0;
+        state.draft.lines.forEach(function (l) { value += Number(l.value) || 0; });
+        state.draft.estimate = value;
+        return { estimate: value };
       }
 
       function openLead(id) {
@@ -488,8 +488,10 @@
         state.openLead = lead;
         state.draft = {
           lines: draftedLines(lead.quote),
-          min: lead.quote ? lead.quote.min : 0,
-          max: lead.quote ? lead.quote.max : 0,
+          estimate: lead.quote ? Number(lead.quote.estimate) || 0 : 0,
+          half: lead.quote && lead.quote.high !== undefined && lead.quote.low !== undefined
+            ? Math.round((Number(lead.quote.high) - Number(lead.quote.low)) / 2)
+            : 0,
           finalPrice: lead.finalPrice || '',
           assignedTo: lead.assignedTo || '',
           scheduledFor: lead.scheduledFor || '',
@@ -511,9 +513,9 @@
       document.addEventListener('keydown', function (event) { if (event.key === 'Escape') closeSheet(); });
 
       function quoteMessage(lead, draft) {
-        var total = money(draft.min) + ' a ' + money(draft.max);
+        var total = money(draftTotal().estimate);
         var lines = draft.lines.map(function (l) {
-          return '• ' + l.label + (l.detail ? ' (' + l.detail + ')' : '') + ': ' + money(l.min) + ' a ' + money(l.max);
+          return '• ' + l.label + (l.detail ? ' (' + l.detail + ')' : '') + ': ' + money(l.value);
         }).join('\n');
         return '*24 CLIMATIZACIONES | PRESUPUESTO*\n' +
           'Pedido: ' + lead.id + '\n' +
@@ -522,9 +524,12 @@
           'Domicilio: ' + (lead.address || '-') + '\n' +
           (lead.scheduledFor || draft.scheduledFor ? 'Horario: ' + (draft.scheduledFor || lead.scheduledFor) + '\n' : '') +
           '\n*DESGLOSE*\n' + lines + '\n\n' +
-          '*TOTAL ESTIMADO: ' + total + '*\n' +
+          '*TOTAL: ' + total + '*\n' +
+          (lead.quote && lead.quote.repairEstimate
+            ? 'Trabajo probable: ' + money(lead.quote.repairEstimate.low) + ' a ' + money(lead.quote.repairEstimate.high) + ' (se cierra en el diagnostico)\n'
+            : '') +
           (draft.finalPrice ? 'Precio acordado: ' + money(draft.finalPrice) + '\n' : '') +
-          '\nEl valor se confirma después de la visita técnica.\n' +
+          '\nEl valor se confirma antes de empezar el trabajo.\n' +
           'Cualquier duda, respondé este mensaje.';
       }
 
@@ -571,11 +576,10 @@
           '</div>';
 
         var lineRows = state.draft.lines.map(function (line, index) {
-          var credit = (line.min < 0 || line.max < 0) ? ' class="credit"' : '';
+          var credit = line.value < 0 ? ' class="credit"' : '';
           return '<tr' + credit + '>' +
             '<td class="lbl"><b>' + esc(line.label) + '</b>' + (line.detail ? '<small>' + esc(line.detail) + '</small>' : '') + '</td>' +
-            '<td class="num"><input type="number" inputmode="numeric" data-line="' + index + '" data-bound="min" value="' + line.min + '" /></td>' +
-            '<td class="num"><input type="number" inputmode="numeric" data-line="' + index + '" data-bound="max" value="' + line.max + '" /></td>' +
+            '<td class="num"><input type="number" inputmode="numeric" data-line="' + index + '" value="' + line.value + '" /></td>' +
             '</tr>';
         }).join('');
 
@@ -583,17 +587,18 @@
           '<div>' +
           '<h3>Presupuesto</h3>' +
           '<table class="lines">' +
-          '<thead><tr><th>Concepto</th><th>Minimo</th><th>Maximo</th></tr></thead>' +
-          '<tbody>' + (lineRows || '<tr><td colspan="3" style="color:var(--muted)">Sin desglose. Este pedido no trae calculo del motor.</td></tr>') + '</tbody>' +
+          '<thead><tr><th>Concepto</th><th>Importe</th></tr></thead>' +
+          '<tbody>' + (lineRows || '<tr><td colspan="2" style="color:var(--muted)">Sin desglose. Este pedido no trae calculo del motor.</td></tr>') + '</tbody>' +
           '</table>' +
-          '<div class="total-row"><b>Total estimado</b><span>' + money(total.min) + ' a ' + money(total.max) + '</span></div>' +
+          '<div class="total-row"><b>Total</b><span>' + money(total.estimate) + '</span></div>' +
+          (lead.quote && lead.quote.marginLabel ? '<div style="color:var(--muted);font-size:.78rem;font-weight:850;margin-bottom:6px">El motor estimo ' + esc(lead.quote.label || '') + ' con margen ' + esc(lead.quote.marginLabel) + '. Ajustá si tu precio real es otro.</div>' : '') +
           '<div class="form-row" style="margin-top:14px"><label>Precio final acordado (opcional)</label><input id="draftFinal" type="number" inputmode="numeric" value="' + esc(state.draft.finalPrice) + '" placeholder="Cuando el cliente acepta un numero" /></div>' +
           '<div class="btn-row">' +
           '<button class="btn primary" type="button" id="saveQuote">Guardar presupuesto</button>' +
           '<button class="btn dark" type="button" id="sendQuote">Enviar por WhatsApp</button>' +
           '<button class="btn mini" type="button" id="copyQuote">Copiar</button>' +
           '</div>' +
-          '<div class="note">Corregí los numeros con el precio real de tu trabajo. Lo que guardes aca es lo que se le envia al cliente.</div>' +
+          '<div class="note">Corregí los importes con el precio real de tu trabajo. Lo que guardes aca es lo que se le envia al cliente.</div>' +
           '<h3 style="margin-top:20px">Estado del pedido</h3>' +
           '<div class="btn-row" id="statusRow">' +
           Object.keys(STATUS_LABELS).map(function (key) {
@@ -608,11 +613,10 @@
         $$('#sheetBody input[data-line]').forEach(function (input) {
           input.addEventListener('input', function () {
             var index = Number(input.dataset.line);
-            var bound = input.dataset.bound;
-            state.draft.lines[index][bound] = Number(input.value) || 0;
+            state.draft.lines[index].value = Number(input.value) || 0;
             var updated = draftTotal();
             var totalEl = $('#sheetBody .total-row span');
-            if (totalEl) totalEl.textContent = money(updated.min) + ' a ' + money(updated.max);
+            if (totalEl) totalEl.textContent = money(updated.estimate);
           });
         });
 
@@ -649,7 +653,7 @@
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
             id: lead.id,
-            quoteOverride: { min: total.min, max: total.max, lines: state.draft.lines },
+            quoteOverride: { estimate: total.estimate, half: state.draft.half, lines: state.draft.lines },
             finalPrice: state.draft.finalPrice === '' ? null : Number(state.draft.finalPrice),
             assignedTo: state.draft.assignedTo,
             assignedToName: (state.techs.find(function (t) { return t.id === state.draft.assignedTo; }) || {}).name || '',
@@ -756,9 +760,13 @@
         var badge = status === 'referencia'
           ? '<span class="chip" style="border-color:#bcdcff;background:#eef7ff;color:#0a4bb5">referencia de mercado</span>'
           : '<span class="chip" style="border-color:#f7d9a4;background:#fff7e8;color:#8a4b00">estimado · calibrar</span>';
+        // Cada fila: [etiqueta, valor central, dispersion]. Se muestra el valor
+        // ya ajustado por inflacion y el margen esperado de ese concepto.
         var body = rows.map(function (row) {
-          return '<tr><td class="lbl"><b>' + esc(row[0]) + '</b></td><td class="num" style="text-align:right">' +
-            money(row[1]) + (row[1] !== row[2] ? ' a ' + money(row[2]) : '') + '</td></tr>';
+          var spread = Number(row[2]) || 0;
+          return '<tr><td class="lbl"><b>' + esc(row[0]) + '</b></td>' +
+            '<td class="num" style="text-align:right">' + money(row[1]) + '</td>' +
+            '<td class="num" style="text-align:right;color:var(--muted)">' + (spread ? '±' + Math.round(spread * 100) + '%' : '—') + '</td></tr>';
         }).join('');
         return '<div style="margin-bottom:22px">' +
           '<h3>' + esc(title) + ' ' + badge + '</h3>' +
@@ -769,29 +777,33 @@
 
       function renderPriceTables() {
         var html = '';
-        html += priceTable('Instalacion de aire (mano de obra por equipo)', CONFIG.laborAirInstall.status,
-          CONFIG.laborAirInstall.source.map(function (id) {
+        function fuenteDe(lista) {
+          return (lista || []).map(function (id) {
             var s = P.SOURCES.find(function (x) { return x.id === id; });
             return s ? s.label : id;
-          }).join(' · '),
-          CONFIG.laborAirInstall.tiers.map(function (t) { return [t.label, t.min, t.max]; }));
+          }).join(' · ');
+        }
 
-        html += priceTable('Metro extra de cañeria', CONFIG.components.pipePerMeter.status, 'Solvit (jun 2026)',
-          [['Cada metro sobre los 3 m incluidos', CONFIG.components.pipePerMeter.min, CONFIG.components.pipePerMeter.max]]);
+        html += priceTable('Instalacion de aire (mano de obra por equipo)', CONFIG.laborAir.status,
+          fuenteDe(CONFIG.laborAir.source),
+          CONFIG.laborAir.tiers.map(function (t) { return [t.label, t.value, t.spread]; }));
 
-        html += priceTable('Altura y acceso', CONFIG.components.height.status, 'Solvit (jun 2026)',
-          CONFIG.components.height.options.map(function (o) { return [o.label, o.min, o.max]; }));
+        html += priceTable('Metro extra de cañeria', CONFIG.components.pipePerMeter.status, fuenteDe(CONFIG.components.pipePerMeter.source),
+          [['Cada metro sobre los 3 m incluidos', CONFIG.components.pipePerMeter.value, CONFIG.components.pipePerMeter.spread]]);
 
-        html += priceTable('Reparacion de aire (orientativo por sintoma)', CONFIG.repairAir.status, 'Solvit (jun 2026)',
-          CONFIG.repairAir.symptoms.map(function (s) { return [s.label, s.min, s.max]; }));
+        html += priceTable('Altura y acceso', CONFIG.components.height.status, fuenteDe(CONFIG.components.height.source),
+          CONFIG.components.height.options.map(function (o) { return [o.label + (o.detail ? ' · ' + o.detail : ''), o.value, o.spread]; }));
 
-        html += priceTable('Mantenimiento, diagnostico y gas', CONFIG.serviceAir.status, 'Solvit (jun 2026)',
-          [['Mantenimiento preventivo por equipo', CONFIG.serviceAir.min, CONFIG.serviceAir.max],
-           ['Visita de diagnostico', CONFIG.diagnosis.min, CONFIG.diagnosis.max],
-           ['Carga de gas refrigerante', CONFIG.components.gasCharge.min, CONFIG.components.gasCharge.max]]);
+        html += priceTable('Reparacion de aire (orientativo por sintoma)', CONFIG.repairAir.status, fuenteDe(CONFIG.repairAir.source),
+          CONFIG.repairAir.symptoms.map(function (s) { return [s.label, s.value, s.spread]; }));
+
+        html += priceTable('Mantenimiento, diagnostico y gas', CONFIG.serviceAir.status, fuenteDe(CONFIG.serviceAir.source),
+          [['Mantenimiento preventivo por equipo', CONFIG.serviceAir.value, CONFIG.serviceAir.spread],
+           ['Visita de diagnostico', CONFIG.diagnosis.value, CONFIG.diagnosis.spread],
+           ['Carga de gas refrigerante', CONFIG.components.gasCharge.value, CONFIG.components.gasCharge.spread]]);
 
         html += priceTable('Caldera y calefaccion', CONFIG.boiler.status, '',
-          CONFIG.boiler.jobs.map(function (j) { return [j.label, j.min, j.max]; }));
+          CONFIG.boiler.jobs.map(function (j) { return [j.label, j.value, j.spread]; }));
 
         html += '<h3>Descuento por cantidad de equipos</h3>' +
           '<table class="lines"><tbody>' +
@@ -803,7 +815,24 @@
           }).join('') +
           '</tbody></table>';
 
-        html += '<pre class="config">' + esc(JSON.stringify({ version: CONFIG.version, currency: CONFIG.currency, reviewAfter: CONFIG.reviewAfter }, null, 2)) + '</pre>';
+        // Estado de la actualizacion por inflacion.
+        var inf = P.getInflation();
+        html += priceTable('Actualizacion por inflacion', 'referencia', 'INDEC · IPC Nacional (base dic 2016)', [
+          ['Factor aplicado sobre los valores base', Math.round(inf.factor * 100) / 100, 0],
+          ['Variacion acumulada desde ' + inf.baseDate, Math.round(inf.percent * 10) / 10 + '%', 0]
+        ]);
+
+        html += '<pre class="config">' + esc(JSON.stringify({
+          version: CONFIG.version,
+          currency: CONFIG.currency,
+          reviewAfter: CONFIG.reviewAfter,
+          baseDate: inf.baseDate,
+          baseIndex: inf.baseIndex,
+          indiceAplicado: inf.index,
+          fechaIndice: inf.date,
+          factor: Math.round(inf.factor * 10000) / 10000,
+          origen: inf.source
+        }, null, 2)) + '</pre>';
 
         $('#priceTables').innerHTML = html;
       }
