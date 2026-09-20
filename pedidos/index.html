@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#071226" />
+  <title>Pedidos y despacho | 24 Climatizaciones</title>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <script>
+    window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    :root{
+      --bg:#eef5ff;--paper:#fff;--ink:#071226;--muted:#657287;--soft:#94a1b6;
+      --line:#dce8f7;--navy:#071226;--cold:#1677ff;--ok:#25d66f;--warm:#ff7a1a;--warn:#ffae34;--risk:#ff445a;
+      --shadow:0 30px 82px -52px rgba(7,18,38,.6);--shadow-soft:0 16px 40px -34px rgba(7,18,38,.45);
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--ink);font-family:var(--font);letter-spacing:0;
+      background:radial-gradient(circle at 14% 0,rgba(22,119,255,.14),transparent 31%),radial-gradient(circle at 96% 8%,rgba(255,122,26,.11),transparent 28%),linear-gradient(180deg,#f9fcff 0,#eef5ff 54%,#e8f1ff 100%)}
+    a{text-decoration:none;color:inherit}
+    button{font:inherit;cursor:pointer}
+    .wrap{width:min(1240px,calc(100% - 28px));margin:0 auto;padding:22px 0 60px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:46px;height:46px;border-radius:14px;box-shadow:0 16px 36px -22px rgba(7,18,38,.85)}
+    .brand strong{display:block;font-size:1rem;line-height:1}
+    .brand span span{display:block;color:var(--muted);font-size:.78rem;font-weight:850;margin-top:4px}
+    .pill,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:999px;padding:0 15px;border:1px solid var(--line);background:#fff;color:#0a5bd8;font-size:.84rem;font-weight:950}
+    .btn{cursor:pointer}
+    .btn.primary{background:#25d66f;border-color:#25d66f;color:#071226}
+    .btn.dark{background:#071226;border-color:#071226;color:#fff}
+    .btn.mini{min-height:34px;padding:0 11px;font-size:.76rem;border-radius:12px}
+    .hidden{display:none!important}
+    h1{font-size:clamp(1.7rem,4.4vw,2.9rem);line-height:1;margin:0 0 10px;letter-spacing:-.05em}
+    h2{font-size:1.1rem;margin:0 0 12px;letter-spacing:-.03em}
+    h3{font-size:.95rem;margin:0 0 10px;letter-spacing:-.02em}
+    .lead{max-width:720px;color:var(--muted);font-size:.95rem;margin:0 0 4px;font-weight:760}
+
+    .card{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-soft);padding:18px}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+    .stat{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:var(--shadow-soft)}
+    .stat small{display:block;color:var(--muted);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.05em}
+    .stat b{display:block;font-size:1.7rem;letter-spacing:-.05em;line-height:1.1;margin:3px 0}
+    .stat span{display:block;color:var(--soft);font-size:.74rem;font-weight:820}
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+    .tab{min-height:40px;padding:0 15px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:950;font-size:.84rem;color:#274568;cursor:pointer}
+    .tab.active{background:#071226;border-color:#071226;color:#fff}
+
+    .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+    .filter{min-height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:900;font-size:.76rem;color:#274568;cursor:pointer}
+    .filter.active{background:#e6f0ff;border-color:#9dc4ff;color:#0a4bb5}
+
+    .list{display:grid;gap:10px}
+    .lead-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:18px;padding:14px;cursor:pointer;transition:border-color .18s ease,box-shadow .18s ease}
+    .lead-row:hover{border-color:#9dc4ff;box-shadow:0 18px 40px -34px rgba(22,119,255,.9)}
+    .lead-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:5px}
+    .lead-row b{font-size:.95rem}
+    .lead-row .meta{color:var(--muted);font-size:.79rem;font-weight:820;line-height:1.4}
+    .lead-price{text-align:right;white-space:nowrap}
+    .lead-price b{display:block;font-size:.95rem;letter-spacing:-.03em}
+    .lead-price small{color:var(--soft);font-size:.72rem;font-weight:850}
+
+    .status{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 10px;font-size:.7rem;font-weight:950;border:1px solid var(--line);background:#f8fbff;color:#3c5578}
+    .status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--soft)}
+    .status.nuevo{background:#eef7ff;border-color:#bcdcff;color:#0a4bb5}.status.nuevo::before{background:#1677ff}
+    .status.presupuestado,.status.enviado{background:#fff7e8;border-color:#f7d9a4;color:#8a4b00}.status.presupuestado::before,.status.enviado::before{background:#ffae34}
+    .status.aceptado,.status.derivado{background:#effdf4;border-color:#c7eed7;color:#08652e}.status.aceptado::before,.status.derivado::before{background:#25d66f}
+    .status.hecho{background:#071226;border-color:#071226;color:#fff}.status.hecho::before{background:#25d66f}
+    .status.perdido{background:#fff5f6;border-color:#ffcdd4;color:#a40018}.status.perdido::before{background:#ff445a}
+
+    .empty{border:1px dashed var(--line);border-radius:18px;padding:28px;text-align:center;color:var(--muted);font-weight:850;font-size:.88rem;background:#fbfdff}
+
+    /* detalle */
+    .overlay{position:fixed;inset:0;background:rgba(7,18,38,.62);backdrop-filter:blur(8px);z-index:80;display:none;padding:20px;overflow:auto}
+    .overlay.show{display:block}
+    .sheet{width:min(1080px,100%);margin:0 auto;background:#fff;border-radius:26px;box-shadow:var(--shadow);overflow:hidden}
+    .sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:#071226;color:#fff}
+    .sheet-head b{font-size:1.02rem;letter-spacing:-.02em}
+    .sheet-head small{display:block;color:#a9bee4;font-size:.76rem;font-weight:850;margin-top:2px}
+    .close-x{width:40px;height:40px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-size:1.15rem;font-weight:950}
+    .sheet-body{padding:20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px}
+    .sheet-body.full{grid-template-columns:1fr}
+
+    .kv{display:grid;gap:8px;margin-bottom:16px}
+    .kv div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;font-size:.85rem}
+    .kv dt,.kv .k{color:var(--muted);font-weight:900;font-size:.78rem}
+    .kv .v{font-weight:850;word-break:break-word}
+    .problem{border:1px solid var(--line);background:#f8fbff;border-radius:16px;padding:12px;font-size:.86rem;font-weight:820;line-height:1.45;color:#334866;white-space:pre-wrap;margin-bottom:14px}
+
+    table.lines{width:100%;border-collapse:collapse;font-size:.82rem}
+    table.lines th{text-align:left;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;padding:0 6px 7px;font-weight:950}
+    table.lines td{padding:5px 6px;border-top:1px solid var(--line);vertical-align:middle}
+    table.lines td.num{width:104px}
+    table.lines input{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px;font-weight:850;font-size:.82rem;text-align:right;color:var(--ink)}
+    table.lines input:focus{outline:none;border-color:#65b4ff;box-shadow:0 0 0 3px rgba(28,200,255,.15)}
+    table.lines tr.credit input{background:#f4fdf7;border-color:#c7eed7;color:#08652e}
+    table.lines td.lbl b{display:block;font-size:.83rem}
+    table.lines td.lbl small{display:block;color:var(--muted);font-size:.72rem;font-weight:820}
+    .total-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:2px solid var(--ink);margin-top:10px;padding-top:12px}
+    .total-row b{font-size:.92rem}
+    .total-row span{font-size:1.22rem;letter-spacing:-.04em;font-weight:950}
+
+    .form-row{display:grid;gap:6px;margin-bottom:12px}
+    .form-row label{font-size:.76rem;font-weight:950;color:#20395f}
+    .form-row input,.form-row select,.form-row textarea{width:100%;border:1px solid var(--line);background:#f8fbff;border-radius:12px;padding:11px;font-weight:820;font-size:.85rem;color:var(--ink)}
+    .form-row textarea{min-height:72px;resize:vertical}
+    .form-row input:focus,.form-row select:focus,.form-row textarea:focus{outline:none;border-color:#65b4ff;background:#fff;box-shadow:0 0 0 3px rgba(28,200,255,.14)}
+    .btn-row{display:flex;gap:9px;flex-wrap:wrap}
+    .note{border-left:4px solid var(--warm);background:#fff8ef;color:#593515;border-radius:14px;padding:11px;font-size:.8rem;font-weight:820;line-height:1.45;margin-top:12px}
+
+    .tech-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .tech-card{border:1px solid var(--line);background:#fff;border-radius:20px;padding:15px;box-shadow:var(--shadow-soft)}
+    .tech-card h3{margin-bottom:4px}
+    .tech-card .sub{color:var(--muted);font-size:.78rem;font-weight:850;margin-bottom:10px}
+    .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+    .chip{border:1px solid var(--line);background:#f8fbff;border-radius:999px;padding:5px 9px;font-size:.7rem;font-weight:900;color:#3c5578}
+    .tech-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tech-actions select{min-height:36px;border:1px solid var(--line);border-radius:11px;background:#f8fbff;padding:0 10px;font-weight:850;font-size:.78rem}
+
+    pre.config{background:#071226;color:#bfe3ff;border-radius:18px;padding:16px;overflow:auto;font-size:.76rem;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(16px);background:#061126;color:#fff;border:1px solid rgba(255,255,255,.14);padding:12px 16px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.24s ease;z-index:120;font-weight:900;font-size:.85rem;max-width:90vw;text-align:center}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .error{background:#fff5f6;border:1px solid #ffcdd4;color:#a40018;border-radius:14px;padding:11px;font-weight:850;font-size:.82rem;margin-bottom:12px}
+    .login-panel{max-width:460px;margin:8vh auto 0}
+    .login-panel .card{padding:26px}
+    .tabpane{display:none}.tabpane.active{display:block}
+
+    @media(max-width:900px){
+      .sheet-body{grid-template-columns:1fr}
+      .tech-grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(max-width:560px){
+      .wrap{padding-top:14px}
+      .lead-row{grid-template-columns:1fr;gap:8px}
+      .lead-price{text-align:left}
+      table.lines td.num{width:88px}
+      .kv div{grid-template-columns:1fr;gap:2px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <a class="brand" href="/">
+        <img src="/icon.svg" alt="" />
+        <span><strong>24 Climatizaciones</strong><span>Pedidos y despacho</span></span>
+      </a>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <a class="pill" href="/presupuesto/">Calculadora publica</a>
+        <a class="pill" href="/tecnicos/">Postulacion</a>
+        <a class="pill" href="/admin/">Galeria</a>
+        <button class="pill hidden" id="logoutBtn" type="button">Salir</button>
+      </div>
+    </header>
+
+    <section id="loginPanel" class="login-panel">
+      <div class="card">
+        <div id="loginError" class="error hidden"></div>
+        <h2>Entrar a Pedidos</h2>
+        <p class="lead" style="margin-bottom:16px">Usa la misma clave privada del panel de administracion.</p>
+        <form id="loginForm">
+          <div class="form-row">
+            <label for="adminPassword">Clave privada</label>
+            <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Escribí la clave del admin" required />
+          </div>
+          <button class="btn primary" type="submit" id="loginBtn" style="width:100%">Entrar</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="app" class="hidden">
+      <h1>Pedidos y tecnicos.</h1>
+      <p class="lead">Entra un pedido, se arma el presupuesto con el desglose real, se envia al cliente. Si acepta, se deriva al tecnico de la zona.</p>
+
+      <div class="stats">
+        <div class="stat"><small>Pedidos nuevos</small><b id="statNew">0</b><span>Sin presupuestar.</span></div>
+        <div class="stat"><small>Enviados</small><b id="statSent">0</b><span>Esperando respuesta.</span></div>
+        <div class="stat"><small>Aceptados / derivados</small><b id="statWon">0</b><span>Trabajos en curso.</span></div>
+        <div class="stat"><small>Tecnicos activos</small><b id="statTech">0</b><span>En la red.</span></div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" type="button" data-tab="leads">Pedidos</button>
+        <button class="tab" type="button" data-tab="techs">Tecnicos</button>
+        <button class="tab" type="button" data-tab="prices">Precios</button>
+      </div>
+
+      <section class="tabpane active" id="pane-leads">
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <h2 style="margin:0">Bandeja de pedidos</h2>
+            <button class="btn mini" type="button" id="refreshLeads">Actualizar</button>
+          </div>
+          <div class="filters" id="leadFilters" style="margin-top:14px"></div>
+          <div class="list" id="leadList"></div>
+        </div>
+      </section>
+
+      <section class="tabpane" id="pane-techs">
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <h2 style="margin:0">Red de tecnicos</h2>
+            <button class="btn mini" type="button" id="refreshTechs">Actualizar</button>
+          </div>
+          <p class="lead" style="margin:10px 0 14px">Los tecnicos se postulan desde la web publica. Aca se aprueban y se les asignan pedidos.</p>
+          <div class="tech-grid" id="techList"></div>
+        </div>
+      </section>
+
+      <section class="tabpane" id="pane-prices">
+        <div class="card">
+          <h2>Motor de precios</h2>
+          <p class="lead" style="margin-bottom:14px">Estos son los valores vigentes. Se editan en un solo archivo: <b>lib/pricing.js</b>. Cuando cierres trabajos reales, corregí los numeros ahi y todo el sistema los toma.</p>
+          <div id="priceTables"></div>
+          <div class="note">Los valores marcados como <b>referencia</b> salen de precios publicados del mercado de Cordoba. Los marcados como <b>estimado</b> son estructura sin fuente verificada: conviene calibrarlos con tus propios trabajos cuanto antes.</div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="overlay" id="sheet">
+    <div class="sheet">
+      <div class="sheet-head">
+        <div><b id="sheetTitle">Pedido</b><small id="sheetSub"></small></div>
+        <button class="close-x" type="button" id="sheetClose" aria-label="Cerrar">×</button>
+      </div>
+      <div class="sheet-body" id="sheetBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Listo</div>
+
+  <script src="/lib/pricing.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var P = window.PRICING_24;
+      var CONFIG = P.CONFIG;
+      var $ = function (sel) { return document.querySelector(sel); };
+      var $$ = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
+
+      var STATUS_LABELS = {
+        nuevo: 'Pedido nuevo',
+        presupuestado: 'Presupuesto armado',
+        enviado: 'Enviado al cliente',
+        aceptado: 'Aceptado por el cliente',
+        derivado: 'Derivado a un técnico',
+        hecho: 'Trabajo realizado',
+        perdido: 'No avanzó'
+      };
+      var FILTERS = ['todos', 'nuevo', 'presupuestado', 'enviado', 'aceptado', 'derivado', 'hecho', 'perdido'];
+
+      var state = { leads: [], techs: [], filter: 'todos', openLead: null, draft: null };
+
+      /* ---------------- sesion ---------------- */
+
+      function checkSession() {
+        return fetch('/api/admin-session', { headers: { Accept: 'application/json' } })
+          .then(function (res) { return res.json(); })
+          .catch(function () { return { authenticated: false }; });
+      }
+
+      function enterApp() {
+        $('#loginPanel').classList.add('hidden');
+        $('#app').classList.remove('hidden');
+        $('#logoutBtn').classList.remove('hidden');
+        loadAll();
+      }
+
+      $('#loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var btn = $('#loginBtn');
+        btn.disabled = true;
+        btn.textContent = 'Entrando…';
+        fetch('/api/admin-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ password: $('#adminPassword').value })
+        })
+          .then(function (res) { return res.json().then(function (b) { return { ok: res.ok, body: b }; }); })
+          .then(function (out) {
+            if (!out.ok || !out.body.authenticated) {
+              var box = $('#loginError');
+              box.textContent = out.body && out.body.error === 'admin_auth_missing'
+                ? 'Falta configurar ADMIN_PASSWORD_HASH, ADMIN_PASSWORD_SALT y ADMIN_SESSION_SECRET en Vercel.'
+                : 'Clave incorrecta.';
+              box.classList.remove('hidden');
+              btn.disabled = false;
+              btn.textContent = 'Entrar';
+              return;
+            }
+            enterApp();
+          })
+          .catch(function () {
+            btn.disabled = false;
+            btn.textContent = 'Entrar';
+            showToast('No se pudo conectar');
+          });
+      });
+
+      $('#logoutBtn').addEventListener('click', function () {
+        fetch('/api/admin-session', { method: 'DELETE' }).then(function () { location.reload(); });
+      });
+
+      /* ---------------- utilidades ---------------- */
+
+      var toastTimer;
+      function showToast(text) {
+        var t = $('#toast');
+        t.textContent = text;
+        t.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
+      }
+
+      function esc(value) {
+        return String(value === undefined || value === null ? '' : value).replace(/[&<>"']/g, function (ch) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+        });
+      }
+
+      function money(value) {
+        return P.formatMoney(Number(value) || 0);
+      }
+
+      function fmtDate(value) {
+        if (!value) return '-';
+        try {
+          return new Date(value).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
+        } catch (e) { return '-'; }
+      }
+
+      function whatsappLink(phone, message) {
+        var digits = String(phone || '').replace(/\D/g, '');
+        if (!digits) return '#';
+        if (digits.length <= 10) digits = '549' + digits;
+        return 'https://wa.me/' + digits + '?text=' + encodeURIComponent(message);
+      }
+
+      function copyText(text, okMessage) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { showToast(okMessage); }, function () { showToast('No se pudo copiar'); });
+          return;
+        }
+        var area = document.createElement('textarea');
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        try { document.execCommand('copy'); showToast(okMessage); } catch (e) { showToast('No se pudo copiar'); }
+        document.body.removeChild(area);
+      }
+
+      /* ---------------- tabs ---------------- */
+
+      $$('.tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          $$('.tab').forEach(function (other) { other.classList.remove('active'); });
+          tab.classList.add('active');
+          $$('.tabpane').forEach(function (pane) { pane.classList.remove('active'); });
+          $('#pane-' + tab.dataset.tab).classList.add('active');
+        });
+      });
+
+      /* ---------------- carga ---------------- */
+
+      function loadAll() {
+        loadLeads();
+        loadTechs();
+        renderPriceTables();
+      }
+
+      function loadLeads() {
+        fetch('/api/leads?admin=1', { headers: { Accept: 'application/json' } })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            state.leads = Array.isArray(data.items) ? data.items : [];
+            renderStats();
+            renderLeadFilters();
+            renderLeads();
+          })
+          .catch(function () { showToast('No se pudieron cargar los pedidos'); });
+      }
+
+      function loadTechs() {
+        fetch('/api/technicians', { headers: { Accept: 'application/json' } })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            state.techs = Array.isArray(data.items) ? data.items : [];
+            renderStats();
+            renderTechs();
+          })
+          .catch(function () { showToast('No se pudieron cargar los tecnicos'); });
+      }
+
+      function renderStats() {
+        var by = function (list, statuses) {
+          return list.filter(function (item) { return statuses.indexOf(item.status) !== -1; }).length;
+        };
+        $('#statNew').textContent = by(state.leads, ['nuevo']);
+        $('#statSent').textContent = by(state.leads, ['presupuestado', 'enviado']);
+        $('#statWon').textContent = by(state.leads, ['aceptado', 'derivado', 'hecho']);
+        $('#statTech').textContent = by(state.techs, ['activo']);
+      }
+
+      /* ---------------- pedidos ---------------- */
+
+      function renderLeadFilters() {
+        var box = $('#leadFilters');
+        box.innerHTML = FILTERS.map(function (key) {
+          var count = key === 'todos'
+            ? state.leads.length
+            : state.leads.filter(function (l) { return l.status === key; }).length;
+          var label = key === 'todos' ? 'Todos' : (STATUS_LABELS[key] || key);
+          return '<button class="filter' + (state.filter === key ? ' active' : '') + '" type="button" data-filter="' + key + '">' +
+            esc(label) + ' (' + count + ')</button>';
+        }).join('');
+        $$('#leadFilters .filter').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state.filter = btn.dataset.filter;
+            renderLeadFilters();
+            renderLeads();
+          });
+        });
+      }
+
+      function renderLeads() {
+        var box = $('#leadList');
+        var list = state.filter === 'todos'
+          ? state.leads
+          : state.leads.filter(function (l) { return l.status === state.filter; });
+
+        if (!list.length) {
+          box.innerHTML = '<div class="empty">No hay pedidos en este filtro. Los pedidos entran desde la calculadora publica y desde el flujo de la web.</div>';
+          return;
+        }
+
+        box.innerHTML = list.map(function (lead) {
+          var quoteLabel = lead.quote ? lead.quote.label : 'Sin calcular';
+          var address = lead.address ? lead.address.slice(0, 70) : 'Sin domicilio';
+          return '<div class="lead-row" data-lead="' + esc(lead.id) + '" role="button" tabindex="0">' +
+            '<div>' +
+            '<div class="lead-top"><span class="status ' + esc(lead.status) + '">' + esc(STATUS_LABELS[lead.status] || lead.status) + '</span>' +
+            '<b>' + esc(lead.name || 'Sin nombre') + '</b>' +
+            '<span style="color:var(--soft);font-size:.74rem;font-weight:850">' + esc(lead.id) + '</span></div>' +
+            '<div class="meta">' + esc(lead.quote ? lead.quote.moduleLabel : lead.module) + ' · ' + esc(address) + '</div>' +
+            '<div class="meta">' + esc(fmtDate(lead.createdAt)) + (lead.assignedToName ? ' · Técnico: ' + esc(lead.assignedToName) : '') + '</div>' +
+            '</div>' +
+            '<div class="lead-price"><b>' + esc(quoteLabel) + '</b><small>' + (lead.finalPrice ? 'Cerrado: ' + esc(money(lead.finalPrice)) : 'Estimado') + '</small></div>' +
+            '</div>';
+        }).join('');
+
+        $$('#leadList .lead-row').forEach(function (row) {
+          var open = function () { openLead(row.dataset.lead); };
+          row.addEventListener('click', open);
+          row.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+        });
+      }
+
+      function activeTechs() {
+        return state.techs.filter(function (t) { return t.status === 'activo' || t.status === 'contactado'; });
+      }
+
+      function draftedLines(quote) {
+        return (quote && Array.isArray(quote.lines) ? quote.lines : []).map(function (line) {
+          return { label: line.label, detail: line.detail || '', min: Number(line.min) || 0, max: Number(line.max) || 0 };
+        });
+      }
+
+      function draftTotal() {
+        var min = 0, max = 0;
+        state.draft.lines.forEach(function (l) { min += Number(l.min) || 0; max += Number(l.max) || 0; });
+        if (max < min) max = min;
+        state.draft.min = min;
+        state.draft.max = max;
+        return { min: min, max: max };
+      }
+
+      function openLead(id) {
+        var lead = state.leads.find(function (l) { return l.id === id; });
+        if (!lead) return;
+        state.openLead = lead;
+        state.draft = {
+          lines: draftedLines(lead.quote),
+          min: lead.quote ? lead.quote.min : 0,
+          max: lead.quote ? lead.quote.max : 0,
+          finalPrice: lead.finalPrice || '',
+          assignedTo: lead.assignedTo || '',
+          scheduledFor: lead.scheduledFor || '',
+          internalNotes: lead.internalNotes || ''
+        };
+        renderSheet();
+        $('#sheet').classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSheet() {
+        $('#sheet').classList.remove('show');
+        document.body.style.overflow = '';
+        state.openLead = null;
+      }
+
+      $('#sheetClose').addEventListener('click', closeSheet);
+      $('#sheet').addEventListener('click', function (event) { if (event.target === $('#sheet')) closeSheet(); });
+      document.addEventListener('keydown', function (event) { if (event.key === 'Escape') closeSheet(); });
+
+      function quoteMessage(lead, draft) {
+        var total = money(draft.min) + ' a ' + money(draft.max);
+        var lines = draft.lines.map(function (l) {
+          return '• ' + l.label + (l.detail ? ' (' + l.detail + ')' : '') + ': ' + money(l.min) + ' a ' + money(l.max);
+        }).join('\n');
+        return '*24 CLIMATIZACIONES | PRESUPUESTO*\n' +
+          'Pedido: ' + lead.id + '\n' +
+          'Servicio: ' + (lead.quote ? lead.quote.moduleLabel : lead.module) + '\n' +
+          'Cliente: ' + (lead.name || '-') + '\n' +
+          'Domicilio: ' + (lead.address || '-') + '\n' +
+          (lead.scheduledFor || draft.scheduledFor ? 'Horario: ' + (draft.scheduledFor || lead.scheduledFor) + '\n' : '') +
+          '\n*DESGLOSE*\n' + lines + '\n\n' +
+          '*TOTAL ESTIMADO: ' + total + '*\n' +
+          (draft.finalPrice ? 'Precio acordado: ' + money(draft.finalPrice) + '\n' : '') +
+          '\nEl valor se confirma después de la visita técnica.\n' +
+          'Cualquier duda, respondé este mensaje.';
+      }
+
+      function renderSheet() {
+        var lead = state.openLead;
+        if (!lead) return;
+        var total = draftTotal();
+
+        $('#sheetTitle').textContent = (lead.name || 'Pedido') + ' · ' + lead.id;
+        $('#sheetSub').textContent = (lead.quote ? lead.quote.moduleLabel : lead.module) + ' · ' + fmtDate(lead.createdAt);
+
+        var mapsLink = lead.coords
+          ? 'https://www.google.com/maps/search/?api=1&query=' + lead.coords.lat + ',' + lead.coords.lng
+          : '';
+        var routeLink = lead.coords
+          ? 'https://www.google.com/maps/dir/?api=1&destination=' + lead.coords.lat + ',' + lead.coords.lng + '&travelmode=driving'
+          : '';
+
+        var techOptions = activeTechs().map(function (t) {
+          return '<option value="' + esc(t.id) + '"' + (state.draft.assignedTo === t.id ? ' selected' : '') + '>' +
+            esc(t.name) + ' · ' + esc(t.zone || 'sin zona') + '</option>';
+        }).join('');
+
+        var left =
+          '<div>' +
+          '<h3>Datos del pedido</h3>' +
+          '<div class="kv">' +
+          '<div><span class="k">Cliente</span><span class="v">' + esc(lead.name || '-') + '</span></div>' +
+          '<div><span class="k">WhatsApp</span><span class="v">' + esc(lead.phone || '-') + '</span></div>' +
+          '<div><span class="k">Domicilio</span><span class="v">' + esc(lead.address || '-') + '</span></div>' +
+          '<div><span class="k">Servicio</span><span class="v">' + esc(lead.quote ? lead.quote.moduleLabel : lead.module) + '</span></div>' +
+          '<div><span class="k">Origen</span><span class="v">' + esc(lead.source || '-') + '</span></div>' +
+          '<div><span class="k">Fotos</span><span class="v">' + esc(lead.photos || 0) + '</span></div>' +
+          '</div>' +
+          (mapsLink ? '<div class="btn-row" style="margin-bottom:14px"><a class="btn mini" href="' + mapsLink + '" target="_blank" rel="noopener">Ver pin</a><a class="btn mini" href="' + routeLink + '" target="_blank" rel="noopener">Abrir ruta</a></div>' : '') +
+          (lead.problem ? '<h3>Lo que cuenta el cliente</h3><div class="problem">' + esc(lead.problem) + '</div>' : '') +
+          (lead.quote && lead.quote.missing && lead.quote.missing.length
+            ? '<h3>Falta definir</h3><div class="problem">' + esc(lead.quote.missing.join(' · ')) + '</div>'
+            : '') +
+          '<h3>Seguimiento</h3>' +
+          '<div class="form-row"><label>Horario acordado</label><input id="draftSchedule" type="text" value="' + esc(state.draft.scheduledFor) + '" placeholder="Ej: martes a la mañana" /></div>' +
+          '<div class="form-row"><label>Asignar a tecnico</label><select id="draftTech"><option value="">Sin asignar</option>' + techOptions + '</select></div>' +
+          '<div class="form-row"><label>Notas internas</label><textarea id="draftNotes" placeholder="Solo las ves vos.">' + esc(state.draft.internalNotes) + '</textarea></div>' +
+          '</div>';
+
+        var lineRows = state.draft.lines.map(function (line, index) {
+          var credit = (line.min < 0 || line.max < 0) ? ' class="credit"' : '';
+          return '<tr' + credit + '>' +
+            '<td class="lbl"><b>' + esc(line.label) + '</b>' + (line.detail ? '<small>' + esc(line.detail) + '</small>' : '') + '</td>' +
+            '<td class="num"><input type="number" inputmode="numeric" data-line="' + index + '" data-bound="min" value="' + line.min + '" /></td>' +
+            '<td class="num"><input type="number" inputmode="numeric" data-line="' + index + '" data-bound="max" value="' + line.max + '" /></td>' +
+            '</tr>';
+        }).join('');
+
+        var right =
+          '<div>' +
+          '<h3>Presupuesto</h3>' +
+          '<table class="lines">' +
+          '<thead><tr><th>Concepto</th><th>Minimo</th><th>Maximo</th></tr></thead>' +
+          '<tbody>' + (lineRows || '<tr><td colspan="3" style="color:var(--muted)">Sin desglose. Este pedido no trae calculo del motor.</td></tr>') + '</tbody>' +
+          '</table>' +
+          '<div class="total-row"><b>Total estimado</b><span>' + money(total.min) + ' a ' + money(total.max) + '</span></div>' +
+          '<div class="form-row" style="margin-top:14px"><label>Precio final acordado (opcional)</label><input id="draftFinal" type="number" inputmode="numeric" value="' + esc(state.draft.finalPrice) + '" placeholder="Cuando el cliente acepta un numero" /></div>' +
+          '<div class="btn-row">' +
+          '<button class="btn primary" type="button" id="saveQuote">Guardar presupuesto</button>' +
+          '<button class="btn dark" type="button" id="sendQuote">Enviar por WhatsApp</button>' +
+          '<button class="btn mini" type="button" id="copyQuote">Copiar</button>' +
+          '</div>' +
+          '<div class="note">Corregí los numeros con el precio real de tu trabajo. Lo que guardes aca es lo que se le envia al cliente.</div>' +
+          '<h3 style="margin-top:20px">Estado del pedido</h3>' +
+          '<div class="btn-row" id="statusRow">' +
+          Object.keys(STATUS_LABELS).map(function (key) {
+            return '<button class="btn mini' + (lead.status === key ? ' primary' : '') + '" type="button" data-status="' + key + '">' + esc(STATUS_LABELS[key]) + '</button>';
+          }).join('') +
+          '</div>' +
+          '</div>';
+
+        $('#sheetBody').innerHTML = left + right;
+
+        // inputs del desglose
+        $$('#sheetBody input[data-line]').forEach(function (input) {
+          input.addEventListener('input', function () {
+            var index = Number(input.dataset.line);
+            var bound = input.dataset.bound;
+            state.draft.lines[index][bound] = Number(input.value) || 0;
+            var updated = draftTotal();
+            var totalEl = $('#sheetBody .total-row span');
+            if (totalEl) totalEl.textContent = money(updated.min) + ' a ' + money(updated.max);
+          });
+        });
+
+        $('#draftSchedule').addEventListener('input', function () { state.draft.scheduledFor = this.value; });
+        $('#draftTech').addEventListener('change', function () { state.draft.assignedTo = this.value; });
+        $('#draftNotes').addEventListener('input', function () { state.draft.internalNotes = this.value; });
+        $('#draftFinal').addEventListener('input', function () { state.draft.finalPrice = this.value; });
+
+        $('#copyQuote').addEventListener('click', function () {
+          copyText(quoteMessage(lead, state.draft), 'Presupuesto copiado');
+        });
+
+        $('#sendQuote').addEventListener('click', function () {
+          saveQuote(false).then(function () {
+            var url = whatsappLink(lead.phone, quoteMessage(lead, state.draft));
+            if (url === '#') { showToast('El pedido no tiene WhatsApp cargado'); return; }
+            window.open(url, '_blank', 'noopener');
+          });
+        });
+
+        $('#saveQuote').addEventListener('click', function () { saveQuote(true); });
+
+        $$('#statusRow [data-status]').forEach(function (btn) {
+          btn.addEventListener('click', function () { setStatus(btn.dataset.status); });
+        });
+      }
+
+      function saveQuote(notify) {
+        var lead = state.openLead;
+        if (!lead) return Promise.resolve();
+        var total = draftTotal();
+        return fetch('/api/leads', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            id: lead.id,
+            quoteOverride: { min: total.min, max: total.max, lines: state.draft.lines },
+            finalPrice: state.draft.finalPrice === '' ? null : Number(state.draft.finalPrice),
+            assignedTo: state.draft.assignedTo,
+            assignedToName: (state.techs.find(function (t) { return t.id === state.draft.assignedTo; }) || {}).name || '',
+            scheduledFor: state.draft.scheduledFor,
+            internalNotes: state.draft.internalNotes
+          })
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (!data.ok) throw new Error(data.error || 'failed');
+            var index = state.leads.findIndex(function (l) { return l.id === lead.id; });
+            if (index !== -1) state.leads[index] = data.lead;
+            state.openLead = data.lead;
+            renderLeads();
+            renderStats();
+            if (notify) showToast('Presupuesto guardado');
+          })
+          .catch(function () { showToast('No se pudo guardar'); });
+      }
+
+      function setStatus(status) {
+        var lead = state.openLead;
+        if (!lead) return;
+        fetch('/api/leads', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            id: lead.id,
+            status: status,
+            assignedTo: state.draft.assignedTo,
+            assignedToName: (state.techs.find(function (t) { return t.id === state.draft.assignedTo; }) || {}).name || '',
+            scheduledFor: state.draft.scheduledFor
+          })
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (!data.ok) throw new Error(data.error || 'failed');
+            var index = state.leads.findIndex(function (l) { return l.id === lead.id; });
+            if (index !== -1) state.leads[index] = data.lead;
+            state.openLead = data.lead;
+            renderLeads();
+            renderStats();
+            renderSheet();
+            showToast('Estado: ' + (STATUS_LABELS[data.lead.status] || data.lead.status));
+          })
+          .catch(function () { showToast('No se pudo cambiar el estado'); });
+      }
+
+      /* ---------------- tecnicos ---------------- */
+
+      function renderTechs() {
+        var box = $('#techList');
+        if (!state.techs.length) {
+          box.innerHTML = '<div class="empty">Todavia no hay postulaciones. La pagina publica es <b>/tecnicos/</b>.</div>';
+          return;
+        }
+        box.innerHTML = state.techs.slice().reverse().map(function (tech) {
+          var chips = (tech.specialties || []).map(function (s) { return '<span class="chip">' + esc(s) + '</span>'; }).join('');
+          return '<article class="tech-card">' +
+            '<h3>' + esc(tech.name || 'Sin nombre') + '</h3>' +
+            '<div class="sub">' + esc(tech.zone || 'Sin zona') + ' · ' + esc(tech.experience || 'sin dato') + ' · ' + esc(tech.id) + '</div>' +
+            '<div class="chips">' + chips + '</div>' +
+            '<div class="kv" style="margin-bottom:12px">' +
+            '<div><span class="k">WhatsApp</span><span class="v">' + esc(tech.phone || '-') + '</span></div>' +
+            '<div><span class="k">Altura</span><span class="v">' + esc(tech.heightWork || 'sin dato') + '</span></div>' +
+            '<div><span class="k">Movilidad</span><span class="v">' + esc(tech.mobility || 'sin dato') + '</span></div>' +
+            '<div><span class="k">Factura</span><span class="v">' + esc(tech.documents || 'sin dato') + '</span></div>' +
+            '<div><span class="k">Disponible</span><span class="v">' + esc(tech.availability || 'sin dato') + '</span></div>' +
+            '</div>' +
+            '<div class="tech-actions">' +
+            '<select data-tech-status="' + esc(tech.id) + '">' +
+            ['nuevo', 'contactado', 'activo', 'pausado', 'rechazado'].map(function (s) {
+              return '<option value="' + s + '"' + (tech.status === s ? ' selected' : '') + '>' + s + '</option>';
+            }).join('') +
+            '</select>' +
+            '<a class="btn mini" href="' + whatsappLink(tech.phone, 'Hola ' + (tech.name || '') + ', te escribimos de 24 Climatizaciones por tu postulación como técnico.') + '" target="_blank" rel="noopener">WhatsApp</a>' +
+            '</div>' +
+            '</article>';
+        }).join('');
+
+        $$('#techList [data-tech-status]').forEach(function (select) {
+          select.addEventListener('change', function () {
+            fetch('/api/technicians', {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify({ id: select.dataset.techStatus, status: select.value })
+            })
+              .then(function (res) { return res.json(); })
+              .then(function (data) {
+                if (!data.ok) throw new Error();
+                var index = state.techs.findIndex(function (t) { return t.id === select.dataset.techStatus; });
+                if (index !== -1) state.techs[index] = data.technician;
+                renderStats();
+                showToast('Tecnico actualizado');
+              })
+              .catch(function () { showToast('No se pudo actualizar'); });
+          });
+        });
+      }
+
+      /* ---------------- precios ---------------- */
+
+      function priceTable(title, status, source, rows) {
+        var badge = status === 'referencia'
+          ? '<span class="chip" style="border-color:#bcdcff;background:#eef7ff;color:#0a4bb5">referencia de mercado</span>'
+          : '<span class="chip" style="border-color:#f7d9a4;background:#fff7e8;color:#8a4b00">estimado · calibrar</span>';
+        var body = rows.map(function (row) {
+          return '<tr><td class="lbl"><b>' + esc(row[0]) + '</b></td><td class="num" style="text-align:right">' +
+            money(row[1]) + (row[1] !== row[2] ? ' a ' + money(row[2]) : '') + '</td></tr>';
+        }).join('');
+        return '<div style="margin-bottom:22px">' +
+          '<h3>' + esc(title) + ' ' + badge + '</h3>' +
+          (source ? '<div class="sub" style="color:var(--muted);font-size:.76rem;font-weight:850;margin-bottom:8px">Fuente: ' + esc(source) + '</div>' : '') +
+          '<table class="lines"><tbody>' + body + '</tbody></table>' +
+          '</div>';
+      }
+
+      function renderPriceTables() {
+        var html = '';
+        html += priceTable('Instalacion de aire (mano de obra por equipo)', CONFIG.laborAirInstall.status,
+          CONFIG.laborAirInstall.source.map(function (id) {
+            var s = P.SOURCES.find(function (x) { return x.id === id; });
+            return s ? s.label : id;
+          }).join(' · '),
+          CONFIG.laborAirInstall.tiers.map(function (t) { return [t.label, t.min, t.max]; }));
+
+        html += priceTable('Metro extra de cañeria', CONFIG.components.pipePerMeter.status, 'Solvit (jun 2026)',
+          [['Cada metro sobre los 3 m incluidos', CONFIG.components.pipePerMeter.min, CONFIG.components.pipePerMeter.max]]);
+
+        html += priceTable('Altura y acceso', CONFIG.components.height.status, 'Solvit (jun 2026)',
+          CONFIG.components.height.options.map(function (o) { return [o.label, o.min, o.max]; }));
+
+        html += priceTable('Reparacion de aire (orientativo por sintoma)', CONFIG.repairAir.status, 'Solvit (jun 2026)',
+          CONFIG.repairAir.symptoms.map(function (s) { return [s.label, s.min, s.max]; }));
+
+        html += priceTable('Mantenimiento, diagnostico y gas', CONFIG.serviceAir.status, 'Solvit (jun 2026)',
+          [['Mantenimiento preventivo por equipo', CONFIG.serviceAir.min, CONFIG.serviceAir.max],
+           ['Visita de diagnostico', CONFIG.diagnosis.min, CONFIG.diagnosis.max],
+           ['Carga de gas refrigerante', CONFIG.components.gasCharge.min, CONFIG.components.gasCharge.max]]);
+
+        html += priceTable('Caldera y calefaccion', CONFIG.boiler.status, '',
+          CONFIG.boiler.jobs.map(function (j) { return [j.label, j.min, j.max]; }));
+
+        html += '<h3>Descuento por cantidad de equipos</h3>' +
+          '<table class="lines"><tbody>' +
+          Object.keys(CONFIG.rules.volumeDiscount).map(function (qty) {
+            var factor = CONFIG.rules.volumeDiscount[qty];
+            var save = Math.round((1 - factor) * 100);
+            return '<tr><td class="lbl"><b>' + qty + (Number(qty) === 1 ? ' equipo' : ' equipos') + '</b></td><td class="num" style="text-align:right">' +
+              (save > 0 ? '-' + save + '%' : 'sin descuento') + '</td></tr>';
+          }).join('') +
+          '</tbody></table>';
+
+        html += '<pre class="config">' + esc(JSON.stringify({ version: CONFIG.version, currency: CONFIG.currency, reviewAfter: CONFIG.reviewAfter }, null, 2)) + '</pre>';
+
+        $('#priceTables').innerHTML = html;
+      }
+
+      /* ---------------- init ---------------- */
+
+      $('#refreshLeads').addEventListener('click', loadLeads);
+      $('#refreshTechs').addEventListener('click', loadTechs);
+
+      checkSession().then(function (data) {
+        if (data && data.authenticated) enterApp();
+        else if (data && data.configured === false) {
+          var box = $('#loginError');
+          box.textContent = 'Falta configurar ADMIN_PASSWORD_HASH, ADMIN_PASSWORD_SALT y ADMIN_SESSION_SECRET en Vercel.';
+          box.classList.remove('hidden');
+        }
+      });
+
+      if (window.va) window.va('event', { name: '24_pedidos_view' });
+    })();
+  </script>
+</body>
+</html>

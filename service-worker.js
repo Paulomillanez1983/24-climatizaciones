@@ -1,7 +1,10 @@
-const CACHE = '24-climatizaciones-v44';
+const CACHE = '24-climatizaciones-v45';
 const ASSETS = [
   './',
   './index.html',
+  './presupuesto/',
+  './tecnicos/',
+  './lib/pricing.js',
   './admin/',
   './factory/',
   './clients/',
