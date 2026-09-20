@@ -219,6 +219,47 @@
       .formula{padding:18px;border-radius:20px}
       .formula code{font-size:.76rem}
     }
+
+    /* --- Capa de modernizacion (mismo criterio que index.html) ---
+       Todo detras de @supports: si el navegador no lo entiende, se ve igual. */
+
+    /* Transicion nativa entre paginas: el header se mantiene, el resto se disuelve. */
+    @view-transition{navigation:auto}
+    .topbar{view-transition-name:topbar}
+    ::view-transition-group(topbar){animation-duration:.26s}
+    ::view-transition-old(root){animation-duration:.2s;animation-timing-function:cubic-bezier(.32,.72,0,1)}
+    ::view-transition-new(root){animation-duration:.32s;animation-timing-function:cubic-bezier(.32,.72,0,1)}
+
+    @supports(height:100dvh){body{min-height:100dvh}}
+    @supports(text-wrap:balance){
+      h1,h2,h3,.display{text-wrap:balance}
+      p{text-wrap:pretty}
+    }
+    :focus-visible{outline:3px solid rgba(22,119,255,.55);outline-offset:3px;border-radius:14px}
+    html{scrollbar-gutter:stable;color-scheme:light;-webkit-tap-highlight-color:transparent}
+    ::selection{background:rgba(22,119,255,.22);color:#071226}
+
+    /* Aparicion al scrollear para las secciones informativas, sin JavaScript.
+       No toca la calculadora ni la tarjeta de resultado. */
+    @keyframes reveal-rise{from{opacity:0;translate:0 20px}to{opacity:1;translate:none}}
+    @supports(animation-timeline:view()){
+      @media(prefers-reduced-motion:no-preference){
+        .section .section-head,.info,.faq-item{
+          animation:reveal-rise linear both;
+          animation-timeline:view();
+          animation-range:entry 6% cover 26%;
+        }
+      }
+    }
+
+    @media(max-width:620px){
+      .faq-q,.opt,.mod,.btn,.home-link{min-height:44px}
+      input,select,textarea{font-size:16px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+      .section .section-head,.info,.faq-item{animation:none!important;opacity:1!important;translate:none!important}
+    }
   </style>
 </head>
 <body>

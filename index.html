@@ -34,6 +34,17 @@
     window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Navegacion instantanea: el navegador adelanta la descarga de la
+       calculadora y de la pagina de tecnicos cuando el usuario esta por
+       entrar. Al hacer clic, la pagina ya esta lista. -->
+  <script type="speculationrules">
+  {
+    "prefetch": [
+      {"where":{"href_matches":"/presupuesto/*"},"eagerness":"moderate"},
+      {"where":{"href_matches":"/tecnicos/*"},"eagerness":"moderate"}
+    ]
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -520,6 +531,82 @@
     @media(max-width:650px){.ai-readiness{margin-top:8px;grid-template-columns:1fr}.readiness-label{font-size:.58rem}.solution-signals{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.signal-pill{border-radius:12px;padding:7px 6px}.signal-pill b{font-size:.61rem}.smart-nudges{border-radius:13px;padding:8px}.smart-action{font-size:.59rem;padding:7px 8px}.photo-hint{font-size:.61rem}}
     @media(max-width:380px){.service-panel .seg-grid,.ticket-grid,.detail-brief,.secondary-actions{grid-template-columns:1fr}.location-guide{grid-template-columns:1fr}.final-status{grid-template-columns:1fr}.final-score{grid-column:auto}.ai-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:650px){.brand-signal{gap:13px;margin-bottom:18px}.brand-signal .logo{--logo-size:72px;--orbit:34px;border-radius:22px}.brand-signal small{font-size:.66rem}.brand-signal strong{font-size:1.32rem}}
+
+    /* ============================================================
+       CAPA DE MODERNIZACION
+       Va al final para poder ajustar sin tocar las reglas de arriba.
+       Todo esta detras de @supports o de media queries de preferencia:
+       si el navegador no lo entiende, el sitio se ve exactamente igual.
+       ============================================================ */
+
+    /* --- Transicion nativa entre paginas (View Transitions API) ---
+       Al pasar de la home a /presupuesto/ la pagina no "salta": el header
+       se queda quieto y el contenido se disuelve. Es lo que mas cambia la
+       sensacion de fluidez y no cuesta ni un byte de JavaScript. */
+    @view-transition{navigation:auto}
+    .topbar{view-transition-name:topbar}
+    ::view-transition-group(topbar){animation-duration:.26s}
+    ::view-transition-old(root){animation-duration:.2s;animation-timing-function:cubic-bezier(.32,.72,0,1)}
+    ::view-transition-new(root){animation-duration:.32s;animation-timing-function:cubic-bezier(.32,.72,0,1)}
+
+    /* --- Altura real de pantalla en celular ---
+       Con 100vh la barra de direcciones del navegador tapa contenido. */
+    @supports(height:100dvh){body{min-height:100dvh}}
+
+    /* --- Corte de linea tipografico --- */
+    @supports(text-wrap:balance){
+      h1,h2,h3,.display{text-wrap:balance}
+      p{text-wrap:pretty}
+    }
+
+    /* --- Foco visible de verdad, para quien navega con teclado --- */
+    :focus-visible{outline:3px solid rgba(22,119,255,.55);outline-offset:3px;border-radius:14px}
+    .btn:focus-visible,.wa-mini:focus-visible,.price-pill:focus-visible,.chip:focus-visible{outline-offset:4px}
+
+    /* --- Detalles de render --- */
+    html{scrollbar-gutter:stable;color-scheme:light;-webkit-tap-highlight-color:transparent}
+    ::selection{background:rgba(22,119,255,.22);color:#071226}
+    input,select,textarea{accent-color:var(--cold)}
+
+    /* content-visibility con tamaño recordado: menos saltos de scrollbar. */
+    .section,footer{contain-intrinsic-size:auto 720px}
+
+    /* --- Aparicion al scrollear, sin JavaScript ---
+       Animacion manejada por el scroll (animation-timeline). Corre fuera del
+       hilo principal, asi que no compite con el resto de la pagina.
+       Se anima `translate`, no `transform`, para no pisar los transforms de
+       hover que el sitio ya usa. */
+    @keyframes reveal-rise{from{opacity:0;translate:0 22px}to{opacity:1;translate:none}}
+    @supports(animation-timeline:view()){
+      @media(prefers-reduced-motion:no-preference){
+        .section>.wrap>*,.quick-band{
+          animation:reveal-rise linear both;
+          animation-timeline:view();
+          animation-range:entry 6% cover 26%;
+        }
+      }
+    }
+
+    /* --- Barra fija de celular: entrada suave cuando aparece --- */
+    @supports(at-rule(@starting-style)){
+      .mobile-sticky{transition:opacity .28s ease,translate .28s ease}
+      @starting-style{.mobile-sticky{opacity:0;translate:0 14px}}
+    }
+
+    /* --- Celular: areas tactiles comodas y sin zoom automatico de iOS --- */
+    @media(max-width:650px){
+      .faq-q,.chip,.foot-links a,.social-link{min-height:44px;display:flex;align-items:center}
+      .foot-links{gap:2px}
+      /* Menos de 16px hace que iOS haga zoom al tocar un campo. */
+      input,select,textarea{font-size:16px}
+      .topbar{overscroll-behavior-y:none}
+    }
+
+    /* --- Quien pidio menos movimiento, no recibe animaciones --- */
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+      .section>.wrap>*,.quick-band{animation:none!important;opacity:1!important;translate:none!important}
+    }
   </style>
 </head>
 <body>

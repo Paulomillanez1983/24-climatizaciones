@@ -66,7 +66,9 @@ let inlineCount = 0;
 for (const file of htmlFiles) {
   const rel = path.relative(ROOT, file);
   const html = fs.readFileSync(file, 'utf8');
-  const re = /<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/gi;
+  // Solo JavaScript real: los bloques de datos (ld+json, speculationrules) se
+  // validan aparte, mas abajo, porque no son codigo ejecutable.
+  const re = /<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)(?![^>]*speculationrules)[^>]*>([\s\S]*?)<\/script>/gi;
   let match;
   let index = 0;
   while ((match = re.exec(html))) {
@@ -84,12 +86,12 @@ for (const file of htmlFiles) {
 console.log('  ok    ' + inlineCount + ' bloques inline parsean sin error');
 
 /* ---- 3 ---- */
-console.log('\n[3] JSON-LD');
+console.log('\n[3] Datos estructurados (JSON-LD y speculation rules)');
 let ldCount = 0;
 for (const file of htmlFiles) {
   const rel = path.relative(ROOT, file);
   const html = fs.readFileSync(file, 'utf8');
-  const re = /<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi;
+  const re = /<script[^>]*type="(?:application\/ld\+json|speculationrules)"[^>]*>([\s\S]*?)<\/script>/gi;
   let match;
   let index = 0;
   while ((match = re.exec(html))) {
@@ -186,7 +188,9 @@ const server = http.createServer((req, res) => {
     ['/lib/pricing.js', 'PRICING_24'],
     ['/sitemap.xml', '/presupuesto/'],
     ['/llms.txt', 'Metodologia del precio'],
-    ['/service-worker.js', '24-climatizaciones-v45'],
+    // Se busca solo el prefijo: la version del cache sube en cada deploy y el
+    // chequeo no tiene que romperse por eso.
+    ['/service-worker.js', '24-climatizaciones-v'],
     ['/manifest.webmanifest', '24 Clima']
   ];
   for (const [route, marker] of routes) {

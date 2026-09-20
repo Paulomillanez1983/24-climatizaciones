@@ -132,6 +132,32 @@
     .foot a{color:#eaf2ff;font-weight:900;display:block;font-size:.88rem;margin-bottom:6px}
     @media(max-width:940px){.board{grid-template-columns:1fr}}
     @media(max-width:620px){.grid2,.checks{grid-template-columns:1fr}.card-body{padding:18px}.foot{flex-direction:column}}
+
+    /* --- Capa de modernizacion (mismo criterio que index.html) ---
+       Aca no se anima el formulario: un formulario que aparece de golpe
+       es peor que uno que ya esta. Solo transiciones y detalles. */
+    @view-transition{navigation:auto}
+    .topbar{view-transition-name:topbar}
+    ::view-transition-group(topbar){animation-duration:.26s}
+    ::view-transition-old(root){animation-duration:.2s;animation-timing-function:cubic-bezier(.32,.72,0,1)}
+    ::view-transition-new(root){animation-duration:.32s;animation-timing-function:cubic-bezier(.32,.72,0,1)}
+
+    @supports(height:100dvh){body{min-height:100dvh}}
+    @supports(text-wrap:balance){
+      h1,h2,h3,.display{text-wrap:balance}
+      p{text-wrap:pretty}
+    }
+    :focus-visible{outline:3px solid rgba(22,119,255,.55);outline-offset:3px;border-radius:14px}
+    html{scrollbar-gutter:stable;color-scheme:light;-webkit-tap-highlight-color:transparent}
+    ::selection{background:rgba(22,119,255,.22);color:#071226}
+
+    @media(max-width:620px){
+      .check,.home-link,.btn{min-height:44px}
+      input,select,textarea{font-size:16px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+    }
   </style>
 </head>
 <body>
