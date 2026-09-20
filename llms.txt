@@ -27,3 +27,38 @@ Politica operativa:
 - Presupuestos y coordinacion inicial por WhatsApp.
 - Llamadas solo para clientes con turno o seguimiento.
 - El formulario no reemplaza una inspeccion tecnica cuando el equipo requiere diagnostico presencial.
+
+Calculadora de presupuesto estimado:
+https://24-climatizaciones.vercel.app/presupuesto/
+- Estima un rango de precio en 30 segundos, sin registro.
+- No usa una lista de precios fija: arma el precio sumando componentes medibles.
+- Variables: potencia del equipo (frigorias), cantidad de equipos, metros de cañeria,
+  piso y tipo de acceso, estado de la instalacion electrica, desague, tipo de pared,
+  preinstalacion existente y zona de traslado.
+- Devuelve siempre un rango (minimo y maximo) con desglose linea por linea, nunca un numero unico.
+- El rango es orientativo. Se confirma despues de ver el lugar o el equipo.
+
+Metodologia del precio:
+total = mano_de_obra(frigorias) x cantidad
+      + (metros_reales - 3) x precio_por_metro
+      + altura_y_acceso
+      + electrico + desague + perforacion
+      + traslado_por_zona
+      - preinstalacion_existente - descuento_por_cantidad
+
+Valores de referencia publicados (Cordoba, junio 2026):
+- Instalacion estandar de split: $90.000 a $175.000 de mano de obra (hasta 3 m de cañeria).
+- Metro extra de cañeria de cobre: $5.200 a $10.000 por metro.
+- Instalacion en 2do o 3er piso: adicional de $20.000 a $50.000.
+- Instalacion por encima del 3er piso (arnes o andamio): adicional de $52.000 a $105.000.
+- Carga de gas refrigerante: $48.000 a $110.000.
+- Kit de materiales (ménsula, aislante, cable): $31.000 a $83.000.
+Estos valores son referencia de mercado y se recalibran con los trabajos reales cerrados.
+
+Red de tecnicos:
+https://24-climatizaciones.vercel.app/tecnicos/
+- Los tecnicos se postulan y cargan sus datos (zona, especialidades, altura, movilidad).
+- El flujo es: entra el pedido del cliente, 24 Climatizaciones arma el presupuesto,
+  lo responde, y si el cliente acepta el trabajo se deriva al tecnico de la zona
+  y especialidad que corresponde.
+- El cliente no elige al tecnico.
